@@ -3,7 +3,8 @@
 #include <iostream>
 
 Window::Window(int width, int height, const std::string& title)
-	: window(nullptr), width(width), height(height), title(title)
+	: window(nullptr), width(width), height(height), title(title),
+	running(true)
 {
 	if (!glfwInit())
 	{
@@ -26,7 +27,7 @@ Window::Window(int width, int height, const std::string& title)
 
 	if (glewInit() != GLEW_OK)
 	{
-		std::cout << "errore GLEW" << std::endl;
+		std::cout << "GLEW error" << std::endl;
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
@@ -41,18 +42,32 @@ Window::~Window()
 	glfwTerminate();
 }
 
-bool Window::run() const
+bool Window::Run() const
 {
-	return !glfwWindowShouldClose(window);
+	return running;
 }
 
-void Window::on_update() const
+void Window::OnUpdate() const
 {
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
 
-void Window::set_key_callback(void(*key_fun)(GLFWwindow*, int, int, int, int))
+void Window::VSync(bool enabled)
 {
-	glfwSetKeyCallback(window, key_fun);
+	if (enabled)
+		glfwSwapInterval(1);
+	else
+		glfwSwapInterval(0);
+}
+
+// Eventi
+void Window::SetKeyCB(void(*key_fn)(GLFWwindow*, int, int, int, int))
+{
+	glfwSetKeyCallback(window, key_fn);
+}
+
+void Window::SetWindowCloseCB(void(*close_fn)(GLFWwindow*))
+{
+	glfwSetWindowCloseCallback(window, close_fn);
 }

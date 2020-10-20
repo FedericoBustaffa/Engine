@@ -20,7 +20,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 int main()
 {
 	Window window(1280, 720, "Test OpenGL");
-	window.set_key_callback(key_callback);
+	window.VSync(true);
+	window.SetKeyCB(key_callback);
 
 	float vertices[] = {
 		-0.5f, -0.5f,
@@ -45,7 +46,7 @@ int main()
 	Renderer engine;
 	
 	// game loop
-	while (window.run())
+	while (window.Run())
 	{
 		// background
 		engine.BackgroundColor(0.1f, 0.1f, 0.1f);
@@ -54,7 +55,7 @@ int main()
 		engine.Draw(va, vb, ib, shader);
 
 		// events
-		window.on_update();
+		window.OnUpdate();
 	}
 
 	return 0;
