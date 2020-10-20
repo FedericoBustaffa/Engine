@@ -1,16 +1,16 @@
 #pragma once
 
-#include "vertex_array.h"
-#include "vertex_buffer.h"
-#include "index_buffer.h"
-#include "shader.h"
+#include "VertexArray.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
 
-class renderer
+class Renderer
 {
 public:
-	renderer();
-	~renderer();
+	Renderer();
+	~Renderer();
 
-	void bg_color(float red, float green, float blue);
-	void draw(vertex_array& va, const vertex_buffer& vb, const index_buffer& ib, const shader& sh);
+	void BackgroundColor(float red, float green, float blue);
+	void Draw(VertexArray& va, const VertexBuffer& vb, const IndexBuffer& ib, const Shader& shader);
 };

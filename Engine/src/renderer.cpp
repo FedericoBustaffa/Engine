@@ -1,27 +1,27 @@
-#include "renderer.h"
+#include "Renderer.h"
 
 #include <GL/glew.h>
 
-renderer::renderer()
+Renderer::Renderer()
 {
 }
 
-renderer::~renderer()
+Renderer::~Renderer()
 {
 }
 
-void renderer::bg_color(float red, float green, float blue)
+void Renderer::BackgroundColor(float red, float green, float blue)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(red, green, blue, 1.0f);
 }
 
-void renderer::draw(vertex_array& va, const vertex_buffer& vb, const index_buffer& ib, const shader& sh)
+void Renderer::Draw(VertexArray& va, const VertexBuffer& vb, const IndexBuffer& ib, const Shader& shader)
 {
-	va.bind();
-	vb.bind();
-	va.enable();
-	sh.bind();
-	glDrawElements(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr);
-	va.disable();
+	va.Bind();
+	vb.Bind();
+	va.Enable();
+	shader.Bind();
+	glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
+	va.Disable();
 }

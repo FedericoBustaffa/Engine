@@ -18,6 +18,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\VertexArray.cpp" />
+    <ClCompile Include="src\VertexBuffer.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\IndexBuffer.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\VertexArray.h" />
+    <ClInclude Include="src\VertexBuffer.h" />
+    <ClInclude Include="src\Window.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -158,23 +175,6 @@
       <AdditionalLibraryDirectories>$(SolutionDir)deps\lib\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\index_buffer.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\renderer.cpp" />
-    <ClCompile Include="src\shader.cpp" />
-    <ClCompile Include="src\vertex_array.cpp" />
-    <ClCompile Include="src\vertex_buffer.cpp" />
-    <ClCompile Include="src\window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\index_buffer.h" />
-    <ClInclude Include="src\renderer.h" />
-    <ClInclude Include="src\shader.h" />
-    <ClInclude Include="src\vertex_array.h" />
-    <ClInclude Include="src\vertex_buffer.h" />
-    <ClInclude Include="src\window.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

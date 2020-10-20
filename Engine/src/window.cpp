@@ -1,11 +1,9 @@
-#include "window.h"
+#include "Window.h"
 
 #include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
-window::window(int width, int height, const std::string& title)
-	: gl_window(nullptr), width(width), height(height), title(title)
+Window::Window(int width, int height, const std::string& title)
+	: window(nullptr), width(width), height(height), title(title)
 {
 	if (!glfwInit())
 	{
@@ -16,16 +14,15 @@ window::window(int width, int height, const std::string& title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	
-	gl_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-	if (!gl_window)
+	window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+	if (!window)
 	{
 		std::cout << "window error" << std::endl;
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-	glfwMakeContextCurrent(gl_window);
+	glfwMakeContextCurrent(window);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -34,28 +31,28 @@ window::window(int width, int height, const std::string& title)
 		exit(EXIT_FAILURE);
 	}
 
-	glfwGetFramebufferSize(gl_window, &width, &height);
+	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 }
 
-window::~window()
+Window::~Window()
 {
-	glfwDestroyWindow(gl_window);
+	glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
-bool window::run() const
+bool Window::run() const
 {
-	return !glfwWindowShouldClose(gl_window);
+	return !glfwWindowShouldClose(window);
 }
 
-void window::on_update() const
+void Window::on_update() const
 {
-	glfwSwapBuffers(gl_window);
+	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
 
-void window::set_key_callback(void(*key_fun)(GLFWwindow*, int, int, int, int))
+void Window::set_key_callback(void(*key_fun)(GLFWwindow*, int, int, int, int))
 {
-	glfwSetKeyCallback(gl_window, key_fun);
+	glfwSetKeyCallback(window, key_fun);
 }

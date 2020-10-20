@@ -1,45 +1,44 @@
-#include "vertex_array.h"
+#include "VertexArray.h"
 
 #include <GL/glew.h>
 
-struct vertex_attributes
+struct VertexAttributes
 {
 	int components;
 	long int offset;
 };
 
-vertex_array::vertex_array()
+VertexArray::VertexArray()
 	: id(0), index(0), stride(0)
 {
 	glGenVertexArrays(1, &id);
 	glBindVertexArray(id);
 }
-
-vertex_array::~vertex_array()
+VertexArray::~VertexArray()
 {
 	glDeleteVertexArrays(1, &id);
 }
 
-void vertex_array::bind() const
+void VertexArray::Bind() const
 {
 	glBindVertexArray(id);
 }
 
-void vertex_array::unbind() const
+void VertexArray::Unbind() const
 {
 	glBindVertexArray(0);
 }
 
-void vertex_array::push(int components)
+void VertexArray::Push(int components)
 {
-	vertex_attributes attr;
+	VertexAttributes attr;
 	attr.components = components;
 	attr.offset = stride;
 	stride += components * sizeof(float);
 	attribs.push_back(attr);
 }
 
-void vertex_array::enable()
+void VertexArray::Enable()
 {
 	for (const auto& i : attribs)
 	{
@@ -49,7 +48,7 @@ void vertex_array::enable()
 	}
 }
 
-void vertex_array::disable()
+void VertexArray::Disable()
 {
 	for (const auto& i : attribs)
 	{

@@ -1,4 +1,4 @@
-#include "shader.h"
+#include "Shader.h"
 
 #include <iostream>
 #include <sstream>
@@ -9,18 +9,18 @@
 #include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 
-void compile_shader(unsigned int& shader, const char* source);
-std::pair<std::string, std::string> parse_shader(const std::string& filepath);
+void CompileShader(unsigned int& shader, const char* source);
+std::pair<std::string, std::string> ParseShader(const std::string& filepath);
 
-shader::shader(const char* vertex_source, const char* fragment_source)
+Shader::Shader(const char* vertex_source, const char* fragment_source)
 	: id(0)
 {
 	id = glCreateProgram();
 	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
 	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
 
-	compile_shader(vs, vertex_source);
-	compile_shader(fs, fragment_source);
+	CompileShader(vs, vertex_source);
+	CompileShader(fs, fragment_source);
 
 	glAttachShader(id, vs);
 	glAttachShader(id, fs);
@@ -31,16 +31,16 @@ shader::shader(const char* vertex_source, const char* fragment_source)
 	glDeleteShader(fs);
 }
 
-shader::shader(const std::string& filepath)
+Shader::Shader(const std::string& filepath)
 	: id(0)
 {
 	id = glCreateProgram();
 	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
 	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
-	std::pair<std::string, std::string> source = parse_shader(filepath);
+	std::pair<std::string, std::string> source = ParseShader(filepath);
 
-	compile_shader(vs, source.first.c_str());
-	compile_shader(fs, source.second.c_str());
+	CompileShader(vs, source.first.c_str());
+	CompileShader(fs, source.second.c_str());
 
 	glAttachShader(id, vs);
 	glAttachShader(id, fs);
@@ -51,22 +51,22 @@ shader::shader(const std::string& filepath)
 	glDeleteShader(fs);
 }
 
-shader::~shader()
+Shader::~Shader()
 {
 	glDeleteProgram(id);
 }
 
-void shader::bind() const
+void Shader::Bind() const
 {
 	glUseProgram(id);
 }
 
-void shader::unbind() const
+void Shader::Unbind() const
 {
 	glUseProgram(0);
 }
 
-int shader::get_uniform_location(const std::string& name)
+int Shader::GetUniformLocation(const std::string& name)
 {
 	if (uniform_cache.find(name) != uniform_cache.end())
 		return uniform_cache[name];
@@ -77,22 +77,22 @@ int shader::get_uniform_location(const std::string& name)
 	return location;
 }
 
-void shader::set_uniform4f(const std::string& name, float v1, float v2, float v3)
+void Shader::SetUniform4f(const std::string& name, float v1, float v2, float v3)
 {
-	int location = get_uniform_location(name);
+	int location = GetUniformLocation(name);
 
 	glUniform4f(location, v1, v2, v3, 1.0f);
 }
 
-void shader::set_uniform_mat4f(const std::string& name, const glm::mat4& matrix)
+void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
 {
-	int location = get_uniform_location(name);
+	int location = GetUniformLocation(name);
 	
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 // SubRoutine
-void compile_shader(unsigned int& shader, const char* source)
+void CompileShader(unsigned int& shader, const char* source)
 {
 	glShaderSource(shader, 1, &source, nullptr);
 	glCompileShader(shader);
@@ -107,7 +107,7 @@ void compile_shader(unsigned int& shader, const char* source)
 	}
 }
 
-std::pair<std::string, std::string> parse_shader(const std::string& filepath)
+std::pair<std::string, std::string> ParseShader(const std::string& filepath)
 {
 	std::ifstream file(filepath);
 	std::string line;
