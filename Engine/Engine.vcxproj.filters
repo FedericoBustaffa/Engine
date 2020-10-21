@@ -21,9 +21,6 @@
     <ClCompile Include="src\Window.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Application.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Render\IndexBuffer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -44,9 +41,6 @@
     <ClInclude Include="src\Window.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\Application.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="src\Render\IndexBuffer.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -60,12 +54,6 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Render\VertexBuffer.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Events\Event.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Events\ApplicationEvent.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

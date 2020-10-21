@@ -1,10 +1,15 @@
-#include "Application.h"
+#include "Window.h"
 
 int main()
 {
-	Application app;
-	app.Run();
-	app.Shutdown();
+	Window* window = Window::Create(WindowData());
+	window->SetRatio(16, 9);
+	window->VSync(true);
 
+	while (window->IsOpen())
+	{
+		window->OnUpdate();
+	}
+	
 	return 0;
 }

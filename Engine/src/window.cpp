@@ -5,16 +5,14 @@
 bool Window::created = false;
 
 Window::Window(const WindowData& data)
-	:	window(nullptr),
-		data(data)
+	:	window(nullptr), data(data), open(true)
 {
-	if (created)
+	if (!glfwInit())
 	{
-		std::cout << "Window already exist" << std::endl;
+		std::cout << "glfw error" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 
-	created = true;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -35,18 +33,23 @@ Window::Window(const WindowData& data)
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-
-	// eventi
-	glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
-	{
-		std::cout << "close" << std::endl;
-		WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
-	});
 }
 
 Window::~Window()
 {
+	created = false;
 	glfwDestroyWindow(window);
+	glfwTerminate();
+}
+
+bool Window::IsOpen() const
+{
+	return open;
+}
+
+void Window::Close()
+{
+	open = false;
 }
 
 void Window::OnUpdate() const
@@ -68,4 +71,10 @@ void Window::VSync(bool enabled)
 void Window::SetRatio(int num, int denom)
 {
 	glfwSetWindowAspectRatio(window, num, denom);
+}
+
+Window* Window::Create(const WindowData& data)
+{
+	created = true;
+	return new Window(data);
 }
