@@ -13,11 +13,8 @@ public:
 	bool Run() const;
 	void OnUpdate() const;
 	void VSync(bool enabled);
+	void SetRatio(int num, int denom);
 
-	// eventi
-	void SetKeyCB(void(*key_fn)(GLFWwindow*, int, int, int, int));
-	void SetWindowCloseCB(void(*close_fn)(GLFWwindow*));
-	
 private:
 	GLFWwindow* window;
 	int width, height;

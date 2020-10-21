@@ -6,12 +6,6 @@ Window::Window(int width, int height, const std::string& title)
 	: window(nullptr), width(width), height(height), title(title),
 	running(true)
 {
-	if (!glfwInit())
-	{
-		std::cout << "glfw error" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -31,9 +25,6 @@ Window::Window(int width, int height, const std::string& title)
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-
-	glfwGetFramebufferSize(window, &width, &height);
-	glViewport(0, 0, width, height);
 }
 
 Window::~Window()
@@ -61,13 +52,7 @@ void Window::VSync(bool enabled)
 		glfwSwapInterval(0);
 }
 
-// Eventi
-void Window::SetKeyCB(void(*key_fn)(GLFWwindow*, int, int, int, int))
+void Window::SetRatio(int num, int denom)
 {
-	glfwSetKeyCallback(window, key_fn);
-}
-
-void Window::SetWindowCloseCB(void(*close_fn)(GLFWwindow*))
-{
-	glfwSetWindowCloseCallback(window, close_fn);
+	glfwSetWindowAspectRatio(window, num, denom);
 }

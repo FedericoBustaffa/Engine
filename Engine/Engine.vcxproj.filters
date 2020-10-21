@@ -36,6 +36,12 @@
     <ClCompile Include="src\Window.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Sandbox.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\IndexBuffer.h">
@@ -54,6 +60,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Window.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sandbox.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
