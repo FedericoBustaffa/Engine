@@ -2,15 +2,24 @@
 
 #include <iostream>
 
-Window::Window(int width, int height, const std::string& title)
-	: window(nullptr), width(width), height(height), title(title),
-	running(true)
+bool Window::created = false;
+
+Window::Window(const WindowData& data)
+	:	window(nullptr),
+		data(data)
 {
+	if (created)
+	{
+		std::cout << "Window already exist" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	created = true;
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	
-	window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+	window = glfwCreateWindow(data.width, data.height, data.title.c_str(), nullptr, nullptr);
 	if (!window)
 	{
 		std::cout << "window error" << std::endl;
@@ -18,6 +27,7 @@ Window::Window(int width, int height, const std::string& title)
 		exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
+	glfwSetWindowUserPointer(window, &this->data);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -25,17 +35,18 @@ Window::Window(int width, int height, const std::string& title)
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+
+	// eventi
+	glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+	{
+		std::cout << "close" << std::endl;
+		WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+	});
 }
 
 Window::~Window()
 {
 	glfwDestroyWindow(window);
-	glfwTerminate();
-}
-
-bool Window::Run() const
-{
-	return running;
 }
 
 void Window::OnUpdate() const
@@ -50,6 +61,8 @@ void Window::VSync(bool enabled)
 		glfwSwapInterval(1);
 	else
 		glfwSwapInterval(0);
+
+	data.VSync = enabled;
 }
 
 void Window::SetRatio(int num, int denom)

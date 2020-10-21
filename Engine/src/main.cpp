@@ -2,9 +2,9 @@
 
 int main()
 {
-	Application* app = Create();
-	app->Run();
-	delete app;
+	Application app;
+	app.Run();
+	app.Shutdown();
 
 	return 0;
 }

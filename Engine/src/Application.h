@@ -1,13 +1,20 @@
 #pragma once
 
 #include "Window.h"
+#include "Events/Event.h"
+#include "Events/ApplicationEvent.h"
 
 class Application
 {
 public:
 	Application();
-	virtual ~Application();
-	virtual void Run() = 0;
-};
+	~Application();
+	void Run();
+	void Shutdown();
+	void OnEvent(Event& e);
+	void OnCloseEvent(CloseEvent& e);
 
-Application* Create();
+private:
+	bool running;
+	Window* window;
+};
