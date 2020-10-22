@@ -25,7 +25,10 @@ public:
 
 private:
 	Window window;
-
+	
+	bool mouse_follow = false;
+	float x, y;
+	
 	std::vector<float> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int va = 0, vb = 0, ib = 0;

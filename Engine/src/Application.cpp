@@ -16,9 +16,9 @@ Application::Application()
 	glBindVertexArray(va);
 
 	vertices = {
-		-0.5f, -0.5f, 0.0f,
+		-0.3f, -0.5f, 0.0f,
 		 0.0f,  0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f
+		 0.3f, -0.5f, 0.0f
 	};
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
@@ -48,10 +48,13 @@ void Application::Run()
 		Renderer::BackgroundColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 		// rendering
-		if(vertices[4] < 1.0f)
-			vertices[4] += 0.001f;
+		if (mouse_follow)
+		{
+			vertices[3] = x;
+			vertices[4] = y;
+		}
 		
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * 4, vertices.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 		// event polling
@@ -75,12 +78,23 @@ void Application::OnCloseEvent(CloseEvent& e)
 
 void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 {
-	std::cout << e.GetKeyCode() << std::endl;
-	if (e.GetKeyCode() == Key::Enter)
+	switch (e.GetKeyCode())
+	{
+	case Key::Enter:
 		window.Close();
+		break;
+
+	case Key::Space:
+		mouse_follow = true;
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Application::OnMouseMovedEvent(MouseMovedEvent& e)
 {
-	std::cout << e.GetX() << ", " << e.GetY() << std::endl;
+	x = e.GetX();
+	y = e.GetY();
 }
