@@ -48,7 +48,9 @@ void Application::Run()
 		Renderer::BackgroundColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 		// rendering
-		vertices[4] += 0.0001f;
+		if(vertices[4] < 1.0f)
+			vertices[4] += 0.001f;
+		
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * 4, vertices.data(), GL_STATIC_DRAW);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
@@ -62,9 +64,23 @@ void Application::OnEvent(Event& e)
 	EventDispatcher dispatcher(e);
 
 	dispatcher.Dispatch<CloseEvent>(BIND(Application::OnCloseEvent));
+	dispatcher.Dispatch<KeyPressedEvent>(BIND(Application::OnKeyPressedEvent));
+	dispatcher.Dispatch<MouseMovedEvent>(BIND(Application::OnMouseMovedEvent));
 }
 
 void Application::OnCloseEvent(CloseEvent& e)
 {
 	window.Close();
+}
+
+void Application::OnKeyPressedEvent(KeyPressedEvent& e)
+{
+	std::cout << e.GetKeyCode() << std::endl;
+	if (e.GetKeyCode() == Key::Enter)
+		window.Close();
+}
+
+void Application::OnMouseMovedEvent(MouseMovedEvent& e)
+{
+	std::cout << e.GetX() << ", " << e.GetY() << std::endl;
 }

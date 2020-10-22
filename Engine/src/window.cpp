@@ -1,6 +1,8 @@
 #include "Window.h"
 #include "Core.h"
 #include "Events/WindowEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
 
 #include <iostream>
 #include <GL/glew.h>
@@ -68,6 +70,73 @@ void Window::Init()
 		{
 			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
 			ResizeEvent e(width, height);
+			data->callback(e);
+		});
+
+	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			
+			switch (action)
+			{
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent e(key);
+					data->callback(e);
+					break;
+				}
+
+				case GLFW_REPEAT:
+				{
+					KeyRepeatedEvent e(key, 1);
+					data->callback(e);
+					break;
+				}
+
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent e(key);
+					data->callback(e);
+					break;
+				}
+			}
+		});
+
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			switch (action)
+			{
+				case GLFW_PRESS:
+				{
+					MouseButtonPressedEvent e(button);
+					data->callback(e);
+					break;
+				}
+			
+				case GLFW_RELEASE:
+				{
+					MouseButtonReleasedEvent e(button);
+					data->callback(e);
+					break;
+				}
+			}
+		});
+
+	glfwSetScrollCallback(window, [](GLFWwindow* window, double x_offset, double y_offset)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseScrolledEvent e((float)x_offset, (float)y_offset);
+			data->callback(e);
+		});
+
+	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double x, double y)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseMovedEvent e((float)x, (float)y);
 			data->callback(e);
 		});
 }

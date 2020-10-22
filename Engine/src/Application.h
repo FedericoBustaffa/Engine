@@ -5,6 +5,8 @@
 #include "Window.h"
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/MouseEvent.h"
 #include "Render/Shader.h"
 
 class Application
@@ -18,6 +20,8 @@ public:
 	// eventi
 	void OnEvent(Event& e);
 	void OnCloseEvent(CloseEvent& e);
+	void OnKeyPressedEvent(KeyPressedEvent& e);
+	void OnMouseMovedEvent(MouseMovedEvent& e);
 
 private:
 	Window window;

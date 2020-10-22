@@ -5,7 +5,9 @@
 enum class EventType
 {
 	None = 0,
-	Close, Resize
+	Close, Resize,
+	KeyPress, KeyRepeat, KeyRelease,
+	MouseMove, MouseScroll, MouseButtonPress, MouseButtonRelease
 };
 
 #define EVENT_TYPE(type)\

@@ -32,7 +32,9 @@
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Core.h" />
     <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\KeyCodes.h" />
     <ClInclude Include="src\Events\KeyEvent.h" />
+    <ClInclude Include="src\Events\MouseCodes.h" />
     <ClInclude Include="src\Events\MouseEvent.h" />
     <ClInclude Include="src\Events\WindowEvent.h" />
     <ClInclude Include="src\Render\IndexBuffer.h" />
