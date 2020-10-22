@@ -22,12 +22,12 @@ Application::Application()
 	};
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * 4, vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * 4, vertices.data(), GL_DYNAMIC_DRAW);
 
 	indices = { 0, 1, 2 };
 	glGenBuffers(1, &ib);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * 4, indices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * 4, indices.data(), GL_DYNAMIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
@@ -46,12 +46,12 @@ void Application::Run()
 	{
 		// background color
 		Renderer::BackgroundColor(0.1f, 0.1f, 0.1f, 1.0f);
-
+		
 		// rendering
 		if (mouse_follow)
 		{
-			vertices[3] = x;
-			vertices[4] = y;
+			vertices[3] = (x - 640) / 640;
+			vertices[4] = (360 - y) / 360;
 		}
 		
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
@@ -85,7 +85,7 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 		break;
 
 	case Key::Space:
-		mouse_follow = true;
+		mouse_follow = !mouse_follow;
 		break;
 
 	default:
