@@ -16,7 +16,6 @@ public:
 	// eventi
 	void OnEvent(Event& e);
 	void OnCloseEvent(CloseEvent& e);
-	void OnResizeEvent(ResizeEvent& e);
 
 private:
 	Window window;

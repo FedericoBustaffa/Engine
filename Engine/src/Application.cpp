@@ -34,7 +34,7 @@ Application::Application()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
 
-	shader.SetUniform4f("u_color", 0.5f, 0.8f, 0.0f);
+	shader.SetUniform4f("u_color", 0.8f, 0.6f, 0.2f);
 }
 
 Application::~Application()
@@ -63,16 +63,9 @@ void Application::OnEvent(Event& e)
 	EventDispatcher dispatcher(e);
 
 	dispatcher.Dispatch<CloseEvent>(BIND(Application::OnCloseEvent));
-	dispatcher.Dispatch<ResizeEvent>(BIND(Application::OnResizeEvent));
 }
 
 void Application::OnCloseEvent(CloseEvent& e)
 {
-	std::cout << e.GetName() << std::endl;
 	window.Close();
-}
-
-void Application::OnResizeEvent(ResizeEvent& e)
-{
-	std::cout << e.GetWidth() << ", " << e.GetHeight() << std::endl;
 }
