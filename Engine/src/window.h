@@ -1,20 +1,18 @@
 #pragma once
 
 #include <string>
-#include <functional>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
+#include "Core.h"
 #include "Events/Event.h"
 
-using EventFn = std::function<void(Event&)>;
+struct GLFWwindow;
 
 struct WindowData
 {
 	int width, height;
 	std::string title;
 	bool VSync = true;
-	EventFn callback = nullptr;
+	EventFn<Event&> callback = nullptr;
 
 	WindowData(int width, int height, std::string title)
 		: width(width), height(height), title(title)
@@ -35,7 +33,7 @@ public:
 	void OnUpdate() const;
 	void VSync(bool enabled);
 	void SetRatio(int num, int denom);
-	void SetEventCallback(EventFn callback);
+	void SetEventCallback(EventFn<Event&> callback);
 
 private:
 	void Init();

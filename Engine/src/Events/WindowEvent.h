@@ -15,6 +15,9 @@ public:
 		: width(width), height(height)
 	{
 	}
+
+	int GetWidth() const { return width; }
+	int GetHeight() const { return height; }
 	
 	EVENT_TYPE(Resize)
 

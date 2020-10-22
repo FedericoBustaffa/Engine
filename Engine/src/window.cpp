@@ -1,8 +1,10 @@
 #include "Window.h"
+#include "Core.h"
+#include "Events/WindowEvent.h"
 
 #include <iostream>
-
-#include "Events/WindowEvent.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 bool Window::created = false;
 
@@ -110,7 +112,7 @@ void Window::SetRatio(int num, int denom)
 }
 
 
-void Window::SetEventCallback(EventFn callback)
+void Window::SetEventCallback(EventFn<Event&> callback)
 {
 	data.callback = callback;
 }

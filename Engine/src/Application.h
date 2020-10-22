@@ -1,39 +1,24 @@
 #pragma once
 
-#include <functional>
-
-#include "Core.h"
 #include "Window.h"
 #include "Events/Event.h"
+#include "Events/WindowEvent.h"
 
 class Application
 {
 public:
-	Application()
-	{
-		window.SetRatio(16, 9);
-		window.SetEventCallback(BIND(Application::OnEvent));
-	}
-	
-	~Application()
-	{
-	}
+	Application();
+	~Application();
 
-	void Run()
-	{
-		while (window.IsOpen())
-		{
-			window.OnUpdate();
-		}
-	}
+	void Run();
 
-	void OnEvent(Event& e)
-	{
-		std::cout << e.GetName() << std::endl;
-		if (e.GetType() == EventType::Close)
-			window.Close();
-	}
+	// eventi
+	void OnEvent(Event& e);
+	void OnCloseEvent(CloseEvent& e);
+	void OnResizeEvent(ResizeEvent& e);
 
 private:
 	Window window;
+
+	unsigned int va = 0, vb = 0, ib = 0;
 };
