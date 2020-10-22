@@ -4,7 +4,6 @@
 #include "Events/WindowEvent.h"
 
 #include <iostream>
-
 #include <GL/glew.h>
 
 Application::Application()
