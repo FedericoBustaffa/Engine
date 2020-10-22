@@ -2,11 +2,31 @@
 
 #include <iostream>
 
+#include "Events/WindowEvent.h"
+
 bool Window::created = false;
 
-Window::Window(const WindowData& data)
-	:	window(nullptr), data(data), open(true)
+Window::Window(int width, int height, std::string title)
+	: data(width, height, title)
 {
+	Init();
+}
+
+Window::Window(const WindowData& data)
+	:	data(data)
+{
+	Init();
+}
+
+void Window::Init()
+{
+	if (created)
+	{
+		std::cout << "Window already exist" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	created = true;
+
 	if (!glfwInit())
 	{
 		std::cout << "glfw error" << std::endl;
@@ -16,7 +36,7 @@ Window::Window(const WindowData& data)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	
+
 	window = glfwCreateWindow(data.width, data.height, data.title.c_str(), nullptr, nullptr);
 	if (!window)
 	{
@@ -33,6 +53,21 @@ Window::Window(const WindowData& data)
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+
+	// setup eventi
+	glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			CloseEvent e;
+			data->callback(e);
+		});
+
+	glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			ResizeEvent e(width, height);
+			data->callback(e);
+		});
 }
 
 Window::~Window()
@@ -50,6 +85,7 @@ bool Window::IsOpen() const
 void Window::Close()
 {
 	open = false;
+	created = false;
 }
 
 void Window::OnUpdate() const
@@ -73,8 +109,8 @@ void Window::SetRatio(int num, int denom)
 	glfwSetWindowAspectRatio(window, num, denom);
 }
 
-Window* Window::Create(const WindowData& data)
+
+void Window::SetEventCallback(EventFn callback)
 {
-	created = true;
-	return new Window(data);
+	data.callback = callback;
 }
