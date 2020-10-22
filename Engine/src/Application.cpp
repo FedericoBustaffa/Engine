@@ -8,6 +8,7 @@
 #include <GL/glew.h>
 
 Application::Application()
+	: shader("shaders/shader.hlsl")
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 	window.SetRatio(16, 9);
@@ -33,6 +34,8 @@ Application::Application()
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 	glEnableVertexAttribArray(0);
+
+	shader.SetUniform4f("u_color", 0.5f, 0.8f, 0.0f);
 }
 
 Application::~Application()

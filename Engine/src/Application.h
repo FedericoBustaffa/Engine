@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
+#include "Render/Shader.h"
 
 class Application
 {
@@ -21,4 +22,5 @@ private:
 	Window window;
 
 	unsigned int va = 0, vb = 0, ib = 0;
+	Shader shader;
 };
