@@ -48,13 +48,13 @@ void Application::Run()
 	// render loop
 	while (window.IsOpen())
 	{
-		// colore sfondo
+		// background color
 		Renderer::BackgroundColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 		// rendering
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
-		// cattura eventi
+		// event polling
 		window.OnUpdate();
 	}
 }
