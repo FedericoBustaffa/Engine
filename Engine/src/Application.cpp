@@ -7,8 +7,6 @@
 #include <GL/glew.h>
 
 Application::Application()
-	: shader("shaders/shader.hlsl"),
-	x_speed(0.01), y_speed(0.005)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
@@ -25,8 +23,6 @@ Application::Application()
 
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
-
-	shader.SetUniform4f("u_color", 1.0f, 0.6f, 0.2f);
 }
 
 Application::~Application()
@@ -45,23 +41,6 @@ void Application::Run()
 		Renderer::BackgroundColor(0.1f, 0.1f, 0.1f, 1.0f);
 		
 		// rendering
-		if (vertices[0] <= -1.0 || vertices[6] >= 1.0)
-			x_speed = -x_speed;
-		
-		if (vertices[1] <= -1.0 || vertices[7] >= 1.0)
-			y_speed = -y_speed;
-
-		vertices[0] += x_speed;
-		vertices[3] += x_speed;
-		vertices[6] += x_speed;
-		vertices[9] += x_speed;
-
-		vertices[1] += y_speed;
-		vertices[4] += y_speed;
-		vertices[7] += y_speed;
-		vertices[10] += y_speed;
-
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 		// event polling
@@ -75,7 +54,6 @@ void Application::OnEvent(Event& e)
 
 	dispatcher.Dispatch<CloseEvent>(BIND(Application::OnCloseEvent));
 	dispatcher.Dispatch<KeyPressedEvent>(BIND(Application::OnKeyPressedEvent));
-	//dispatcher.Dispatch<MouseMovedEvent>(BIND(Application::OnMouseMovedEvent));
 }
 
 void Application::OnCloseEvent(CloseEvent& e)
@@ -94,8 +72,4 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 	default:
 		break;
 	}
-}
-
-void Application::OnMouseMovedEvent(MouseMovedEvent& e)
-{
 }

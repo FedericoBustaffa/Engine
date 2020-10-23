@@ -7,7 +7,6 @@
 #include "Events/WindowEvent.h"
 #include "Events/KeyEvent.h"
 #include "Events/MouseEvent.h"
-#include "Render/Shader.h"
 
 class Application
 {
@@ -21,7 +20,6 @@ public:
 	void OnEvent(Event& e);
 	void OnCloseEvent(CloseEvent& e);
 	void OnKeyPressedEvent(KeyPressedEvent& e);
-	void OnMouseMovedEvent(MouseMovedEvent& e);
 
 	// metodi privati
 private:
@@ -45,8 +43,4 @@ private:
 	};
 
 	unsigned int va = 0, vb = 0, ib = 0;
-	Shader shader;
-
-	// movement
-	double x_speed, y_speed;
 };
