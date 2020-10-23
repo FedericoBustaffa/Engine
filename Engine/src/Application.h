@@ -25,14 +25,20 @@ public:
 
 private:
 	// window
-	int width = 1280, height = 720;
+	int width = 640, height = 480;
 	Window window;
-	
+
+	// mouse
 	bool mouse_follow = false;
 	double x, y;
 	
-	std::vector<double> vertices;
-	std::vector<unsigned int> indices;
+	// rendering objects
+	double vertices[3 * 3] = {
+		-0.3, -0.5, 0.0,
+		 0.0,  0.5, 0.0,
+		 0.3, -0.5, 0.0
+	};
+	unsigned int indices[3] = { 0, 1, 2 };
 	unsigned int va = 0, vb = 0, ib = 0;
 	Shader shader;
 };

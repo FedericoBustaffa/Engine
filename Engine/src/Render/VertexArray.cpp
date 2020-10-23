@@ -42,7 +42,7 @@ void VertexArray::Enable()
 {
 	for (const auto& i : attribs)
 	{
-		glVertexAttribPointer(index, i.components, GL_FLOAT, GL_FALSE, stride, (void*)i.offset);
+		glVertexAttribPointer(index, i.components, GL_FLOAT, GL_FALSE, stride, &i.offset);
 		glEnableVertexAttribArray(index);
 		index++;
 	}
