@@ -23,6 +23,10 @@ Application::Application()
 
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
+
+	// scheda grafica
+	std::cout << glGetString(GL_VENDOR) << std::endl;
+	std::cout << glGetString(GL_RENDERER) << std::endl;
 }
 
 Application::~Application()
@@ -38,7 +42,7 @@ void Application::Run()
 	while (window.IsOpen())
 	{
 		// background color
-		Renderer::BackgroundColor(0.1f, 0.1f, 0.1f, 1.0f);
+		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
