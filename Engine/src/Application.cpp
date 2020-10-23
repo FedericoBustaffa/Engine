@@ -24,7 +24,7 @@ Application::Application()
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
 
-	// scheda grafica
+	// GPU
 	std::cout << glGetString(GL_VENDOR) << std::endl;
 	std::cout << glGetString(GL_RENDERER) << std::endl;
 }
