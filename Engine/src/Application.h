@@ -24,12 +24,14 @@ public:
 	void OnMouseMovedEvent(MouseMovedEvent& e);
 
 private:
+	// window
+	int width = 1280, height = 720;
 	Window window;
 	
 	bool mouse_follow = false;
-	float x, y;
+	double x, y;
 	
-	std::vector<float> vertices;
+	std::vector<double> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int va = 0, vb = 0, ib = 0;
 	Shader shader;

@@ -128,7 +128,7 @@ void Window::Init()
 		{
 			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
 
-			MouseScrolledEvent e((float)x_offset, (float)y_offset);
+			MouseScrolledEvent e(x_offset, y_offset);
 			data->callback(e);
 		});
 
@@ -136,7 +136,7 @@ void Window::Init()
 		{
 			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
 
-			MouseMovedEvent e((float)x, (float)y);
+			MouseMovedEvent e(x, y);
 			data->callback(e);
 		});
 }

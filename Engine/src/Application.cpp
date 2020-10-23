@@ -7,7 +7,7 @@
 #include <GL/glew.h>
 
 Application::Application()
-	: shader("shaders/shader.hlsl")
+	: window(width, height), shader("shaders/shader.hlsl")
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 	window.SetRatio(16, 9);
@@ -16,9 +16,9 @@ Application::Application()
 	glBindVertexArray(va);
 
 	vertices = {
-		-0.3f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f,
-		 0.3f, -0.5f, 0.0f
+		-0.3, -0.5, 0.0,
+		 0.0,  0.5, 0.0,
+		 0.3, -0.5, 0.0
 	};
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
@@ -29,7 +29,7 @@ Application::Application()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * 4, indices.data(), GL_DYNAMIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
 
 	shader.SetUniform4f("u_color", 0.8f, 0.6f, 0.2f);
@@ -50,11 +50,11 @@ void Application::Run()
 		// rendering
 		if (mouse_follow)
 		{
-			vertices[3] = (x - 640) / 640;
-			vertices[4] = (360 - y) / 360;
+			vertices[3] = (x - (width / 2)) / (width / 2);
+			vertices[4] = ((height / 2) - y) / (height / 2);
 		}
 		
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(double), vertices.data(), GL_DYNAMIC_DRAW);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 		// event polling

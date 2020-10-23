@@ -6,31 +6,31 @@
 class MouseMovedEvent : public Event
 {
 public:
-	MouseMovedEvent(float x, float y)
+	MouseMovedEvent(double x, double y)
 		: x(x), y(y)
 	{
 	}
 
-	float GetX() const { return x; }
-	float GetY() const { return y; }
+	double GetX() const { return x; }
+	double GetY() const { return y; }
 	EVENT_TYPE(MouseMove)
 
 private:
-	float x, y;
+	double x, y;
 };
 
 class MouseScrolledEvent : public Event
 {
 public:
-	MouseScrolledEvent(float x_offset, float y_offset)
+	MouseScrolledEvent(double x_offset, double y_offset)
 		: x_offset(x_offset), y_offset(y_offset) {}
 
-	float GetXOffset() const { return x_offset; }
-	float GetYOffset() const { return y_offset; }
+	double GetXOffset() const { return x_offset; }
+	double GetYOffset() const { return y_offset; }
 	EVENT_TYPE(MouseScroll)
 
 private:
-	float x_offset, y_offset;
+	double x_offset, y_offset;
 };
 
 class MouseButtonEvent : public Event
