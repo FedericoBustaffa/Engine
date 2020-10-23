@@ -23,22 +23,30 @@ public:
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 	void OnMouseMovedEvent(MouseMovedEvent& e);
 
+	// metodi privati
+private:
+	
+
 private:
 	// window
-	int width = 640, height = 480;
 	Window window;
 
-	// mouse
-	bool mouse_follow = false;
-	double x, y;
-	
 	// rendering objects
-	double vertices[3 * 3] = {
-		-0.3, -0.5, 0.0,
-		 0.0,  0.5, 0.0,
-		 0.3, -0.5, 0.0
+	double vertices[4 * 3] = {
+		-0.1, -0.1, 0.0,
+		-0.1,  0.1, 0.0,
+		 0.1,  0.1, 0.0,
+		 0.1, -0.1, 0.0
 	};
-	unsigned int indices[3] = { 0, 1, 2 };
+
+	unsigned int indices[6] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
 	unsigned int va = 0, vb = 0, ib = 0;
 	Shader shader;
+
+	// movement
+	double x_speed, y_speed;
 };
