@@ -3,6 +3,9 @@
 #include <vector>
 
 #include "Window.h"
+
+#include "Render/Shader.h"
+
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 #include "Events/KeyEvent.h"
@@ -26,5 +29,6 @@ private:
 	Window window;
 
 	// rendering objects
-	unsigned int va = 0, vb = 0, ib = 0, shader = 0;
+	unsigned int va = 0, vb = 0, ib = 0;
+	Shader* shader;
 };

@@ -3,40 +3,53 @@
 #include <iostream>
 #include <GL/glew.h>
 
-static void CompileShader(const std::string& source)
+static unsigned int CompileShader(unsigned int type, const std::string& source)
 {
+	unsigned int shader_id = glCreateShader(type);
+	const char* src = source.c_str();
+	glShaderSource(shader_id, 1, &src, nullptr);
+	glCompileShader(shader_id);
+
+	int success;
+	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		int length;
+		glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &length);
+		char* message = new char[length];
+		glGetShaderInfoLog(shader_id, length, &length, message);
+		
+		if (type == GL_VERTEX_SHADER)
+			std::cout << "VERTEX::" << std::flush;
+		else if (type == GL_FRAGMENT_SHADER)
+			std::cout << "FRAGMENT::" << std::flush;
+		std::cout << "SHADER compile error: " <<  message << std::endl;
 	
+		delete[] message;
+		glDeleteShader(shader_id);
+		return -1;
+	}
+	
+	return shader_id;
 }
 
 Shader::Shader(const std::string& vertex_source, const std::string& fragment_source)
 	: id(0)
 {
-	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vs, 1, vertex_source.c_str(), nullptr);
-	glCompileShader(vs);
-	int success;
-	glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		char info_log[512];
-		glGetShaderInfoLog(vs, 512, nullptr, info_log);
-		std::cout << "shader error: " << info_log << std::endl;
-		glDeleteShader(vs);
-	}
-	
-	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fs, 1, fragment_source.c_str(), nullptr);
-	glCompileShader(fs);
-	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		char info_log[512];
-		glGetShaderInfoLog(fs, 512, nullptr, info_log);
-		std::cout << "shader error: " << info_log << std::endl;
-		glDeleteShader(fs);
-	}
+	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertex_source);
+	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragment_source);
 
+	id = glCreateProgram();
+	glAttachShader(id, vs);
+	glAttachShader(id, fs);
+	glLinkProgram(id);
+	glDetachShader(id, vs);
+	glDetachShader(id, fs);
+	glValidateProgram(id);
+	glUseProgram(id);
 
+	glDeleteShader(vs);
+	glDeleteShader(fs);
 }
 
 Shader::~Shader()
