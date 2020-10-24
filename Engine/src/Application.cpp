@@ -10,17 +10,33 @@ Application::Application()
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
+	double vertices[4 * 3] = {
+	-0.1, -0.1, 0.0,
+	-0.1,  0.1, 0.0,
+	 0.1,  0.1, 0.0,
+	 0.1, -0.1, 0.0
+	};
+
+	unsigned int indices[6] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	// vertex array
 	glGenVertexArrays(1, &va);
 	glBindVertexArray(va);
 
+	// vertex buffer
 	glGenBuffers(1, &vb);
 	glBindBuffer(GL_ARRAY_BUFFER, vb);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
+	// index buffer
 	glGenBuffers(1, &ib);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
 
+	// attributes
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
 

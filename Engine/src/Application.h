@@ -26,17 +26,5 @@ private:
 	Window window;
 
 	// rendering objects
-	double vertices[4 * 3] = {
-		-0.1, -0.1, 0.0,
-		-0.1,  0.1, 0.0,
-		 0.1,  0.1, 0.0,
-		 0.1, -0.1, 0.0
-	};
-
-	unsigned int indices[6] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	unsigned int va = 0, vb = 0, ib = 0;
+	unsigned int va = 0, vb = 0, ib = 0, shader = 0;
 };
