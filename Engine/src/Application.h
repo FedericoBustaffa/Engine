@@ -21,10 +21,6 @@ public:
 	void OnCloseEvent(CloseEvent& e);
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 
-	// metodi privati
-private:
-	
-
 private:
 	// window
 	Window window;
