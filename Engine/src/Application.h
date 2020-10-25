@@ -31,7 +31,7 @@ private:
 
 	// rendering objects
 	unsigned int va = 0;
-	VertexBuffer* vb;
+	Buffer* vb;
 	IndexBuffer* ib;
 	Shader* shader;
 };

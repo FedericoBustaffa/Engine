@@ -1,10 +1,10 @@
 #pragma once
 
-class VertexBuffer
+class Buffer
 {
 public:
-	VertexBuffer(size_t size, void* data);
-	~VertexBuffer();
+	Buffer(size_t size, void* data);
+	~Buffer();
 
 	void Bind() const;
 	void Unbind() const;
@@ -12,7 +12,6 @@ public:
 private:
 	unsigned int id;
 };
-
 
 
 class IndexBuffer
@@ -26,4 +25,13 @@ public:
 
 private:
 	unsigned int id;
+};
+
+
+class BufferLayout
+{
+public:
+
+private:
+
 };

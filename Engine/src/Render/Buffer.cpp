@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 
 // Vertex Buffer -----------------------------------
-VertexBuffer::VertexBuffer(size_t size, void* data)
+Buffer::Buffer(size_t size, void* data)
 	: id(0)
 {
 	glGenBuffers(1, &id);
@@ -11,17 +11,17 @@ VertexBuffer::VertexBuffer(size_t size, void* data)
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
 }
 
-VertexBuffer::~VertexBuffer()
+Buffer::~Buffer()
 {
 	glDeleteBuffers(1, &id);
 }
 
-void VertexBuffer::Bind() const
+void Buffer::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, id);
 }
 
-void VertexBuffer::Unbind() const
+void Buffer::Unbind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -49,4 +49,11 @@ void IndexBuffer::Bind() const
 void IndexBuffer::Unbind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+
+// Buffer Layout -------------------------------------
+BufferLayout::BufferLayout()
+{
+
 }

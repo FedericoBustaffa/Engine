@@ -28,12 +28,15 @@ Application::Application()
 	glBindVertexArray(va);
 
 	// vertex buffer
-	vb = new VertexBuffer(sizeof(vertices), vertices);
+	vb = new Buffer(sizeof(vertices), vertices);
 
 	// index buffer
 	ib = new IndexBuffer(6, indices);
 
 	// attributes
+	BufferLayout layout;
+	layout->Push<double>(3, "position");
+	layout->Push<double>(4, "color");
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
 
