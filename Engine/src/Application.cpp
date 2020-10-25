@@ -10,11 +10,12 @@ Application::Application()
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
-	double vertices[4 * 3] = {
-		-0.5, -0.5, 0.0,
-		-0.5,  0.5, 0.0,
-		 0.5,  0.5, 0.0,
-		 0.5, -0.5, 0.0
+	double vertices[4 * 7] = {
+		// position			// color
+		-0.5, -0.5, 0.0,	0.4, 0.8, 0.2, 1.0,
+		-0.5,  0.5, 0.0,	0.4, 0.8, 0.2, 1.0,
+		 0.5,  0.5, 0.0,	0.4, 0.8, 0.2, 1.0,
+		 0.5, -0.5, 0.0,	0.4, 0.8, 0.2, 1.0
 	};
 
 	unsigned int indices[6] = {
@@ -37,19 +38,25 @@ Application::Application()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
 
 	// attributes
-	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(double), nullptr);
+	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
+
+	void* offset = (void*)(3 * sizeof(double));
+	glVertexAttribPointer(1, 4, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), offset);
+	glEnableVertexAttribArray(1);
 
 	// shader
 	std::string vertex_source = R"(
 		#version 330 core
 
 		layout(location = 0) in vec4 v_position;
-		out vec4 v_color;
+		layout(location = 1) in vec4 v_color;
 		
+		out vec4 f_color;
+
 		void main()
 		{
-			v_color = v_position;
+			f_color = v_color;
 			gl_Position = v_position;
 		}
 	)";
@@ -57,12 +64,12 @@ Application::Application()
 	std::string fragment_source = R"(
 		#version 330 core
 
-		in vec4 v_color;
+		in vec4 f_color;
 		out vec4 color;
 
 		void main()
 		{
-			color = v_color;
+			color = f_color;
 		}
 	)";
 
