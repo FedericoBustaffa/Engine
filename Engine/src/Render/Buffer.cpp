@@ -53,7 +53,8 @@ void IndexBuffer::Unbind() const
 
 
 // Buffer Layout -------------------------------------
-BufferLayout::BufferLayout()
+BufferLayout::BufferLayout(const std::vector<BufferElements>& elements)
+	: elements(elements)
 {
 
 }

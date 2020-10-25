@@ -34,9 +34,11 @@ Application::Application()
 	ib = new IndexBuffer(6, indices);
 
 	// attributes
-	BufferLayout layout;
-	layout->Push<double>(3, "position");
-	layout->Push<double>(4, "color");
+	BufferLayout layout = {
+		{ "position", ShaderType::Float3 },
+		{ "color", ShaderType::Float4 }
+	};
+
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
 	glEnableVertexAttribArray(0);
 
