@@ -4,6 +4,7 @@
 
 #include "Window.h"
 
+#include "Render/Buffer.h"
 #include "Render/Shader.h"
 
 #include "Events/Event.h"
@@ -29,6 +30,8 @@ private:
 	Window window;
 
 	// rendering objects
-	unsigned int va = 0, vb = 0, ib = 0;
+	unsigned int va = 0;
+	VertexBuffer* vb;
+	IndexBuffer* ib;
 	Shader* shader;
 };

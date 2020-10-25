@@ -28,14 +28,10 @@ Application::Application()
 	glBindVertexArray(va);
 
 	// vertex buffer
-	glGenBuffers(1, &vb);
-	glBindBuffer(GL_ARRAY_BUFFER, vb);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+	vb = new VertexBuffer(sizeof(vertices), vertices);
 
 	// index buffer
-	glGenBuffers(1, &ib);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
+	ib = new IndexBuffer(6, indices);
 
 	// attributes
 	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
@@ -74,22 +70,22 @@ Application::Application()
 	)";
 
 	shader = new Shader(vertex_source, fragment_source);
-
-	// GPU info
-	std::cout << glGetString(GL_VENDOR) << std::endl;
-	std::cout << glGetString(GL_RENDERER) << std::endl;
 }
 
 Application::~Application()
 {
 	glDeleteVertexArrays(1, &va);
-	glDeleteBuffers(1, &vb);
-	glDeleteBuffers(1, &ib);
+	delete vb;
+	delete ib;
 	delete shader;
 }
 
 void Application::Run()
 {
+	// GPU info
+	std::cout << "Vendor: " << Renderer::GetVendor() << std::endl;
+	std::cout << "Renderer: " << Renderer::GetRenderer() << std::endl;
+
 	// render loop
 	while (window.IsOpen())
 	{
@@ -97,6 +93,8 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
+		glBindVertexArray(va);
+		shader->Bind();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 		// event polling
