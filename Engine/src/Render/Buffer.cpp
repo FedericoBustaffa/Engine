@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-// Vertex Buffer -----------------------------------
+// Buffer -----------------------------------
 Buffer::Buffer(size_t size, void* data)
 	: id(0)
 {
@@ -52,9 +52,3 @@ void IndexBuffer::Unbind() const
 }
 
 
-// Buffer Layout -------------------------------------
-BufferLayout::BufferLayout(const std::vector<BufferElements>& elements)
-	: elements(elements)
-{
-
-}

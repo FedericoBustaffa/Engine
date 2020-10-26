@@ -34,13 +34,21 @@ Application::Application()
 	ib = new IndexBuffer(6, indices);
 
 	// attributes
-	BufferLayout layout = {
-		{ "position", ShaderType::Float3 },
-		{ "color", ShaderType::Float4 }
-	};
+	BufferLayout layout({
+		{ "position", ShaderType::Double3 },
+		{ "color", ShaderType::Double4 }
+	});
 
-	glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
-	glEnableVertexAttribArray(0);
+	vb->SetLayout(layout);
+
+	int index = 0;
+	for (const auto& elem : layout)
+	{
+		glVertexAttribPointer(index, elem.Get, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
+		glEnableVertexAttribArray(index);
+		index++;
+	}
+
 
 	void* offset = (void*)(3 * sizeof(double));
 	glVertexAttribPointer(1, 4, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), offset);

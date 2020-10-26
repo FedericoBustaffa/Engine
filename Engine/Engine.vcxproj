@@ -22,6 +22,7 @@
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Render\Buffer.cpp" />
+    <ClCompile Include="src\Render\BufferLayout.cpp" />
     <ClCompile Include="src\Render\Renderer.cpp" />
     <ClCompile Include="src\Render\Shader.cpp" />
     <ClCompile Include="src\Window.cpp" />
