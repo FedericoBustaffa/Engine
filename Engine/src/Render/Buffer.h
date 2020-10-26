@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-// ShaderType -------------------------------
+// ShaderType --------------------------------------
 enum class ShaderType
 {
 	None = 0,
@@ -13,8 +13,7 @@ enum class ShaderType
 };
 
 
-
-// position, color, normalize ...
+// position, color, normalize ----------------------
 struct BufferElement
 {
 	std::string name;
@@ -23,7 +22,6 @@ struct BufferElement
 
 	BufferElement(const std::string& name, ShaderType type);
 };
-
 
 
 // BufferLayout ----------------------------------
@@ -44,8 +42,7 @@ private:
 };
 
 
-
-// Buffer ------------------------------------
+// Buffer -------------------------------------------
 class Buffer
 {
 public:
@@ -62,7 +59,8 @@ private:
 	BufferLayout layout;
 };
 
-// IndexBuffer -------------------------------
+
+// IndexBuffer ---------------------------------------
 class IndexBuffer
 {
 public:

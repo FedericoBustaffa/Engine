@@ -4,6 +4,7 @@
 
 #include "Window.h"
 
+#include "Render/VertexArray.h"
 #include "Render/Buffer.h"
 #include "Render/Shader.h"
 
@@ -30,8 +31,6 @@ private:
 	Window window;
 
 	// rendering objects
-	unsigned int va = 0;
-	Buffer* vb;
-	IndexBuffer* ib;
+	VertexArray* va;
 	Shader* shader;
 };

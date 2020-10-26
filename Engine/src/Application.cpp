@@ -23,15 +23,9 @@ Application::Application()
 		2, 3, 0
 	};
 
-	// vertex array
-	glGenVertexArrays(1, &va);
-	glBindVertexArray(va);
-
-	// vertex buffer
-	vb = new Buffer(sizeof(vertices), vertices);
-
-	// index buffer
-	ib = new IndexBuffer(6, indices);
+	va = new VertexArray();
+	Buffer vb(sizeof(vertices), vertices);
+	IndexBuffer ib(6, indices);
 
 	// attributes
 	BufferLayout layout({
@@ -40,19 +34,8 @@ Application::Application()
 	});
 
 	vb->SetLayout(layout);
-
-	int index = 0;
-	for (const auto& elem : layout)
-	{
-		glVertexAttribPointer(index, elem.Get, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), nullptr);
-		glEnableVertexAttribArray(index);
-		index++;
-	}
-
-
-	void* offset = (void*)(3 * sizeof(double));
-	glVertexAttribPointer(1, 4, GL_DOUBLE, GL_FALSE, 7 * sizeof(double), offset);
-	glEnableVertexAttribArray(1);
+	va->AddBuffer(vb);
+	va->AddIndexBuffer(ib);
 
 	// shader
 	std::string vertex_source = R"(
@@ -87,9 +70,7 @@ Application::Application()
 
 Application::~Application()
 {
-	glDeleteVertexArrays(1, &va);
-	delete vb;
-	delete ib;
+	delete va;
 	delete shader;
 }
 
