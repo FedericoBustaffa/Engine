@@ -55,7 +55,7 @@ public:
 	void SetLayout(const BufferLayout& layout) { this->layout = layout; }
 
 private:
-	unsigned int id;
+	uint32_t id;
 	BufferLayout layout;
 };
 
@@ -71,6 +71,6 @@ public:
 	void Unbind() const;
 
 private:
-	unsigned int id;
+	uint32_t id;
 };
 

@@ -12,5 +12,5 @@ public:
 	void Unbind() const;
 
 private:
-	unsigned int id;
+	uint32_t id;
 };
