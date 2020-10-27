@@ -32,5 +32,7 @@ private:
 
 	// rendering objects
 	VertexArray* va;
+	Buffer* vb;
+	IndexBuffer* ib;
 	Shader* shader;
 };

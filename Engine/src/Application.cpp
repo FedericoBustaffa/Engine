@@ -24,8 +24,8 @@ Application::Application()
 	};
 
 	va = new VertexArray();
-	Buffer vb(sizeof(vertices), vertices);
-	IndexBuffer ib(6, indices);
+	vb = new Buffer(sizeof(vertices), vertices);
+	ib = new IndexBuffer(6, indices);
 
 	// attributes
 	BufferLayout layout({
@@ -71,6 +71,8 @@ Application::Application()
 Application::~Application()
 {
 	delete va;
+	delete vb;
+	delete ib;
 	delete shader;
 }
 
