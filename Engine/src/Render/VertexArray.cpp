@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 VertexArray::VertexArray()
+	: id(0), index_buffer(nullptr)
 {
 	glGenVertexArrays(1, &id);
 	glBindVertexArray(id);
@@ -25,23 +26,10 @@ void VertexArray::Unbind() const
 
 void VertexArray::AddBuffer(const Buffer& buffer)
 {
-	glBindVertexArray(id);
-
-	buffer.Bind();
-	uint32_t index = 0;
-	const auto& layout = buffer.GetLayout();
-	for (const auto& elem : layout)
-	{
-		glVertexAttribPointer(index,
-			elem.GetCount(),
-			)
-	}
-
 	buffers.push_back(buffer);
 }
 
-void VertexArray::AddIndexBuffer(const IndexBuffer& ib)
+void VertexArray::SetIndexBuffer(const IndexBuffer& ib)
 {
-	glBindVertexArray(id);
-	index_buffers.push_back(ib);
+	index_buffer = new IndexBuffer(ib);
 }

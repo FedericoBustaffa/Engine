@@ -4,8 +4,9 @@
 
 int main()
 {
-	Application app;
-	app.Run();
+	Application* app = new Application();
+	app->Run();
+	delete app;
 
 	return 0;
 }

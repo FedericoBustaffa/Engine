@@ -1,48 +1,9 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <memory>
 
-// ShaderType --------------------------------------
-enum class ShaderType
-{
-	None = 0,
-	Float, Float2, Float3, Float4,
-	Double, Double2, Double3, Double4,
-	Int, Int2, Int3, Int4
-};
+#include "Layout.h"
 
-
-// position, color, normalize ----------------------
-struct BufferElement
-{
-	std::string name;
-	ShaderType type;
-	unsigned int size, offset;
-
-	BufferElement(const std::string& name, ShaderType type);
-};
-
-
-// BufferLayout ----------------------------------
-class BufferLayout
-{
-public:
-	BufferLayout(const std::vector<BufferElement>& elements);
-
-	const std::vector<BufferElement>& GetElements() const;
-	unsigned int GetStride() const;
-	
-	std::vector<BufferElement>::iterator Begin();
-	std::vector<BufferElement>::iterator End();
-
-private:
-	std::vector<BufferElement> elements;
-	unsigned int stride;
-};
-
-
-// Buffer -------------------------------------------
 class Buffer
 {
 public:
@@ -51,16 +12,15 @@ public:
 
 	void Bind() const;
 	void Unbind() const;
-	const BufferLayout& GetLayout() const { return layout; }
-	void SetLayout(const BufferLayout& layout) { this->layout = layout; }
+	void SetLayout(const Layout& layout);
+	const Layout& GetLayout() const;
 
 private:
 	uint32_t id;
-	BufferLayout layout;
+	Layout* layout;
 };
 
 
-// IndexBuffer ---------------------------------------
 class IndexBuffer
 {
 public:

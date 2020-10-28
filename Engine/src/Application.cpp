@@ -26,16 +26,16 @@ Application::Application()
 	va = new VertexArray();
 	vb = new Buffer(sizeof(vertices), vertices);
 	ib = new IndexBuffer(6, indices);
-
-	// attributes
-	BufferLayout layout({
+	
+	// layout
+	Layout layout({
 		{ "position", ShaderType::Double3 },
 		{ "color", ShaderType::Double4 }
 	});
 
 	vb->SetLayout(layout);
-	va->AddBuffer(vb);
-	va->AddIndexBuffer(ib);
+	va->AddBuffer(*vb);
+	va->SetIndexBuffer(*ib);
 
 	// shader
 	std::string vertex_source = R"(
@@ -78,10 +78,6 @@ Application::~Application()
 
 void Application::Run()
 {
-	// GPU info
-	std::cout << "Vendor: " << Renderer::GetVendor() << std::endl;
-	std::cout << "Renderer: " << Renderer::GetRenderer() << std::endl;
-
 	// render loop
 	while (window.IsOpen())
 	{
@@ -89,9 +85,6 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		glBindVertexArray(va);
-		shader->Bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 		// event polling
 		window.OnUpdate();

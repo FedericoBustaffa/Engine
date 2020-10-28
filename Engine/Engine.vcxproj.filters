@@ -33,10 +33,10 @@
     <ClCompile Include="src\Render\Buffer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\BufferLayout.cpp">
+    <ClCompile Include="src\Render\VertexArray.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\VertexArray.cpp">
+    <ClCompile Include="src\Render\Layout.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +78,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Render\VertexArray.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Render\Layout.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

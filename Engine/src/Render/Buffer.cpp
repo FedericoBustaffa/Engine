@@ -2,9 +2,8 @@
 
 #include <GL/glew.h>
 
-// Buffer -----------------------------------
 Buffer::Buffer(size_t size, void* data)
-	: id(0)
+	: id(0), layout(nullptr)
 {
 	glGenBuffers(1, &id);
 	glBindBuffer(GL_ARRAY_BUFFER, id);
@@ -26,8 +25,18 @@ void Buffer::Unbind() const
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void Buffer::SetLayout(const Layout& layout)
+{
+	this->layout = new Layout(layout);
+}
 
-// Index Buffer -------------------------------------
+const Layout& Buffer::GetLayout() const
+{
+	return *layout;
+}
+
+
+
 IndexBuffer::IndexBuffer(size_t count, unsigned int* data)
 	: id(0)
 {
@@ -50,5 +59,3 @@ void IndexBuffer::Unbind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-
-
