@@ -23,8 +23,8 @@ Application::Application()
 		2, 3, 0
 	};
 
-	std::shared_ptr<Buffer> vb = std::make_shared<Buffer>(sizeof(vertices), vertices);
-	std::shared_ptr<IndexBuffer> ib = std::make_shared<IndexBuffer>(6, indices);
+	vb = std::make_shared<Buffer>(sizeof(vertices), vertices);
+	ib = std::make_shared<IndexBuffer>(6, indices);
 	
 	// layout
 	std::shared_ptr<Layout> layout;
@@ -37,7 +37,7 @@ Application::Application()
 	va->AddBuffer(vb);
 
 	// shader
-	std::string vertex_source = R"(
+	std::string vertex_src = R"(
 		#version 330 core
 
 		layout(location = 0) in vec4 v_position;
@@ -52,7 +52,7 @@ Application::Application()
 		}
 	)";
 
-	std::string fragment_source = R"(
+	std::string fragment_src = R"(
 		#version 330 core
 
 		in vec4 f_color;
@@ -64,7 +64,7 @@ Application::Application()
 		}
 	)";
 
-	shader = std::make_shared<Shader>(vertex_source, fragment_source);
+	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 }
 
 Application::~Application()
@@ -80,8 +80,6 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		va->Bind();
-		shader->Bind();
 		glDrawElements(GL_TRIANGLES, va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
 
 		// event polling

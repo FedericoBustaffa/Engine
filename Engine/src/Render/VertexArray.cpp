@@ -32,7 +32,8 @@ void VertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& ib)
 void VertexArray::AddBuffer(const std::shared_ptr<Buffer>& buffer)
 {
 	const auto& elements = buffer->GetLayout()->GetElements();
-
+	buffer->Bind();
+	
 	int index = 0;
 	for (const auto& i : elements)
 	{
@@ -47,6 +48,7 @@ void VertexArray::AddBuffer(const std::shared_ptr<Buffer>& buffer)
 		glEnableVertexAttribArray(index);
 		index++;
 	}
+
 	buffers.push_back(buffer);
 }
 
