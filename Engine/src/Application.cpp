@@ -34,7 +34,7 @@ Application::Application()
 	}));
 
 	vb->SetLayout(layout);
-	va->AddBuffer(vb);
+	//va->AddBuffer(vb);
 
 	// shader
 	std::string vertex_src = R"(
@@ -80,6 +80,8 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
+		shader->Bind();
+		va->Bind();
 		glDrawElements(GL_TRIANGLES, va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
 
 		// event polling

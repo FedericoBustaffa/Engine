@@ -6,7 +6,6 @@ VertexArray::VertexArray()
 	: id(0)
 {
 	glGenVertexArrays(1, &id);
-	glBindVertexArray(id);
 }
 
 VertexArray::~VertexArray()
@@ -26,12 +25,16 @@ void VertexArray::Unbind() const
 
 void VertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& ib)
 {
+	glBindVertexArray(id);
+	ib->Bind();
+
 	index_buffer = ib;
 }
 
 void VertexArray::AddBuffer(const std::shared_ptr<Buffer>& buffer)
 {
 	const auto& elements = buffer->GetLayout()->GetElements();
+	glBindVertexArray(id);
 	buffer->Bind();
 	
 	int index = 0;
