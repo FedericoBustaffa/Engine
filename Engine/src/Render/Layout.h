@@ -10,6 +10,10 @@ enum class ShaderType
 	Double, Double2, Double3, Double4
 };
 
+unsigned int SizeOfShaderType(ShaderType type);
+int ShaderTypeCount(ShaderType type);
+unsigned int ShaderTypeToGLType(ShaderType type);
+
 struct BufferElement
 {
 	std::string name;
@@ -27,9 +31,8 @@ class Layout
 public:
 	Layout(const std::vector<BufferElement>& elements);
 
+	const std::vector<BufferElement>& GetElements() const;
 	int GetStride() const;
-	std::vector<BufferElement>::iterator begin() { return elements.begin(); }
-	std::vector<BufferElement>::iterator end() { return elements.end(); }
 
 private:
 	std::vector<BufferElement> elements;

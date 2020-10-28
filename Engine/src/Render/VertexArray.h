@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <memory>
 
 #include "Buffer.h"
 
@@ -15,6 +14,7 @@ public:
 	void Unbind() const;
 	void AddBuffer(const Buffer& buffer);
 	void SetIndexBuffer(const IndexBuffer& ib);
+	int GetIndexCount() const;
 
 private:
 	uint32_t id;

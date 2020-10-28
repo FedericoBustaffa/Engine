@@ -13,6 +13,7 @@ Buffer::Buffer(size_t size, void* data)
 Buffer::~Buffer()
 {
 	glDeleteBuffers(1, &id);
+	delete layout;
 }
 
 void Buffer::Bind() const
@@ -37,8 +38,8 @@ const Layout& Buffer::GetLayout() const
 
 
 
-IndexBuffer::IndexBuffer(size_t count, unsigned int* data)
-	: id(0)
+IndexBuffer::IndexBuffer(int count, unsigned int* data)
+	: id(0), count(count)
 {
 	glGenBuffers(1, &id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
@@ -58,4 +59,9 @@ void IndexBuffer::Bind() const
 void IndexBuffer::Unbind() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+int IndexBuffer::GetCount() const
+{
+	return count;
 }
