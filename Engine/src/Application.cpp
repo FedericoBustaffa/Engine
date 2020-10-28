@@ -23,7 +23,6 @@ Application::Application()
 		2, 3, 0
 	};
 
-	va = new VertexArray();
 	vb = new Buffer(sizeof(vertices), vertices);
 	ib = new IndexBuffer(6, indices);
 	
@@ -34,8 +33,7 @@ Application::Application()
 	});
 
 	vb->SetLayout(layout);
-	va->AddBuffer(*vb);
-	va->SetIndexBuffer(*ib);
+	va->EnableLayout(*vb);
 
 	// shader
 	std::string vertex_source = R"(
@@ -85,7 +83,9 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		glDrawElements(GL_TRIANGLES, va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+		va->Bind();
+		shader->Bind();
+		glDrawElements(GL_TRIANGLES, ib->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 		// event polling
 		window.OnUpdate();

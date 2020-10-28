@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "Buffer.h"
 
 class VertexArray
@@ -12,12 +10,8 @@ public:
 
 	void Bind() const;
 	void Unbind() const;
-	void AddBuffer(const Buffer& buffer);
-	void SetIndexBuffer(const IndexBuffer& ib);
-	int GetIndexCount() const;
+	void EnableLayout(const Buffer& buffer);
 
 private:
 	uint32_t id;
-	std::vector<Buffer> buffers;
-	IndexBuffer* index_buffer;
 };

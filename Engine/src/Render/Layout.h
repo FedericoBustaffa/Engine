@@ -18,10 +18,10 @@ struct BufferElement
 {
 	std::string name;
 	ShaderType type;
-	int offset;
+	int count, offset;
 
 	BufferElement(const std::string name, ShaderType type)
-		: name(name), type(type), offset(0)
+		: name(name), type(type), count(ShaderTypeCount(type)), offset(0)
 	{
 	}
 };
