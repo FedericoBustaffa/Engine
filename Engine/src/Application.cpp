@@ -23,17 +23,18 @@ Application::Application()
 		2, 3, 0
 	};
 
-	vb = new Buffer(sizeof(vertices), vertices);
-	ib = new IndexBuffer(6, indices);
+	std::shared_ptr<Buffer> vb = std::make_shared<Buffer>(sizeof(vertices), vertices);
+	std::shared_ptr<IndexBuffer> ib = std::make_shared<IndexBuffer>(6, indices);
 	
 	// layout
-	Layout layout({
+	std::shared_ptr<Layout> layout;
+	layout.reset(new Layout({
 		{ "position", ShaderType::Double3 },
 		{ "color", ShaderType::Double4 }
-	});
+	}));
 
 	vb->SetLayout(layout);
-	va->EnableLayout(*vb);
+	va->AddBuffer(vb);
 
 	// shader
 	std::string vertex_source = R"(
@@ -63,15 +64,11 @@ Application::Application()
 		}
 	)";
 
-	shader = new Shader(vertex_source, fragment_source);
+	shader = std::make_shared<Shader>(vertex_source, fragment_source);
 }
 
 Application::~Application()
 {
-	delete va;
-	delete vb;
-	delete ib;
-	delete shader;
 }
 
 void Application::Run()
@@ -85,7 +82,7 @@ void Application::Run()
 		// rendering
 		va->Bind();
 		shader->Bind();
-		glDrawElements(GL_TRIANGLES, ib->GetCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
 
 		// event polling
 		window.OnUpdate();

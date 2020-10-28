@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 
 Buffer::Buffer(size_t size, void* data)
-	: id(0), layout(nullptr)
+	: id(0)
 {
 	glGenBuffers(1, &id);
 	glBindBuffer(GL_ARRAY_BUFFER, id);
@@ -13,7 +13,6 @@ Buffer::Buffer(size_t size, void* data)
 Buffer::~Buffer()
 {
 	glDeleteBuffers(1, &id);
-	delete layout;
 }
 
 void Buffer::Bind() const
@@ -26,14 +25,14 @@ void Buffer::Unbind() const
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Buffer::SetLayout(const Layout& layout)
+void Buffer::SetLayout(const std::shared_ptr<Layout>& layout)
 {
-	this->layout = new Layout(layout);
+	this->layout = layout;
 }
 
-const Layout& Buffer::GetLayout() const
+const std::shared_ptr<Layout>& Buffer::GetLayout() const
 {
-	return *layout;
+	return layout;
 }
 
 

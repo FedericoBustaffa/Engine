@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 #include "Window.h"
 
@@ -31,8 +32,6 @@ private:
 	Window window;
 
 	// rendering objects
-	VertexArray* va;
-	Buffer* vb;
-	IndexBuffer* ib;
-	Shader* shader;
+	std::shared_ptr<VertexArray> va;
+	std::shared_ptr<Shader> shader;
 };

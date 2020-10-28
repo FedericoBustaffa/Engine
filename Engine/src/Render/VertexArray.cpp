@@ -24,9 +24,14 @@ void VertexArray::Unbind() const
 	glBindVertexArray(0);
 }
 
-void VertexArray::EnableLayout(const Buffer& buffer)
+void VertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& ib)
 {
-	const std::vector<BufferElement>& elements = buffer.GetLayout().GetElements();
+	index_buffer = ib;
+}
+
+void VertexArray::AddBuffer(const std::shared_ptr<Buffer>& buffer)
+{
+	const auto& elements = buffer->GetLayout()->GetElements();
 
 	int index = 0;
 	for (const auto& i : elements)
@@ -36,10 +41,16 @@ void VertexArray::EnableLayout(const Buffer& buffer)
 			i.count,
 			ShaderTypeToGLType(i.type),
 			GL_FALSE,
-			buffer.GetLayout().GetStride(),
+			buffer->GetLayout()->GetStride(),
 			(void*)i.offset
 		);
 		glEnableVertexAttribArray(index);
 		index++;
 	}
+	buffers.push_back(buffer);
+}
+
+int VertexArray::GetIndexCount() const
+{
+	return index_buffer->GetCount();
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "Layout.h"
 
 class Buffer
@@ -10,12 +12,12 @@ public:
 
 	void Bind() const;
 	void Unbind() const;
-	void SetLayout(const Layout& layout);
-	const Layout& GetLayout() const;
+	void SetLayout(const std::shared_ptr<Layout>& layout);
+	const std::shared_ptr<Layout>& GetLayout() const;
 
 private:
 	uint32_t id;
-	Layout* layout;
+	std::shared_ptr<Layout> layout;
 };
 
 
