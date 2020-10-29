@@ -21,9 +21,6 @@
     <ClCompile Include="src\Window.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\Renderer.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Application.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -39,12 +36,12 @@
     <ClCompile Include="src\Render\Layout.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Render\Render.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Render\Renderer.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\Event.h">
@@ -81,6 +78,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Render\Layout.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Render\Render.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\Input.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

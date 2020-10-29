@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "Core.h"
-#include "Render/Renderer.h"
+#include "Render/Render.h"
 #include "Events/WindowEvent.h"
 
 #include <iostream>
@@ -105,18 +105,18 @@ void Application::Run()
 	while (window.IsOpen())
 	{
 		// background color
-		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
+		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		Renderer::BeginScene();
+		Render::BeginScene();
 
 		red_shader->Bind();
-		Renderer::DrawIndexed(triangle_va);
+		Render::DrawIndexed(triangle_va);
 
 		blue_shader->Bind();
-		Renderer::DrawIndexed(square_va);
+		Render::DrawIndexed(square_va);
 
-		Renderer::EndScene();
+		Render::EndScene();
 
 
 		// event polling

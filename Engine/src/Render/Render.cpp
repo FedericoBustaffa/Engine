@@ -1,33 +1,33 @@
-#include "Renderer.h"
+#include "Render.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-const char* Renderer::GetVendor()
+const char* Render::GetVendor()
 {
 	return (const char*)glGetString(GL_VENDOR);
 }
 
-const char* Renderer::GetRenderer()
+const char* Render::GetRenderer()
 {
 	return (const char*)glGetString(GL_RENDERER);
 }
 
-void Renderer::BackgroundColor(float red, float green, float blue, float alpha)
+void Render::BackgroundColor(float red, float green, float blue, float alpha)
 {
 	glClearColor(red, green, blue, alpha);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::BeginScene()
+void Render::BeginScene()
 {
 }
 
-void Renderer::EndScene()
+void Render::EndScene()
 {
 }
 
-void Renderer::DrawIndexed(const std::shared_ptr<VertexArray>& va)
+void Render::DrawIndexed(const std::shared_ptr<VertexArray>& va)
 {
 	va->Bind();
 	glDrawElements(GL_TRIANGLES, va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);

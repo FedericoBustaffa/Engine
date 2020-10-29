@@ -4,7 +4,7 @@
 
 #include "VertexArray.h"
 
-class Renderer
+class Render
 {
 public:
 	static const char* GetVendor();
@@ -17,5 +17,5 @@ public:
 	static void DrawIndexed(const std::shared_ptr<VertexArray>& va);
 
 private:
-	Renderer();
+	Render() = default;
 };
