@@ -109,8 +109,11 @@ void Application::Run()
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 
 		// polling
-		if (Input::IsKeyPressed(window, Key::A))
-			std::cout << "A" << std::endl;
+		if (Input::IsKeyPressed(window, Key::G))
+		{
+			std::cout << Input::GetMouseX(window) << ", " << std::flush;
+			std::cout << Input::GetMouseY(window) << std::endl;
+		}
 		
 		// rendering
 		Render::BeginScene();
