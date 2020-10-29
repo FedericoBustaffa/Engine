@@ -10,61 +10,90 @@ Application::Application()
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
-	double vertices[4 * 7] = {
-		// position			// color
-		-0.5, -0.5, 0.0,	0.4, 0.8, 0.2, 1.0,
-		-0.5,  0.5, 0.0,	0.4, 0.8, 0.2, 1.0,
-		 0.5,  0.5, 0.0,	0.4, 0.8, 0.2, 1.0,
-		 0.5, -0.5, 0.0,	0.4, 0.8, 0.2, 1.0
+	// triangle
+	double triangle[3 * 2] = {
+		-0.8, -0.5,
+		-0.5,  0.5,
+		-0.2, -0.5,
 	};
 
-	unsigned int indices[6] = {
+	unsigned int triangle_ind[3] = { 0, 1, 2 };
+
+	triangle_va = std::make_shared<VertexArray>();
+	triangle_vb = std::make_shared<Buffer>(sizeof(triangle), triangle);
+	triangle_ib = std::make_shared<IndexBuffer>(3, triangle_ind);
+	
+	std::shared_ptr<Layout> triangle_lay;
+	triangle_lay.reset(new Layout({
+		{ "triangle", ShaderType::Double2 }
+	}));
+
+	triangle_vb->SetLayout(triangle_lay);
+	triangle_va->AddBuffer(triangle_vb);
+	triangle_va->SetIndexBuffer(triangle_ib);
+
+	// square
+	double square[4 * 2] = {
+		 0.2, -0.5,
+		 0.2,  0.5,
+		 0.8,  0.5,
+		 0.8, -0.5
+	};
+
+	unsigned int square_ind[6] = {
 		0, 1, 2,
 		2, 3, 0
 	};
 
-	vb = std::make_shared<Buffer>(sizeof(vertices), vertices);
-	ib = std::make_shared<IndexBuffer>(6, indices);
-	
-	// layout
-	std::shared_ptr<Layout> layout;
-	layout.reset(new Layout({
-		{ "position", ShaderType::Double3 },
-		{ "color", ShaderType::Double4 }
+	square_va = std::make_shared<VertexArray>();
+	square_vb = std::make_shared<Buffer>(sizeof(square), square);
+	square_ib = std::make_shared<IndexBuffer>(6, square_ind);
+
+	std::shared_ptr<Layout> square_lay;
+	square_lay.reset(new Layout({
+		{ "sqaure", ShaderType::Double2 }
 	}));
 
-	vb->SetLayout(layout);
-	//va->AddBuffer(vb);
+	square_vb->SetLayout(square_lay);
+	square_va->AddBuffer(square_vb);
+	square_va->SetIndexBuffer(square_ib);
 
 	// shader
 	std::string vertex_src = R"(
 		#version 330 core
 
 		layout(location = 0) in vec4 v_position;
-		layout(location = 1) in vec4 v_color;
 		
-		out vec4 f_color;
-
 		void main()
 		{
-			f_color = v_color;
 			gl_Position = v_position;
 		}
 	)";
 
-	std::string fragment_src = R"(
+	std::string red_fragment_src = R"(
 		#version 330 core
 
-		in vec4 f_color;
 		out vec4 color;
 
 		void main()
 		{
-			color = f_color;
+			color = vec4(0.8, 0.3, 0.1, 1.0);
+		}
+	)";
+	
+	std::string blue_fragment_src = R"(
+		#version 330 core
+
+		out vec4 color;
+
+		void main()
+		{
+			color = vec4(0.1, 0.3, 0.8, 1.0);
 		}
 	)";
 
-	shader = std::make_shared<Shader>(vertex_src, fragment_src);
+	red_shader = std::make_shared<Shader>(vertex_src, red_fragment_src);
+	blue_shader = std::make_shared<Shader>(vertex_src, blue_fragment_src);
 }
 
 Application::~Application()
@@ -80,9 +109,13 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		shader->Bind();
-		va->Bind();
-		glDrawElements(GL_TRIANGLES, va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+		red_shader->Bind();
+		triangle_va->Bind();
+		glDrawElements(GL_TRIANGLES, triangle_va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+
+		blue_shader->Bind();
+		square_va->Bind();
+		glDrawElements(GL_TRIANGLES, square_va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
 
 		// event polling
 		window.OnUpdate();
