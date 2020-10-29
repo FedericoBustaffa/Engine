@@ -185,3 +185,8 @@ void Window::SetEventCallback(EventFn<Event&> callback)
 {
 	data.callback = callback;
 }
+
+GLFWwindow* Window::GetNativeWindow() const
+{
+	return window;
+}

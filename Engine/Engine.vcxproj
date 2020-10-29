@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Events\Input.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Render\Buffer.cpp" />
     <ClCompile Include="src\Render\Layout.cpp" />
@@ -128,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC; DBG; </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)deps\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)deps\include\;$(ProjectDir)src\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions>/wd4312 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -167,7 +168,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC; DBG; </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)deps\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)deps\include\;$(ProjectDir)src\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4098;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions>/wd4312 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

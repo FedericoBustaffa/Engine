@@ -34,6 +34,7 @@ public:
 	void VSync(bool enabled);
 	void SetRatio(int num, int denom);
 	void SetEventCallback(EventFn<Event&> callback);
+	GLFWwindow* GetNativeWindow() const;
 
 private:
 	void Init();

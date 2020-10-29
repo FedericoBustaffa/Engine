@@ -2,6 +2,7 @@
 #include "Core.h"
 #include "Render/Render.h"
 #include "Events/WindowEvent.h"
+#include "Events/Input.h"
 
 #include <iostream>
 
@@ -106,6 +107,10 @@ void Application::Run()
 	{
 		// background color
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
+
+		// polling
+		if (Input::IsKeyPressed(window, Key::A))
+			std::cout << "A" << std::endl;
 		
 		// rendering
 		Render::BeginScene();
