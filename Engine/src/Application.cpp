@@ -4,7 +4,6 @@
 #include "Events/WindowEvent.h"
 
 #include <iostream>
-#include <GL/glew.h>
 
 Application::Application()
 {
@@ -12,7 +11,7 @@ Application::Application()
 
 	// triangle
 	double triangle[3 * 2] = {
-		-0.8, -0.5,
+		-0.8, -0.5,		
 		-0.5,  0.5,
 		-0.2, -0.5,
 	};
@@ -51,7 +50,7 @@ Application::Application()
 
 	std::shared_ptr<Layout> square_lay;
 	square_lay.reset(new Layout({
-		{ "sqaure", ShaderType::Double2 }
+		{ "square", ShaderType::Double2 }
 	}));
 
 	square_vb->SetLayout(square_lay);
@@ -109,13 +108,16 @@ void Application::Run()
 		Renderer::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
+		Renderer::BeginScene();
+
 		red_shader->Bind();
-		triangle_va->Bind();
-		glDrawElements(GL_TRIANGLES, triangle_va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+		Renderer::DrawIndexed(triangle_va);
 
 		blue_shader->Bind();
-		square_va->Bind();
-		glDrawElements(GL_TRIANGLES, square_va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+		Renderer::DrawIndexed(square_va);
+
+		Renderer::EndScene();
+
 
 		// event polling
 		window.OnUpdate();
