@@ -32,14 +32,9 @@ private:
 	Window window;
 
 	// rendering objects
-	std::shared_ptr<VertexArray> triangle_va;
-	std::shared_ptr<Buffer> triangle_vb;
-	std::shared_ptr<IndexBuffer> triangle_ib;
+	std::shared_ptr<Shader> shader;
 
-	std::shared_ptr<VertexArray> square_va;
-	std::shared_ptr<Buffer> square_vb;
-	std::shared_ptr<IndexBuffer> square_ib;
-	
-	std::shared_ptr<Shader> red_shader;
-	std::shared_ptr<Shader> blue_shader;
+	std::shared_ptr<VertexArray> va;
+	std::shared_ptr<Buffer> vb;
+	std::shared_ptr<IndexBuffer> ib;
 };

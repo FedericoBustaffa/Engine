@@ -10,54 +10,6 @@ Application::Application()
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
-	// triangle
-	double triangle[3 * 2] = {
-		-0.8, -0.5,
-		-0.5,  0.5,
-		-0.2, -0.5
-	};
-
-	unsigned int triangle_ind[3] = { 0, 1, 2 };
-
-	triangle_va = std::make_shared<VertexArray>();
-	triangle_vb = std::make_shared<Buffer>(sizeof(triangle), triangle);
-	triangle_ib = std::make_shared<IndexBuffer>(3, triangle_ind);
-	
-	std::shared_ptr<Layout> triangle_lay;
-	triangle_lay.reset(new Layout({
-		{ "triangle", ShaderType::Double, 2 }
-	}));
-
-	triangle_vb->SetLayout(triangle_lay);
-	triangle_va->AddBuffer(triangle_vb);
-	triangle_va->SetIndexBuffer(triangle_ib);
-
-	// square
-	double square[4 * 2] = {
-		 0.2, -0.5,
-		 0.2,  0.5,
-		 0.8,  0.5,
-		 0.8, -0.5
-	};
-
-	unsigned int square_ind[6] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	square_va = std::make_shared<VertexArray>();
-	square_vb = std::make_shared<Buffer>(sizeof(square), square);
-	square_ib = std::make_shared<IndexBuffer>(6, square_ind);
-
-	std::shared_ptr<Layout> square_lay;
-	square_lay.reset(new Layout({
-		{ "square", ShaderType::Double, 2 }
-	}));
-
-	square_vb->SetLayout(square_lay);
-	square_va->AddBuffer(square_vb);
-	square_va->SetIndexBuffer(square_ib);
-
 	// shader
 	std::string vertex_src = R"(
 		#version 330 core
@@ -70,7 +22,7 @@ Application::Application()
 		}
 	)";
 
-	std::string red_fragment_src = R"(
+	std::string fragment_src = R"(
 		#version 330 core
 
 		out vec4 color;
@@ -80,20 +32,30 @@ Application::Application()
 			color = vec4(0.8, 0.3, 0.1, 1.0);
 		}
 	)";
+
+	shader = std::make_shared<Shader>(vertex_src, fragment_src);
+
+	// buffers
+	double vertices[3 * 2] = {
+		-0.5, -0.5,
+		 0.0,  0.5,
+		 0.5, -0.5
+	};
 	
-	std::string blue_fragment_src = R"(
-		#version 330 core
+	uint32_t indices[3] = { 0, 1, 2 };
+	
+	va = std::make_shared<VertexArray>();
+	vb = std::make_shared<Buffer>(sizeof(vertices), vertices);
+	ib = std::make_shared<IndexBuffer>(3, indices);
 
-		out vec4 color;
+	std::shared_ptr<Layout> layout;
+	layout.reset(new Layout({
+		{ "position", ShaderType::Double, 2 }
+	}));
 
-		void main()
-		{
-			color = vec4(0.1, 0.3, 0.8, 1.0);
-		}
-	)";
-
-	red_shader = std::make_shared<Shader>(vertex_src, red_fragment_src);
-	blue_shader = std::make_shared<Shader>(vertex_src, blue_fragment_src);
+	vb->SetLayout(layout);
+	va->AddBuffer(vb);
+	va->SetIndexBuffer(ib);
 }
 
 Application::~Application()
@@ -102,30 +64,21 @@ Application::~Application()
 
 void Application::Run()
 {
+	double x, y;
+
 	// render loop
 	while (window.IsOpen())
 	{
 		// background color
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 
-		// polling
-		if (Input::IsKeyPressed(window, Key::G))
-		{
-			std::cout << Input::GetMouseX(window) << ", " << std::flush;
-			std::cout << Input::GetMouseY(window) << std::endl;
-		}
-		
 		// rendering
 		Render::BeginScene();
 
-		red_shader->Bind();
-		Render::DrawIndexed(triangle_va);
-
-		blue_shader->Bind();
-		Render::DrawIndexed(square_va);
+		shader->Bind();
+		Render::DrawIndexed(va);
 
 		Render::EndScene();
-
 
 		// event polling
 		window.OnUpdate();
