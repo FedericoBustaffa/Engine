@@ -5,9 +5,9 @@
 
 #include "Window.h"
 
-#include "Render/VertexArray.h"
-#include "Render/Buffer.h"
-#include "Render/Shader.h"
+#include "Graphics/VertexArray.h"
+#include "Graphics/Buffer.h"
+#include "Graphics/Shader.h"
 
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"

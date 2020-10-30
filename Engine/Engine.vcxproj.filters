@@ -18,22 +18,22 @@
     <ClCompile Include="src\Window.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\Shader.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Buffer.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\VertexArray.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Layout.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Render\Render.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Events\Input.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Buffer.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Layout.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Render.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Shader.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\VertexArray.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,22 +62,22 @@
     <ClInclude Include="src\Events\MouseCodes.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\Render\Shader.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Render\Buffer.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Render\VertexArray.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Render\Layout.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Render\Render.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="src\Events\Input.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Buffer.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Layout.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Render.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shader.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\VertexArray.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

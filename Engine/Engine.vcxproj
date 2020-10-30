@@ -20,11 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Events\Input.cpp" />
-    <ClCompile Include="src\Render\Buffer.cpp" />
-    <ClCompile Include="src\Render\Layout.cpp" />
-    <ClCompile Include="src\Render\Render.cpp" />
-    <ClCompile Include="src\Render\Shader.cpp" />
-    <ClCompile Include="src\Render\VertexArray.cpp" />
+    <ClCompile Include="src\Graphics\Buffer.cpp" />
+    <ClCompile Include="src\Graphics\Layout.cpp" />
+    <ClCompile Include="src\Graphics\Render.cpp" />
+    <ClCompile Include="src\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Graphics\VertexArray.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -36,11 +36,11 @@
     <ClInclude Include="src\Events\MouseCodes.h" />
     <ClInclude Include="src\Events\MouseEvent.h" />
     <ClInclude Include="src\Events\WindowEvent.h" />
-    <ClInclude Include="src\Render\Buffer.h" />
-    <ClInclude Include="src\Render\Layout.h" />
-    <ClInclude Include="src\Render\Render.h" />
-    <ClInclude Include="src\Render\Shader.h" />
-    <ClInclude Include="src\Render\VertexArray.h" />
+    <ClInclude Include="src\Graphics\Buffer.h" />
+    <ClInclude Include="src\Graphics\Layout.h" />
+    <ClInclude Include="src\Graphics\Render.h" />
+    <ClInclude Include="src\Graphics\Shader.h" />
+    <ClInclude Include="src\Graphics\VertexArray.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <ItemGroup>
