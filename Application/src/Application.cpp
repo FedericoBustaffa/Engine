@@ -12,9 +12,9 @@ Application::Application()
 
 	// triangle
 	double triangle[3 * 2] = {
-		-0.8, -0.5,		
+		-0.8, -0.5,
 		-0.5,  0.5,
-		-0.2, -0.5,
+		-0.2, -0.5
 	};
 
 	unsigned int triangle_ind[3] = { 0, 1, 2 };
