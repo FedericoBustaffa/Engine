@@ -15,13 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Window.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\Render\Shader.cpp">
@@ -48,9 +42,6 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\Event.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Application.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\WindowEvent.h">
