@@ -38,15 +38,16 @@ void VertexArray::AddBuffer(const std::shared_ptr<Buffer>& buffer)
 	buffer->Bind();
 	
 	int index = 0;
-	for (const auto& i : elements)
+	int ShaderTypeCount(ShaderType type);
+	for (const auto& elem : elements)
 	{
 		glVertexAttribPointer(
 			index,
-			i.count,
-			ShaderTypeToGLType(i.type),
+			elem.count,
+			ShaderTypeToGLType(elem.type),
 			GL_FALSE,
 			buffer->GetLayout()->GetStride(),
-			(void*)i.offset
+			(void*)elem.offset
 		);
 		glEnableVertexAttribArray(index);
 		index++;

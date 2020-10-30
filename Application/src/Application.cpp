@@ -25,7 +25,7 @@ Application::Application()
 	
 	std::shared_ptr<Layout> triangle_lay;
 	triangle_lay.reset(new Layout({
-		{ "triangle", ShaderType::Double2 }
+		{ "triangle", ShaderType::Double, 2 }
 	}));
 
 	triangle_vb->SetLayout(triangle_lay);
@@ -51,7 +51,7 @@ Application::Application()
 
 	std::shared_ptr<Layout> square_lay;
 	square_lay.reset(new Layout({
-		{ "square", ShaderType::Double2 }
+		{ "square", ShaderType::Double, 2 }
 	}));
 
 	square_vb->SetLayout(square_lay);
