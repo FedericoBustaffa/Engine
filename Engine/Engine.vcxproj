@@ -22,6 +22,7 @@
     <ClCompile Include="src\Events\Input.cpp" />
     <ClCompile Include="src\Graphics\Buffer.cpp" />
     <ClCompile Include="src\Graphics\Layout.cpp" />
+    <ClCompile Include="src\Graphics\OrthoCam.cpp" />
     <ClCompile Include="src\Graphics\Render.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\VertexArray.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="src\Events\WindowEvent.h" />
     <ClInclude Include="src\Graphics\Buffer.h" />
     <ClInclude Include="src\Graphics\Layout.h" />
+    <ClInclude Include="src\Graphics\OrthoCam.h" />
     <ClInclude Include="src\Graphics\Render.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
     <ClInclude Include="src\Graphics\VertexArray.h" />

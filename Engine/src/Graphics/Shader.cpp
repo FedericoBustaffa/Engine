@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <GL/glew.h>
+#include <glm/gtc/type_ptr.hpp>
 
 static unsigned int CompileShader(unsigned int type, const std::string& source);
 
@@ -37,6 +38,15 @@ void Shader::Bind() const
 void Shader::Unbind() const
 {
 	glUseProgram(0);
+}
+
+void Shader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
+{
+	int location = glGetUniformLocation(id, name.c_str());
+	if (location == -1)
+		std::cout << "Uniform doesn't exist" << std::endl;
+
+	glUniformMatrix4fv(location, 1, GL_TRUE, glm::value_ptr(matrix));
 }
 
 

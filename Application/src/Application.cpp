@@ -15,7 +15,9 @@ Application::Application()
 		#version 330 core
 
 		layout(location = 0) in vec4 v_position;
-		
+	
+		uniform mat4 view_projection;
+	
 		void main()
 		{
 			gl_Position = v_position;
@@ -64,8 +66,6 @@ Application::~Application()
 
 void Application::Run()
 {
-	double x, y;
-
 	// render loop
 	while (window.IsOpen())
 	{
