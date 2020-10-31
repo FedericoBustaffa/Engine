@@ -5,7 +5,9 @@
 #include "Events/Input.h"
 
 #include <iostream>
-#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 Application::Application()
 {
@@ -18,10 +20,11 @@ Application::Application()
 		layout(location = 0) in vec4 v_position;
 	
 		uniform mat4 view_projection;
+		uniform mat4 transform;
 	
 		void main()
 		{
-			gl_Position = v_position;
+			gl_Position = /*transform */ v_position;
 		}
 	)";
 
