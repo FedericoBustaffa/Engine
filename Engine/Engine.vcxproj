@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\TimeStep.cpp" />
     <ClCompile Include="src\Events\Input.cpp" />
     <ClCompile Include="src\Graphics\Buffer.cpp" />
     <ClCompile Include="src\Graphics\Layout.cpp" />
@@ -26,10 +27,11 @@
     <ClCompile Include="src\Graphics\Render.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\VertexArray.cpp" />
-    <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Core\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\Core\Core.h" />
+    <ClInclude Include="src\Core\TimeStep.h" />
     <ClInclude Include="src\Events\Event.h" />
     <ClInclude Include="src\Events\Input.h" />
     <ClInclude Include="src\Events\KeyCodes.h" />
@@ -43,7 +45,7 @@
     <ClInclude Include="src\Graphics\Render.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
     <ClInclude Include="src\Graphics\VertexArray.h" />
-    <ClInclude Include="src\Window.h" />
+    <ClInclude Include="src\Core\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\shader.hlsl">

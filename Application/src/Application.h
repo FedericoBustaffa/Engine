@@ -3,7 +3,8 @@
 #include <vector>
 #include <memory>
 
-#include "Window.h"
+#include "Core/Window.h"
+#include "Core/TimeStep.h"
 
 #include "Graphics/VertexArray.h"
 #include "Graphics/Buffer.h"
@@ -30,6 +31,7 @@ public:
 private:
 	// window
 	Window window;
+	TimeStep ts;
 
 	// rendering objects
 	std::shared_ptr<Shader> shader;

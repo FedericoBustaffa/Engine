@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Window.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="src\Events\Input.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
@@ -39,18 +36,18 @@
     <ClCompile Include="src\Graphics\OrthoCam.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Window.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\TimeStep.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Window.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="src\Events\Event.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\WindowEvent.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Core.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\KeyEvent.h">
@@ -84,6 +81,15 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\OrthoCam.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Window.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Core.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\TimeStep.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

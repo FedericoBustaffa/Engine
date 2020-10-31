@@ -1,10 +1,11 @@
 #include "Application.h"
-#include "Core.h"
+#include "Core/Core.h"
 #include "Graphics/Render.h"
 #include "Events/WindowEvent.h"
 #include "Events/Input.h"
 
 #include <iostream>
+#include <GLFW/glfw3.h>
 
 Application::Application()
 {
@@ -31,7 +32,7 @@ Application::Application()
 
 		void main()
 		{
-			color = vec4(0.8, 0.3, 0.1, 1.0);
+			color = vec4(0.4, 0.3, 0.1, 1.0);
 		}
 	)";
 
@@ -68,6 +69,9 @@ void Application::Run()
 {
 	while (window.IsOpen())
 	{
+		// timestep
+		ts.UpdateTime();
+
 		// background color
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 
