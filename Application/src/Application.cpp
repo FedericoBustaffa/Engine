@@ -66,7 +66,6 @@ Application::~Application()
 
 void Application::Run()
 {
-	// render loop
 	while (window.IsOpen())
 	{
 		// background color
