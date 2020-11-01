@@ -7,9 +7,9 @@ class OrthoCam
 public:
 	OrthoCam(double left, double right, double bottom, double top);
 
-	const glm::mat4& GetViewMatrix() const;
-	const glm::mat4& GetProjectionMatrix() const;
-	const glm::mat4& GetViewProjectionMatrix() const;
+	const glm::mat4& GetView() const;
+	const glm::mat4& GetProjection() const;
+	const glm::mat4& GetViewProjection() const;
 
 	void SetPosition(const glm::vec3& position);
 	const glm::vec3& GetPosition() const;
@@ -22,7 +22,6 @@ private:
 
 private:
 	glm::mat4 view, projection, view_projection;
-
 	glm::vec3 position;
 	float rotation = 0.0f;
 };

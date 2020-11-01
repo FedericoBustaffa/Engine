@@ -3,25 +3,23 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 OrthoCam::OrthoCam(double left, double right, double bottom, double top)
-	: view(1.0f),
-	projection(1.0f),
-	view_projection(glm::ortho(left, right, bottom, top)),
-	position(0.0f)
+	: view(1.0f), projection(1.0f),	view_projection(1.0f), position(0.0f)
 {
+	projection = glm::ortho(left, right, bottom, top);
 	view_projection = projection * view;
 }
 
-const glm::mat4& OrthoCam::GetViewMatrix() const
+const glm::mat4& OrthoCam::GetView() const
 {
 	return view;
 }
 
-const glm::mat4& OrthoCam::GetProjectionMatrix() const
+const glm::mat4& OrthoCam::GetProjection() const
 {
 	return projection;
 }
 
-const glm::mat4& OrthoCam::GetViewProjectionMatrix() const
+const glm::mat4& OrthoCam::GetViewProjection() const
 {
 	return view_projection;
 }

@@ -5,11 +5,10 @@
 #include "Events/Input.h"
 
 #include <iostream>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 Application::Application()
+	: camera(-2.0, 2.0, -2.0, 2.0)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
@@ -21,10 +20,11 @@ Application::Application()
 	
 		uniform mat4 proj;
 		uniform mat4 model;
+		uniform mat4 view;
 	
 		void main()
 		{
-			gl_Position = position * proj * model;
+			gl_Position = position * proj * model * view;
 		}
 	)";
 
@@ -41,8 +41,7 @@ Application::Application()
 
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 	
-	glm::mat4 proj = glm::ortho(-2.0, 2.0, -2.0, 2.0);
-	shader->SetUniformMat4("proj", proj);
+	shader->SetUniformMat4("proj", camera.GetProjection());
 
 	// square
 	double square[4 * 2] = {
@@ -99,8 +98,8 @@ Application::~Application()
 void Application::Run()
 {
 	glm::mat4 model(1.0);
-	glm::vec3 position(0.0);
-	float speed = 1.0f;
+	glm::vec3 square_position(0.0);
+	glm::vec3 camera_position(0.0);
 
 	while (window.IsOpen())
 	{
@@ -114,18 +113,32 @@ void Application::Run()
 		// rendering
 		Render::BeginScene();
 
+		// CAMERA
+		if (Input::IsKeyPressed(window, Key::Right))
+			camera_position.x += camera_speed;
+		if (Input::IsKeyPressed(window, Key::Left))
+			camera_position.x -= camera_speed;
+
+		if (Input::IsKeyPressed(window, Key::Up))
+			camera_position.y += camera_speed;
+		if (Input::IsKeyPressed(window, Key::Down))
+			camera_position.y -= camera_speed;
+
+		camera.SetPosition(camera_position);
+		shader->SetUniformMat4("view", camera.GetView());
+
 		// SQUARE RENDERING
 		if (Input::IsKeyPressed(window, Key::A))
-			position.x -= speed * ts();
+			square_position.x -= square_speed * ts();
 		if (Input::IsKeyPressed(window, Key::D))
-			position.x += speed * ts();
+			square_position.x += square_speed * ts();
 
 		if (Input::IsKeyPressed(window, Key::W))
-			position.y += speed * ts();
+			square_position.y += square_speed * ts();
 		if (Input::IsKeyPressed(window, Key::S))
-			position.y -= speed * ts();
+			square_position.y -= square_speed * ts();
 
-		model = glm::translate(glm::mat4(1.0), position);
+		model = glm::translate(glm::mat4(1.0), square_position);
 		shader->SetUniformMat4("model", model);
 		
 		shader->Bind();
