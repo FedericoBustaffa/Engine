@@ -42,7 +42,7 @@ private:
 	std::shared_ptr<VertexArray> squareVA;
 	std::shared_ptr<Buffer> squareVB;
 	std::shared_ptr<IndexBuffer> squareIB;
-	float square_speed = 1.0f;
+	float square_speed = 2.0f;
 
 	// camera
 	OrthoCam camera;
