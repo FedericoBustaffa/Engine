@@ -17,14 +17,14 @@ Application::Application()
 	std::string vertex_src = R"(
 		#version 330 core
 
-		layout(location = 0) in vec4 v_position;
+		layout(location = 0) in vec4 position;
 	
-		uniform mat4 view;
-		uniform mat4 transform;
+		uniform mat4 proj;
+		uniform mat4 model;
 	
 		void main()
 		{
-			gl_Position = view * transform * v_position;
+			gl_Position = position * proj * model;
 		}
 	)";
 
@@ -40,34 +40,56 @@ Application::Application()
 	)";
 
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
-	glm::mat4 view = glm::ortho(-1.0, 1.0, -1.0, 1.0);
-	shader->SetUniformMat4("view", view);
+	
+	glm::mat4 proj = glm::ortho(-2.0, 2.0, -2.0, 2.0);
+	shader->SetUniformMat4("proj", proj);
 
-	// buffers
-	double vertices[4 * 2] = {
-		-0.5, -0.5,
-		-0.5,  0.5,
-		 0.5,  0.5,
-		 0.5, -0.5
+	// square
+	double square[4 * 2] = {
+		-0.8, -0.5,
+		-0.8,  0.5,
+		-0.2,  0.5,
+		-0.2, -0.5
 	};
 	
-	uint32_t indices[6] = {
+	squareVA = std::make_shared<VertexArray>();
+	squareVB = std::make_shared<Buffer>(sizeof(square), square);
+	
+	uint32_t square_indices[6] = {
 		0, 1, 2,
 		2, 3, 0
 	};
-	
-	va = std::make_shared<VertexArray>();
-	vb = std::make_shared<Buffer>(sizeof(vertices), vertices);
-	ib = std::make_shared<IndexBuffer>(6, indices);
 
+	squareIB = std::make_shared<IndexBuffer>(6, square_indices);
+	
+	
+	// triangle
+	double triangle[3 * 2] = {
+		 0.2, -0.5,
+		 0.5,  0.5,
+		 0.8, -0.5
+	};
+
+	triangleVA = std::make_shared<VertexArray>();
+	triangleVB = std::make_shared<Buffer>(sizeof(triangle), triangle);
+
+	uint32_t triangle_indices[3] = { 0, 1, 2 };
+
+	triangleIB = std::make_shared<IndexBuffer>(3, triangle_indices);
+
+	// layout
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
 		{ "position", ShaderType::Double, 2 }
 	}));
 
-	vb->SetLayout(layout);
-	va->AddBuffer(vb);
-	va->SetIndexBuffer(ib);
+	squareVB->SetLayout(layout);
+	squareVA->AddBuffer(squareVB);
+	squareVA->SetIndexBuffer(squareIB);
+	
+	triangleVB->SetLayout(layout);
+	triangleVA->AddBuffer(triangleVB);
+	triangleVA->SetIndexBuffer(triangleIB);
 }
 
 Application::~Application()
@@ -76,8 +98,10 @@ Application::~Application()
 
 void Application::Run()
 {
-	glm::vec3 position(0.0f);
-	
+	glm::mat4 model(1.0);
+	glm::vec3 position(0.0);
+	float speed = 1.0f;
+
 	while (window.IsOpen())
 	{
 		// timestep
@@ -90,22 +114,27 @@ void Application::Run()
 		// rendering
 		Render::BeginScene();
 
+		// SQUARE RENDERING
 		if (Input::IsKeyPressed(window, Key::A))
-			position.x -= 5.0f * ts.GetSeconds();
-		else if (Input::IsKeyPressed(window, Key::D))
-			position.x += 5.0f * ts.GetSeconds();
-		
-		if (Input::IsKeyPressed(window, Key::W))
-			position.y += 5.0f * ts.GetSeconds();
-		else if (Input::IsKeyPressed(window, Key::S))
-			position.y -= 5.0f * ts.GetSeconds();
-		
-		
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position);
+			position.x -= speed * ts();
+		if (Input::IsKeyPressed(window, Key::D))
+			position.x += speed * ts();
 
-		shader->SetUniformMat4("transform", transform);
+		if (Input::IsKeyPressed(window, Key::W))
+			position.y += speed * ts();
+		if (Input::IsKeyPressed(window, Key::S))
+			position.y -= speed * ts();
+
+		model = glm::translate(glm::mat4(1.0), position);
+		shader->SetUniformMat4("model", model);
+		
 		shader->Bind();
-		Render::DrawIndexed(va);
+		Render::DrawIndexed(squareVA);
+
+		// TRIANGLE RENDERING
+		shader->SetUniformMat4("model", glm::mat4(1.0));
+		shader->Bind();
+		Render::DrawIndexed(triangleVA);
 
 		Render::EndScene();
 

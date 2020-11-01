@@ -36,7 +36,11 @@ private:
 	// rendering objects
 	std::shared_ptr<Shader> shader;
 
-	std::shared_ptr<VertexArray> va;
-	std::shared_ptr<Buffer> vb;
-	std::shared_ptr<IndexBuffer> ib;
+	std::shared_ptr<VertexArray> squareVA;
+	std::shared_ptr<Buffer> squareVB;
+	std::shared_ptr<IndexBuffer> squareIB;
+
+	std::shared_ptr<VertexArray> triangleVA;
+	std::shared_ptr<Buffer> triangleVB;
+	std::shared_ptr<IndexBuffer> triangleIB;
 };

@@ -23,3 +23,8 @@ float TimeStep::GetMilliSeconds() const
 {
 	return time_step * 1000.0f;
 }
+
+float TimeStep::operator()() const
+{
+	return time_step;
+}
