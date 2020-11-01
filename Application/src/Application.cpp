@@ -115,17 +115,19 @@ void Application::Run()
 
 		// CAMERA
 		if (Input::IsKeyPressed(window, Key::Right))
-			camera_position.x += camera_speed;
+			camera_position.x += camera_speed * ts();
 		if (Input::IsKeyPressed(window, Key::Left))
-			camera_position.x -= camera_speed;
+			camera_position.x -= camera_speed * ts();
 
 		if (Input::IsKeyPressed(window, Key::Up))
-			camera_position.y += camera_speed;
+			camera_position.y += camera_speed * ts();
 		if (Input::IsKeyPressed(window, Key::Down))
-			camera_position.y -= camera_speed;
+			camera_position.y -= camera_speed * ts();
 
 		camera.SetPosition(camera_position);
-		shader->SetUniformMat4("view", camera.GetView());
+		// TODO fix camera
+		glm::mat4 view = glm::inverse(glm::translate(glm::mat4(1.0), camera_position));
+		shader->SetUniformMat4("view", view);
 
 		// SQUARE RENDERING
 		if (Input::IsKeyPressed(window, Key::A))
