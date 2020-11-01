@@ -44,12 +44,6 @@ private:
 	std::shared_ptr<IndexBuffer> squareIB;
 	float square_speed = 1.0f;
 
-	// triangle
-	std::shared_ptr<VertexArray> triangleVA;
-	std::shared_ptr<Buffer> triangleVB;
-	std::shared_ptr<IndexBuffer> triangleIB;
-
 	// camera
 	OrthoCam camera;
-	float camera_speed = 2.0f;
 };
