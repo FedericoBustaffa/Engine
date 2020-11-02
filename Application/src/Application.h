@@ -30,6 +30,9 @@ public:
 	void OnCloseEvent(CloseEvent& e);
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 
+	void CameraController();
+	void SquareTransform();
+
 private:
 	// window
 	Window window;
@@ -37,12 +40,15 @@ private:
 
 	// rendering objects
 	std::shared_ptr<Shader> shader;
+	glm::mat4 model;
 
 	// square
 	std::shared_ptr<VertexArray> squareVA;
 	std::shared_ptr<Buffer> squareVB;
 	std::shared_ptr<IndexBuffer> squareIB;
-	float square_speed = 2.0f;
+	glm::vec3 square_position = { 0.0, 0.0, 0.0 };
+	float square_speed = 1.0f;
+	bool right = false, left = false, up = false, down = false;
 
 	// camera
 	OrthoCam camera;

@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: camera(-8.0, 8.0, -4.5, 4.5)
+	: model(1.0), camera(-8.0, 8.0, -4.5, 4.5)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
@@ -44,10 +44,10 @@ Application::Application()
 
 	// square
 	double square[4 * 2] = {
-		-2.0, -2.0,
-		-2.0,  2.0,
-		 2.0,  2.0,
-		 2.0, -2.0
+		-1.0, -1.0,
+		-1.0,  1.0,
+		 1.0,  1.0,
+		 1.0, -1.0
 	};
 	
 	squareVA = std::make_shared<VertexArray>();
@@ -77,9 +77,6 @@ Application::~Application()
 
 void Application::Run()
 {
-	glm::mat4 model(1.0);
-	glm::vec3 square_position(0.0);
-
 	while (window.IsOpen())
 	{
 		// timestep
@@ -89,43 +86,29 @@ void Application::Run()
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		Render::BeginScene();
-
-		// CAMERA
-		if (Input::IsKeyPressed(window, Key::Left))
-			camera_position.x -= camera_speed * ts();
-		if (Input::IsKeyPressed(window, Key::Right))
-			camera_position.x += camera_speed * ts();
-		if (Input::IsKeyPressed(window, Key::Up))
-			camera_position.y += camera_speed * ts();
-		if (Input::IsKeyPressed(window, Key::Down))
-			camera_position.y -= camera_speed * ts();
-
-		if (Input::IsKeyPressed(window, Key::K))
-			camera_rotation += camera_rotation_speed * ts();
-		if (Input::IsKeyPressed(window, Key::L))
-			camera_rotation -= camera_rotation_speed * ts();
-
+		//CameraController();
+		//SquareTransform();
+		if (right)
+			square_position.x += square_speed * ts();
+		
+		if (left)
+			square_position.x -= square_speed * ts();
+		
+		if (up)
+			square_position.y += square_speed * ts();
+		
+		if (down)
+			square_position.y -= square_speed * ts();
+		
 		camera.SetPosition(camera_position);
 		camera.SetRotation(camera_rotation);
 		shader->SetUniformMat4("vp", camera.GetViewProjection());
-
-		// SQUARE RENDERING
-		if (Input::IsKeyPressed(window, Key::A))
-			square_position.x -= square_speed * ts();
-		if (Input::IsKeyPressed(window, Key::D))
-			square_position.x += square_speed * ts();
-		if (Input::IsKeyPressed(window, Key::W))
-			square_position.y += square_speed * ts();
-		if (Input::IsKeyPressed(window, Key::S))
-			square_position.y -= square_speed * ts();
 		
 		model = glm::translate(glm::mat4(1.0), square_position);
 		shader->SetUniformMat4("model", model);
+
 		shader->Bind();
 		Render::DrawIndexed(squareVA);
-		
-		Render::EndScene();
 
 		// event polling
 		window.OnUpdate();
@@ -153,7 +136,64 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 		window.Close();
 		break;
 
+	case Key::D:
+		right = true;
+		left = false;
+		up = false;
+		down = false;
+		break;
+
+	case Key::A:
+		right = false;
+		left = true;
+		up = false;
+		down = false;
+		break;
+
+	case Key::W:
+		right = false;
+		left = false;
+		up = true;
+		down = false;
+		break;
+
+	case Key::S:
+		right = false;
+		left = false;
+		up = false;
+		down = true;
+		break;
+		
 	default:
 		break;
 	}
+}
+
+void Application::CameraController()
+{
+	if (Input::IsKeyPressed(window, Key::Left))
+		camera_position.x -= camera_speed * ts();
+	if (Input::IsKeyPressed(window, Key::Right))
+		camera_position.x += camera_speed * ts();
+	if (Input::IsKeyPressed(window, Key::Up))
+		camera_position.y += camera_speed * ts();
+	if (Input::IsKeyPressed(window, Key::Down))
+		camera_position.y -= camera_speed * ts();
+
+	if (Input::IsKeyPressed(window, Key::K))
+		camera_rotation += camera_rotation_speed * ts();
+	if (Input::IsKeyPressed(window, Key::L))
+		camera_rotation -= camera_rotation_speed * ts();
+}
+
+void Application::SquareTransform()
+{
+	if (Input::IsKeyPressed(window, Key::A))
+		square_position.x -= square_speed * ts();
+	if (Input::IsKeyPressed(window, Key::D))
+		square_position.x += square_speed * ts();
+	if (Input::IsKeyPressed(window, Key::W))
+		square_position.y += square_speed * ts();
+	if (Input::IsKeyPressed(window, Key::S))
+		square_position.y -= square_speed * ts();
 }
