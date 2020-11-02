@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: camera(-1.0, 1.0, -1.0, 1.0)
+	: camera(-3.0, 3.0, -3.0, 3.0)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
@@ -44,10 +44,10 @@ Application::Application()
 
 	// square
 	double square[4 * 2] = {
-		-0.8, -0.5,
-		-0.8,  0.5,
-		-0.2,  0.5,
-		-0.2, -0.5
+		-0.3, -0.5,
+		-0.3,  0.5,
+		 0.3,  0.5,
+		 0.3, -0.5
 	};
 	
 	squareVA = std::make_shared<VertexArray>();
@@ -59,7 +59,6 @@ Application::Application()
 	};
 
 	squareIB = std::make_shared<IndexBuffer>(6, square_indices);
-	
 	
 	// layout
 	std::shared_ptr<Layout> layout;
@@ -94,10 +93,20 @@ void Application::Run()
 
 		// CAMERA
 		if (Input::IsKeyPressed(window, Key::Left))
-			camera_rotation += camera_rotation_speed * ts();
+			camera_position.x -= camera_speed * ts();
 		if (Input::IsKeyPressed(window, Key::Right))
+			camera_position.x += camera_speed * ts();
+		if (Input::IsKeyPressed(window, Key::Up))
+			camera_position.y += camera_speed * ts();
+		if (Input::IsKeyPressed(window, Key::Down))
+			camera_position.y -= camera_speed * ts();
+
+		if (Input::IsKeyPressed(window, Key::K))
+			camera_rotation += camera_rotation_speed * ts();
+		if (Input::IsKeyPressed(window, Key::L))
 			camera_rotation -= camera_rotation_speed * ts();
 
+		camera.SetPosition(camera_position);
 		camera.SetRotation(camera_rotation);
 		shader->SetUniformMat4("vp", camera.GetViewProjection());
 
@@ -106,14 +115,13 @@ void Application::Run()
 			square_position.x -= square_speed * ts();
 		if (Input::IsKeyPressed(window, Key::D))
 			square_position.x += square_speed * ts();
-
 		if (Input::IsKeyPressed(window, Key::W))
 			square_position.y += square_speed * ts();
 		if (Input::IsKeyPressed(window, Key::S))
 			square_position.y -= square_speed * ts();
 		
 		model = glm::translate(glm::mat4(1.0), square_position) *
-			glm::rotate(glm::mat4(1.0), glm::radians(70.0f), glm::vec3(0.0, 0.0, 1.0));
+			glm::rotate(glm::mat4(1.0), glm::radians(40.0f), glm::vec3(0, 0, 1));
 		shader->SetUniformMat4("model", model);
 		shader->Bind();
 		Render::DrawIndexed(squareVA);

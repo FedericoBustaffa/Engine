@@ -5,7 +5,7 @@
 OrthoCam::OrthoCam(double left, double right, double bottom, double top)
 	: view(1.0f), projection(1.0f),	view_projection(1.0f), position(0.0f)
 {
-	projection = glm::ortho(left, right, bottom, top);
+	projection = glm::ortho(left, right, bottom, top, -1.0, 1.0);
 	view_projection = projection * view;
 }
 
