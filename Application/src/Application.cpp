@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: camera(-10.0, 10.0, -10.0, 10.0)
+	: camera(-1.0, 1.0, -1.0, 1.0)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
@@ -92,6 +92,13 @@ void Application::Run()
 		// rendering
 		Render::BeginScene();
 
+		// CAMERA
+		if (Input::IsKeyPressed(window, Key::Left))
+			camera_rotation += camera_rotation_speed * ts();
+		if (Input::IsKeyPressed(window, Key::Right))
+			camera_rotation -= camera_rotation_speed * ts();
+
+		camera.SetRotation(camera_rotation);
 		shader->SetUniformMat4("vp", camera.GetViewProjection());
 
 		// SQUARE RENDERING
@@ -105,7 +112,8 @@ void Application::Run()
 		if (Input::IsKeyPressed(window, Key::S))
 			square_position.y -= square_speed * ts();
 		
-		model = glm::translate(glm::mat4(1.0), square_position);
+		model = glm::translate(glm::mat4(1.0), square_position) *
+			glm::rotate(glm::mat4(1.0), glm::radians(70.0f), glm::vec3(0.0, 0.0, 1.0));
 		shader->SetUniformMat4("model", model);
 		shader->Bind();
 		Render::DrawIndexed(squareVA);

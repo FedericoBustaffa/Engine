@@ -49,9 +49,9 @@ float OrthoCam::GetRotation() const
 // calcolo delle matrici
 void OrthoCam::RecalculateViewMatrix()
 {
-	glm::mat4 tmp = glm::translate(glm::mat4(1.0f), position) *
+	glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 		glm::rotate(glm::mat4(1.0), glm::radians(rotation), glm::vec3(0, 0, 1));
 
-	view = glm::inverse(tmp);
+	view = glm::inverse(transform);
 	view_projection = projection * view;
 }
