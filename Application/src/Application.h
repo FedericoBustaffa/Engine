@@ -48,5 +48,5 @@ private:
 	OrthoCam camera;
 	glm::vec3 camera_position = { 0.0, 0.0, 0.0 };
 	float camera_rotation = 0.0f;
-	float camera_speed = 3.0f, camera_rotation_speed = 90.0f;
+	float camera_speed = 15.0f, camera_rotation_speed = 180.0f;
 };

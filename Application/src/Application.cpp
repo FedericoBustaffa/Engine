@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: camera(-3.0, 3.0, -3.0, 3.0)
+	: camera(-8.0, 8.0, -4.5, 4.5)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 
@@ -44,10 +44,10 @@ Application::Application()
 
 	// square
 	double square[4 * 2] = {
-		-0.3, -0.5,
-		-0.3,  0.5,
-		 0.3,  0.5,
-		 0.3, -0.5
+		-2.0, -2.0,
+		-2.0,  2.0,
+		 2.0,  2.0,
+		 2.0, -2.0
 	};
 	
 	squareVA = std::make_shared<VertexArray>();
@@ -120,8 +120,7 @@ void Application::Run()
 		if (Input::IsKeyPressed(window, Key::S))
 			square_position.y -= square_speed * ts();
 		
-		model = glm::translate(glm::mat4(1.0), square_position) *
-			glm::rotate(glm::mat4(1.0), glm::radians(40.0f), glm::vec3(0, 0, 1));
+		model = glm::translate(glm::mat4(1.0), square_position);
 		shader->SetUniformMat4("model", model);
 		shader->Bind();
 		Render::DrawIndexed(squareVA);
