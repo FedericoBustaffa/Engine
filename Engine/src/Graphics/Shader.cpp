@@ -40,11 +40,20 @@ void Shader::Unbind() const
 	glUseProgram(0);
 }
 
+void Shader::SetUniform4f(const std::string& name, float v1, float v2, float v3, float v4)
+{
+	int location = glGetUniformLocation(id, name.c_str());
+	if (location == -1)
+		std::cout << "Location of " << name << " does not exist" << std::endl;
+
+	glUniform4f(location, v1, v2, v3, v4);
+}
+
 void Shader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
 {
 	int location = glGetUniformLocation(id, name.c_str());
 	if (location == -1)
-		std::cout << "Uniform: " << name << " does not exist" << std::endl;
+		std::cout << "Location of " << name << " does not exist" << std::endl;
 
 	glUniformMatrix4fv(location, 1, GL_TRUE, glm::value_ptr(matrix));
 }

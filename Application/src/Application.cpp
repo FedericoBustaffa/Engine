@@ -31,14 +31,16 @@ Application::Application()
 		#version 330 core
 
 		out vec4 color;
+		uniform vec4 u_color;
 
 		void main()
 		{
-			color = vec4(0.4, 0.75, 0.2, 1.0);
+			color = u_color;
 		}
 	)";
 
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
+	shader->SetUniform4f("u_color", 0.3f, 0.7f, 0.9f, 1.0f);
 
 	// square
 	double square[4 * 2] = {
@@ -102,18 +104,11 @@ void Application::Run()
 			square_position.y += square_speed * ts();
 		if (Input::IsKeyPressed(window, Key::S))
 			square_position.y -= square_speed * ts();
-
-		for (int i = 0; i < 5; i++)
-		{
-			for (int j = 0; j < 5; j++)
-			{
-				glm::vec3 pos(square_position.x + (i * 0.07), square_position.y + (j * 0.12), 0.0);
-				model = glm::translate(glm::mat4(1.0), pos);
-				shader->SetUniformMat4("model", model);
-				shader->Bind();
-				Render::DrawIndexed(squareVA);
-			}
-		}
+		
+		model = glm::translate(glm::mat4(1.0), square_position);
+		shader->SetUniformMat4("model", model);
+		shader->Bind();
+		Render::DrawIndexed(squareVA);
 		
 		Render::EndScene();
 
