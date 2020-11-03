@@ -62,7 +62,7 @@ private:
 	std::shared_ptr<IndexBuffer> squareIB;
 	glm::mat4 model;
 	glm::vec3 square_move = { 0.0, 0.0, 0.0 };
-	float speed0 = 15.0f, speed = 0.0f;
+	float speed0 = 20.0f, speed = 0.0f;
 	float gravity = 35.0f;
 	float time1 = 0.0f, time2 = 0.0f;
 	float jump = 8.0f;
