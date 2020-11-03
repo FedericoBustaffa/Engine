@@ -32,6 +32,9 @@ public:
 
 	void CameraController();
 	void SquareTransform();
+	bool BoundCollision();
+	void Gravity();
+	void Jump();
 
 private:
 	// window
@@ -40,15 +43,29 @@ private:
 
 	// rendering objects
 	std::shared_ptr<Shader> shader;
-	glm::mat4 model;
 
 	// square
+	glm::vec4 square[4] = {
+		{ -0.5f, -4.4f, 0.0f, 1.0f },
+		{ -0.5f, -3.4f, 0.0f, 1.0f },
+		{  0.5f, -3.4f, 0.0f, 1.0f },
+		{  0.5f, -4.4f, 0.0f, 1.0f }
+	};
+
+	uint32_t indices[6] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
 	std::shared_ptr<VertexArray> squareVA;
 	std::shared_ptr<Buffer> squareVB;
 	std::shared_ptr<IndexBuffer> squareIB;
-	glm::vec3 square_position = { 0.0, 0.0, 0.0 };
-	float square_speed = 1.0f;
-	bool right = false, left = false, up = false, down = false;
+	glm::mat4 model;
+	glm::vec3 square_move = { 0.0, 0.0, 0.0 };
+	float speed0 = 15.0f, speed = 0.0f;
+	float gravity = 35.0f;
+	float time1 = 0.0f, time2 = 0.0f;
+	float jump = 8.0f;
 
 	// camera
 	OrthoCam camera;

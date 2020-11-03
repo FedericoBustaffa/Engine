@@ -33,6 +33,7 @@ public:
 	void OnUpdate() const;
 	void VSync(bool enabled);
 	void SetRatio(int num, int denom);
+	float GetTime() const;
 	void SetEventCallback(EventFn<Event&> callback);
 	GLFWwindow* GetNativeWindow() const;
 

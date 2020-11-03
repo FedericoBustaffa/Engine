@@ -181,6 +181,11 @@ void Window::SetRatio(int num, int denom)
 }
 
 
+float Window::GetTime() const
+{
+	return (float)glfwGetTime();
+}
+
 void Window::SetEventCallback(EventFn<Event&> callback)
 {
 	data.callback = callback;
