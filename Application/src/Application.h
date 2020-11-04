@@ -4,18 +4,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 
-#include "Core/Window.h"
-#include "Core/TimeStep.h"
-
-#include "Graphics/VertexArray.h"
-#include "Graphics/Buffer.h"
-#include "Graphics/Shader.h"
-#include "Graphics/OrthoCam.h"
-
-#include "Events/Event.h"
-#include "Events/WindowEvent.h"
-#include "Events/KeyEvent.h"
-#include "Events/MouseEvent.h"
+#include "Engine.h"
 
 class Application
 {
@@ -32,9 +21,6 @@ public:
 
 	void CameraController();
 	void SquareTransform();
-	bool BoundCollision();
-	void Gravity();
-	void Jump();
 
 private:
 	// window
@@ -57,15 +43,10 @@ private:
 		2, 3, 0
 	};
 
-	std::shared_ptr<VertexArray> squareVA;
-	std::shared_ptr<Buffer> squareVB;
-	std::shared_ptr<IndexBuffer> squareIB;
+	std::shared_ptr<Triangle> triangle;
 	glm::mat4 model;
 	glm::vec3 square_move = { 0.0, 0.0, 0.0 };
-	float speed0 = 20.0f, speed = 0.0f;
-	float gravity = 35.0f;
-	float time1 = 0.0f, time2 = 0.0f;
-	float jump = 8.0f;
+	float speed = 10.0f;
 
 	// camera
 	OrthoCam camera;

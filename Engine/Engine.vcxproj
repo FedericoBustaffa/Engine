@@ -26,6 +26,7 @@
     <ClCompile Include="src\Graphics\OrthoCam.cpp" />
     <ClCompile Include="src\Graphics\Render.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Shapes\Triangle.cpp" />
     <ClCompile Include="src\Graphics\VertexArray.cpp" />
     <ClCompile Include="src\Core\Window.cpp" />
   </ItemGroup>
@@ -40,10 +41,12 @@
     <ClInclude Include="src\Events\MouseEvent.h" />
     <ClInclude Include="src\Events\WindowEvent.h" />
     <ClInclude Include="src\Graphics\Buffer.h" />
+    <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Graphics\Layout.h" />
     <ClInclude Include="src\Graphics\OrthoCam.h" />
     <ClInclude Include="src\Graphics\Render.h" />
     <ClInclude Include="src\Graphics\Shader.h" />
+    <ClInclude Include="src\Graphics\Shapes\Triangle.h" />
     <ClInclude Include="src\Graphics\VertexArray.h" />
     <ClInclude Include="src\Core\Window.h" />
   </ItemGroup>

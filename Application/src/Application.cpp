@@ -1,8 +1,4 @@
 #include "Application.h"
-#include "Core/Core.h"
-#include "Graphics/Render.h"
-#include "Events/WindowEvent.h"
-#include "Events/Input.h"
 
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
@@ -41,20 +37,13 @@ Application::Application()
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 	shader->SetUniform4f("u_color", 0.3f, 0.7f, 0.9f, 1.0f);
 
-	// square
-	squareVA = std::make_shared<VertexArray>();
-	squareVB = std::make_shared<Buffer>(sizeof(square), square);
-	squareIB = std::make_shared<IndexBuffer>(6, indices);
-	
 	// layout
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
 		{ "position", ShaderType::Float, 4 }
 	}));
 
-	squareVB->SetLayout(layout);
-	squareVA->AddBuffer(squareVB);
-	squareVA->SetIndexBuffer(squareIB);
+	triangle->SetLayout(layout);
 }
 
 Application::~Application()
@@ -72,17 +61,12 @@ void Application::Run()
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		//CameraController();
-		//SquareTransform();
-		
-		camera.SetPosition(camera_position);
-		camera.SetRotation(camera_rotation);
-		
-		Gravity();
+		CameraController();
+		SquareTransform();
 
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * model);
+		shader->SetUniformMat4("mvp", camera.GetViewProjection());
 		shader->Bind();
-		Render::DrawIndexed(squareVA);
+		Render::DrawIndexed(triangle.GetVA());
 
 		// event polling
 		window.OnUpdate();
@@ -110,10 +94,6 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 		window.Close();
 		break;
 
-	case Key::Space:
-		Jump();
-		break;
-
 	default:
 		break;
 	}
@@ -134,6 +114,9 @@ void Application::CameraController()
 		camera_rotation += camera_rotation_speed * ts();
 	if (Input::IsKeyPressed(window, Key::L))
 		camera_rotation -= camera_rotation_speed * ts();
+
+	camera.SetPosition(camera_position);
+	camera.SetRotation(camera_rotation);
 }
 
 void Application::SquareTransform()
@@ -146,37 +129,6 @@ void Application::SquareTransform()
 		square_move.y += speed * ts();
 	if (Input::IsKeyPressed(window, Key::S))
 		square_move.y -= speed * ts();
-}
 
-bool Application::BoundCollision()
-{
-	glm::vec4 pos;
-	for (int i = 0; i < 4; i++)
-	{
-		pos = model * square[i];
-		if (glm::abs(pos.x) >= 8.0f || pos.y <= -4.5f)
-			return true;
-	}
-
-	return false;
-}
-
-void Application::Gravity()
-{
-	if (BoundCollision())
-	{
-		time2 += time1;
-		speed0 = glm::abs(speed);
-	}
-	time1 = window.GetTime() - time2;
-	speed = speed0 - (gravity * time1);
-	
-	square_move.y += speed * ts();
 	model = glm::translate(glm::mat4(1.0), square_move);
-}
-
-void Application::Jump()
-{
-	time2 += time1;
-	speed0 = glm::abs(jump);
 }

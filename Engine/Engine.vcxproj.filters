@@ -42,6 +42,9 @@
     <ClCompile Include="src\Core\TimeStep.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\Shapes\Triangle.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Events\Event.h">
@@ -90,6 +93,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="src\Core\TimeStep.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\Shapes\Triangle.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
