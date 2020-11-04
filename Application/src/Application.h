@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "Engine.h"
+#include "Triangle.h"
 
 class Application
 {
@@ -31,21 +32,15 @@ private:
 	std::shared_ptr<Shader> shader;
 
 	// square
-	glm::vec4 square[4] = {
-		{ -0.5f, -4.4f, 0.0f, 1.0f },
-		{ -0.5f, -3.4f, 0.0f, 1.0f },
-		{  0.5f, -3.4f, 0.0f, 1.0f },
-		{  0.5f, -4.4f, 0.0f, 1.0f }
-	};
-
-	uint32_t indices[6] = {
-		0, 1, 2,
-		2, 3, 0
+	glm::vec4 vertices[3] = {
+		{ -1.0f, -1.0f, 0.0f, 1.0f },
+		{  0.0f,  1.0f, 0.0f, 1.0f },
+		{  1.0f, -1.0f, 0.0f, 1.0f },
 	};
 
 	std::shared_ptr<Triangle> triangle;
 	glm::mat4 model;
-	glm::vec3 square_move = { 0.0, 0.0, 0.0 };
+	glm::vec3 move = { 0.0, 0.0, 0.0 };
 	float speed = 10.0f;
 
 	// camera

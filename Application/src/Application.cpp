@@ -43,7 +43,7 @@ Application::Application()
 		{ "position", ShaderType::Float, 4 }
 	}));
 
-	triangle->SetLayout(layout);
+	triangle = std::make_shared<Triangle>(sizeof(vertices), vertices, layout);
 }
 
 Application::~Application()
@@ -64,9 +64,9 @@ void Application::Run()
 		CameraController();
 		SquareTransform();
 
-		shader->SetUniformMat4("mvp", camera.GetViewProjection());
+		shader->SetUniformMat4("mvp", camera.GetViewProjection() * model);
 		shader->Bind();
-		Render::DrawIndexed(triangle.GetVA());
+		Render::DrawIndexed(triangle->GetVA());
 
 		// event polling
 		window.OnUpdate();
@@ -122,13 +122,13 @@ void Application::CameraController()
 void Application::SquareTransform()
 {
 	if (Input::IsKeyPressed(window, Key::A))
-		square_move.x -= speed * ts();
+		move.x -= speed * ts();
 	if (Input::IsKeyPressed(window, Key::D))
-		square_move.x += speed * ts();
+		move.x += speed * ts();
 	if (Input::IsKeyPressed(window, Key::W))
-		square_move.y += speed * ts();
+		move.y += speed * ts();
 	if (Input::IsKeyPressed(window, Key::S))
-		square_move.y -= speed * ts();
+		move.y -= speed * ts();
 
-	model = glm::translate(glm::mat4(1.0), square_move);
+	model = glm::translate(glm::mat4(1.0), move);
 }
