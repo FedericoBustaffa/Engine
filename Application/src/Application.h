@@ -21,17 +21,18 @@ public:
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 
 	void CameraController();
-	void SquareTransform();
+	void Movement();
 
 private:
 	// window
 	Window window;
 	TimeStep ts;
 
-	// rendering objects
+	// shader
 	std::shared_ptr<Shader> shader;
 
-	// square
+	
+	// triangle
 	glm::vec4 vertices[3] = {
 		{ -1.0f, -1.0f, 0.0f, 1.0f },
 		{  0.0f,  1.0f, 0.0f, 1.0f },
@@ -39,9 +40,7 @@ private:
 	};
 
 	std::shared_ptr<Triangle> triangle;
-	glm::mat4 model;
-	glm::vec3 move = { 0.0, 0.0, 0.0 };
-	float speed = 10.0f;
+
 
 	// camera
 	OrthoCam camera;

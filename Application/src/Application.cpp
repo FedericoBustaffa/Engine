@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: model(1.0), camera(-8.0, 8.0, -4.5, 4.5)
+	: camera(-8.0, 8.0, -4.5, 4.5)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 	
@@ -62,9 +62,9 @@ void Application::Run()
 		
 		// rendering
 		CameraController();
-		SquareTransform();
+		Movement();
 
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * model);
+		shader->SetUniformMat4("mvp", camera.GetViewProjection() * triangle->GetModel());
 		shader->Bind();
 		Render::DrawIndexed(triangle->GetVA());
 
@@ -119,16 +119,8 @@ void Application::CameraController()
 	camera.SetRotation(camera_rotation);
 }
 
-void Application::SquareTransform()
+void Application::Movement()
 {
-	if (Input::IsKeyPressed(window, Key::A))
-		move.x -= speed * ts();
-	if (Input::IsKeyPressed(window, Key::D))
-		move.x += speed * ts();
-	if (Input::IsKeyPressed(window, Key::W))
-		move.y += speed * ts();
-	if (Input::IsKeyPressed(window, Key::S))
-		move.y -= speed * ts();
+	if(Input::IsKeyPressed(window, Key::A))
 
-	model = glm::translate(glm::mat4(1.0), move);
 }
