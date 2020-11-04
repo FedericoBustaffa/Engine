@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "Engine.h"
-#include "Triangle.h"
+#include "Player.h"
 
 class Application
 {
@@ -20,8 +20,15 @@ public:
 	void OnCloseEvent(CloseEvent& e);
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 
+	// movimento
 	void CameraController();
-	void Movement();
+	void MoveP1();
+	void MoveP2();
+
+	bool Collision();
+
+private:
+	bool Inside(const glm::vec4& vertex, const std::vector<glm::vec4>& entity);
 
 private:
 	// window
@@ -31,17 +38,8 @@ private:
 	// shader
 	std::shared_ptr<Shader> shader;
 
-	
-	// triangle
-	glm::vec4 vertices[3] = {
-		{ -1.0f, -1.0f, 0.0f, 1.0f },
-		{  0.0f,  1.0f, 0.0f, 1.0f },
-		{  1.0f, -1.0f, 0.0f, 1.0f },
-	};
-
-	std::shared_ptr<Triangle> triangle;
-	glm::vec3 move;
-	float speed = 10.0f;
+	// player
+	std::shared_ptr<Player> p1, p2;
 
 	// camera
 	OrthoCam camera;

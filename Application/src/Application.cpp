@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: move(0.0), camera(-8.0, 8.0, -4.5, 4.5)
+	: camera(-8.0, 8.0, -4.5, 4.5)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 	
@@ -35,15 +35,28 @@ Application::Application()
 	)";
 
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
-	shader->SetUniform4f("u_color", 0.3f, 0.7f, 0.9f, 1.0f);
 
-	// layout
-	std::shared_ptr<Layout> layout;
-	layout.reset(new Layout({
-		{ "position", ShaderType::Float, 4 }
-	}));
+	std::vector<glm::vec4> p1_buffer = {
+		{ -3.0f, -1.0f, 0.0f, 1.0f },
+		{ -3.0f,  1.0f, 0.0f, 1.0f },
+		{ -1.0f,  1.0f, 0.0f, 1.0f },
+		{ -1.0f, -1.0f, 0.0f, 1.0f }
+	};
+	
+	std::vector<glm::vec4> p2_buffer = {
+		{  1.0f, -1.0f, 0.0f, 1.0f },
+		{  1.0f,  1.0f, 0.0f, 1.0f },
+		{  3.0f,  1.0f, 0.0f, 1.0f },
+		{  3.0f, -1.0f, 0.0f, 1.0f }
+	};
 
-	triangle = std::make_shared<Triangle>(sizeof(vertices), vertices, layout);
+	std::vector<unsigned int> indices = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	p1 = std::make_shared<Player>(p1_buffer, indices);
+	p2 = std::make_shared<Player>(p2_buffer, indices);
 }
 
 Application::~Application()
@@ -62,11 +75,22 @@ void Application::Run()
 		
 		// rendering
 		CameraController();
-		Movement();
+		MoveP1();
+		MoveP2();
+		if (Collision())
+			std::cout << "collisione" << std::endl;
 
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * triangle->GetModel());
+		// p1
+		shader->SetUniform4f("u_color", 0.4f, 0.8f, 0.2f, 1.0f);
+		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p1->GetModel());
 		shader->Bind();
-		Render::DrawIndexed(triangle->GetVA());
+		Render::DrawIndexed(p1->GetVA());
+
+		// p2
+		shader->SetUniform4f("u_color", 0.8f, 0.2f, 0.6f, 1.0f);
+		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p2->GetModel());
+		shader->Bind();
+		Render::DrawIndexed(p2->GetVA());
 
 		// event polling
 		window.OnUpdate();
@@ -110,25 +134,39 @@ void Application::CameraController()
 	if (Input::IsKeyPressed(window, Key::Down))
 		camera_position.y -= camera_speed * ts();
 
-	if (Input::IsKeyPressed(window, Key::K))
-		camera_rotation += camera_rotation_speed * ts();
-	if (Input::IsKeyPressed(window, Key::L))
-		camera_rotation -= camera_rotation_speed * ts();
-
 	camera.SetPosition(camera_position);
-	camera.SetRotation(camera_rotation);
 }
 
-void Application::Movement()
+void Application::MoveP1()
 {
 	if (Input::IsKeyPressed(window, Key::A))
-		move.x -= speed * ts();
+		p1->MoveLeft(ts);
 	if (Input::IsKeyPressed(window, Key::D))
-		move.x += speed * ts();
+		p1->MoveRight(ts);
+	
 	if (Input::IsKeyPressed(window, Key::S))
-		move.y -= speed * ts();
+		p1->MoveDown(ts);
 	if (Input::IsKeyPressed(window, Key::W))
-		move.y += speed * ts();
+		p1->MoveUp(ts);
+}
 
-	triangle->SetModel(glm::translate(glm::mat4(1.0), move));
+void Application::MoveP2()
+{
+	if (Input::IsKeyPressed(window, Key::J))
+		p2->MoveLeft(ts);
+	if (Input::IsKeyPressed(window, Key::L))
+		p2->MoveRight(ts);
+	
+	if (Input::IsKeyPressed(window, Key::K))
+		p2->MoveDown(ts);
+	if (Input::IsKeyPressed(window, Key::I))
+		p2->MoveUp(ts);
+}
+
+bool Application::Collision()
+{
+	glm::vec4 vertex;
+	glm::vec4 top_left = 
+
+	return false;
 }

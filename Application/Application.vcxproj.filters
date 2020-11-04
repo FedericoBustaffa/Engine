@@ -21,7 +21,7 @@
     <ClCompile Include="src\Application.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Triangle.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="src\Application.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\Triangle.h">
+    <ClInclude Include="src\Player.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
