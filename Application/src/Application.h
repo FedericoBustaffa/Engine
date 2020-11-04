@@ -28,9 +28,6 @@ public:
 	bool Collision();
 
 private:
-	bool Inside(const glm::vec4& vertex, const std::vector<glm::vec4>& entity);
-
-private:
 	// window
 	Window window;
 	TimeStep ts;

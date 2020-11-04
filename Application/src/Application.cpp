@@ -87,7 +87,7 @@ void Application::Run()
 		Render::DrawIndexed(p1->GetVA());
 
 		// p2
-		shader->SetUniform4f("u_color", 0.8f, 0.2f, 0.6f, 1.0f);
+		shader->SetUniform4f("u_color", 0.8f, 0.2f, 0.2f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p2->GetModel());
 		shader->Bind();
 		Render::DrawIndexed(p2->GetVA());
@@ -165,8 +165,20 @@ void Application::MoveP2()
 
 bool Application::Collision()
 {
-	glm::vec4 vertex;
-	glm::vec4 top_left = 
+	std::vector<glm::vec4> vertices = p1->GetVertices();
+	glm::vec4 bottom_left = p2->GetModel() * p2->GetVertices()[0];
+	glm::vec4 top_right = p2->GetModel() * p2->GetVertices()[2];
+
+	for (auto& vertex : vertices)
+	{
+		vertex = p1->GetModel() * vertex;
+
+		if (vertex.x >= bottom_left.x && vertex.x <= top_right.x)
+		{
+			if (vertex.y >= bottom_left.y && vertex.y <= top_right.y)
+				return true;
+		}
+	}
 
 	return false;
 }
