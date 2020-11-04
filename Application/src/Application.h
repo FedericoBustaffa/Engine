@@ -40,7 +40,8 @@ private:
 	};
 
 	std::shared_ptr<Triangle> triangle;
-
+	glm::vec3 move;
+	float speed = 10.0f;
 
 	// camera
 	OrthoCam camera;

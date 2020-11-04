@@ -18,6 +18,4 @@ private:
 	std::shared_ptr<IndexBuffer> ib;
 
 	glm::mat4 model;
-	glm::vec3 move;
-	float speed = 10.0f;
 };

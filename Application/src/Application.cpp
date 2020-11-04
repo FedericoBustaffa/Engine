@@ -4,7 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: camera(-8.0, 8.0, -4.5, 4.5)
+	: move(0.0), camera(-8.0, 8.0, -4.5, 4.5)
 {
 	window.SetEventCallback(BIND(Application::OnEvent));
 	
@@ -121,6 +121,14 @@ void Application::CameraController()
 
 void Application::Movement()
 {
-	if(Input::IsKeyPressed(window, Key::A))
+	if (Input::IsKeyPressed(window, Key::A))
+		move.x -= speed * ts();
+	if (Input::IsKeyPressed(window, Key::D))
+		move.x += speed * ts();
+	if (Input::IsKeyPressed(window, Key::S))
+		move.y -= speed * ts();
+	if (Input::IsKeyPressed(window, Key::W))
+		move.y += speed * ts();
 
+	triangle->SetModel(glm::translate(glm::mat4(1.0), move));
 }

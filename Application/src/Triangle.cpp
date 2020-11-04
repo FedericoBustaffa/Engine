@@ -1,7 +1,7 @@
 #include "Triangle.h"
 
 Triangle::Triangle(size_t size, void* data, const std::shared_ptr<Layout>& layout)
-	: model(1.0), move(0.0)
+	: model(1.0)
 {
 	va = std::make_shared<VertexArray>();
 	vb = std::make_shared<Buffer>(size, data);
