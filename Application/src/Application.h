@@ -6,6 +6,7 @@
 
 #include "Engine.h"
 #include "Player.h"
+#include "Ball.h"
 
 class Application
 {
@@ -23,7 +24,7 @@ public:
 	// movimento
 	void PlayersController();
 
-	bool Collision();
+	bool BallCollision(const std::shared_ptr<Player>& player);
 	bool UpperBoundCollision(const std::shared_ptr<Player>& player);
 	bool LowerBoundCollision(const std::shared_ptr<Player>& player);
 
@@ -35,8 +36,9 @@ private:
 	// shader
 	std::shared_ptr<Shader> shader;
 
-	// player
+	// entities
 	std::shared_ptr<Player> p1, p2;
+	std::shared_ptr<Ball> ball;
 
 	// camera
 	OrthoCam camera;

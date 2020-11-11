@@ -50,13 +50,16 @@ Application::Application()
 		{  7.5f, -1.0f, 0.0f, 1.0f }
 	};
 
-	std::vector<unsigned int> indices = {
-		0, 1, 2,
-		2, 3, 0
+	std::vector<glm::vec4> ball_buffer = {
+		{ -0.5f, -0.5f, 0.0f, 1.0f },
+		{ -0.5f,  0.5f, 0.0f, 1.0f },
+		{  0.5f,  0.5f, 0.0f, 1.0f },
+		{  0.5f, -0.5f, 0.0f, 1.0f }
 	};
 
-	p1 = std::make_shared<Player>(p1_buffer, indices);
-	p2 = std::make_shared<Player>(p2_buffer, indices);
+	p1 = std::make_shared<Player>(p1_buffer);
+	p2 = std::make_shared<Player>(p2_buffer);
+	ball = std::make_shared<Ball>(ball_buffer);
 }
 
 Application::~Application()
@@ -76,8 +79,8 @@ void Application::Run()
 		// rendering
 		PlayersController();
 
-		if (Collision())
-			std::cout << "collisione" << std::endl;
+		/*if (BallCollision())
+			std::cout << "collisione" << std::endl;*/
 
 		// p1
 		shader->SetUniform4f("u_color", 0.4f, 0.8f, 0.2f, 1.0f);
@@ -129,13 +132,13 @@ void Application::PlayersController()
 	if (Input::IsKeyPressed(window, Key::S) && !LowerBoundCollision(p1))
 		p1->MoveDown(ts);
 	
-	if (Input::IsKeyPressed(window, Key::I) && !UpperBoundCollision(p2))
+	if (Input::IsKeyPressed(window, Key::Up) && !UpperBoundCollision(p2))
 		p2->MoveUp(ts);
-	if (Input::IsKeyPressed(window, Key::K) && !LowerBoundCollision(p2))
+	if (Input::IsKeyPressed(window, Key::Down) && !LowerBoundCollision(p2))
 		p2->MoveDown(ts);
 }
 
-bool Application::Collision()
+bool Application::BallCollision(const std::shared_ptr<Player>& player)
 {
 	std::vector<glm::vec4> vertices = p1->GetVertices();
 	glm::vec4 bottom_left = p2->GetModel() * p2->GetVertices()[0];

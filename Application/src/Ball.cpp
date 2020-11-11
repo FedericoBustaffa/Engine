@@ -1,8 +1,6 @@
-#include "Player.h"
+#include "Ball.h"
 
-#include <glm/gtc/matrix_transform.hpp>
-
-Player::Player(const std::vector<glm::vec4>& buffer)
+Ball::Ball(const std::vector<glm::vec4>& buffer)
 	: vertices(buffer), speed(10.0f), move(0.0), model(1.0)
 {
 	// layout
@@ -23,17 +21,5 @@ Player::Player(const std::vector<glm::vec4>& buffer)
 	vb->SetLayout(layout);
 	va->AddBuffer(vb);
 	va->SetIndexBuffer(ib);
-}
-
-void Player::MoveUp(const TimeStep& ts)
-{
-	move.y += speed * ts();
-	model = glm::translate(glm::mat4(1.0), move);
-}
-
-void Player::MoveDown(const TimeStep& ts)
-{
-	move.y -= speed * ts();
-	model = glm::translate(glm::mat4(1.0), move);
 }
 

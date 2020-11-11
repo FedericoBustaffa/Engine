@@ -6,17 +6,14 @@
 
 #include "Engine.h"
 
-class Player
+class Ball
 {
 public:
-	Player(const std::vector<glm::vec4>& buffer);
+	Ball(const std::vector<glm::vec4>& buffer);
 
 	inline const std::vector<glm::vec4>& GetVertices() const { return vertices; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
 	inline const glm::mat4& GetModel() const { return model; }
-	
-	void MoveUp(const TimeStep& ts);
-	void MoveDown(const TimeStep& ts);
 
 private:
 	std::vector<glm::vec4> vertices;
