@@ -21,12 +21,11 @@ public:
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 
 	// movimento
-	void CameraController();
-	void MoveP1();
-	void MoveP2();
+	void PlayersController();
 
 	bool Collision();
-	bool BoundCollision(const std::shared_ptr<Player>& player);
+	bool UpperBoundCollision(const std::shared_ptr<Player>& player);
+	bool LowerBoundCollision(const std::shared_ptr<Player>& player);
 
 private:
 	// window
@@ -41,7 +40,4 @@ private:
 
 	// camera
 	OrthoCam camera;
-	glm::vec3 camera_position = { 0.0, 0.0, 0.0 };
-	float camera_rotation = 0.0f;
-	float camera_speed = 15.0f, camera_rotation_speed = 180.0f;
 };

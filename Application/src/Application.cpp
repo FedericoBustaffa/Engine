@@ -37,17 +37,17 @@ Application::Application()
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
 	std::vector<glm::vec4> p1_buffer = {
-		{ -3.0f, -1.0f, 0.0f, 1.0f },
-		{ -3.0f,  1.0f, 0.0f, 1.0f },
-		{ -1.0f,  1.0f, 0.0f, 1.0f },
-		{ -1.0f, -1.0f, 0.0f, 1.0f }
+		{ -7.5f, -1.0f, 0.0f, 1.0f },
+		{ -7.5f,  1.0f, 0.0f, 1.0f },
+		{ -6.5f,  1.0f, 0.0f, 1.0f },
+		{ -6.5f, -1.0f, 0.0f, 1.0f }
 	};
 	
 	std::vector<glm::vec4> p2_buffer = {
-		{  1.0f, -1.0f, 0.0f, 1.0f },
-		{  1.0f,  1.0f, 0.0f, 1.0f },
-		{  3.0f,  1.0f, 0.0f, 1.0f },
-		{  3.0f, -1.0f, 0.0f, 1.0f }
+		{  6.5f, -1.0f, 0.0f, 1.0f },
+		{  6.5f,  1.0f, 0.0f, 1.0f },
+		{  7.5f,  1.0f, 0.0f, 1.0f },
+		{  7.5f, -1.0f, 0.0f, 1.0f }
 	};
 
 	std::vector<unsigned int> indices = {
@@ -74,20 +74,11 @@ void Application::Run()
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
 		// rendering
-		CameraController();
-		MoveP1();
-		MoveP2();
-		
+		PlayersController();
+
 		if (Collision())
 			std::cout << "collisione" << std::endl;
 
-		if (BoundCollision(p1))
-			std::cout << "p1 bound collision" << std::endl;
-
-		if (BoundCollision(p2))
-			std::cout << "p2 bound collision" << std::endl;
-
-		
 		// p1
 		shader->SetUniform4f("u_color", 0.4f, 0.8f, 0.2f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p1->GetModel());
@@ -131,44 +122,17 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 	}
 }
 
-void Application::CameraController()
+void Application::PlayersController()
 {
-	if (Input::IsKeyPressed(window, Key::Left))
-		camera_position.x -= camera_speed * ts();
-	if (Input::IsKeyPressed(window, Key::Right))
-		camera_position.x += camera_speed * ts();
-	if (Input::IsKeyPressed(window, Key::Up))
-		camera_position.y += camera_speed * ts();
-	if (Input::IsKeyPressed(window, Key::Down))
-		camera_position.y -= camera_speed * ts();
-
-	camera.SetPosition(camera_position);
-}
-
-void Application::MoveP1()
-{
-	if (Input::IsKeyPressed(window, Key::A))
-		p1->MoveLeft(ts);
-	if (Input::IsKeyPressed(window, Key::D))
-		p1->MoveRight(ts);
-	
-	if (Input::IsKeyPressed(window, Key::S))
-		p1->MoveDown(ts);
-	if (Input::IsKeyPressed(window, Key::W))
+	if (Input::IsKeyPressed(window, Key::W) && !UpperBoundCollision(p1))
 		p1->MoveUp(ts);
-}
-
-void Application::MoveP2()
-{
-	if (Input::IsKeyPressed(window, Key::J))
-		p2->MoveLeft(ts);
-	if (Input::IsKeyPressed(window, Key::L))
-		p2->MoveRight(ts);
+	if (Input::IsKeyPressed(window, Key::S) && !LowerBoundCollision(p1))
+		p1->MoveDown(ts);
 	
-	if (Input::IsKeyPressed(window, Key::K))
-		p2->MoveDown(ts);
-	if (Input::IsKeyPressed(window, Key::I))
+	if (Input::IsKeyPressed(window, Key::I) && !UpperBoundCollision(p2))
 		p2->MoveUp(ts);
+	if (Input::IsKeyPressed(window, Key::K) && !LowerBoundCollision(p2))
+		p2->MoveDown(ts);
 }
 
 bool Application::Collision()
@@ -191,15 +155,14 @@ bool Application::Collision()
 	return false;
 }
 
-bool Application::BoundCollision(const std::shared_ptr<Player>& player)
+bool Application::UpperBoundCollision(const std::shared_ptr<Player>& player)
+{
+	glm::vec4 top_right = player->GetModel() * player->GetVertices()[2];
+	return top_right.y > 4.5;
+}
+
+bool Application::LowerBoundCollision(const std::shared_ptr<Player>& player)
 {
 	glm::vec4 bottom_left = player->GetModel() * player->GetVertices()[0];
-	glm::vec4 top_right = player->GetModel() * player->GetVertices()[2];
-
-	if (bottom_left.x < -8.0 || top_right.x > 8.0)
-		return true;
-	if (bottom_left.y < -4.5 || top_right.y > 4.5)
-		return true;
-
-	return false;
+	return bottom_left.y < -4.5;
 }
