@@ -26,6 +26,7 @@ public:
 	void MoveP2();
 
 	bool Collision();
+	bool BoundCollision(const std::shared_ptr<Player>& player);
 
 private:
 	// window

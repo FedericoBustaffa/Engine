@@ -77,9 +77,17 @@ void Application::Run()
 		CameraController();
 		MoveP1();
 		MoveP2();
+		
 		if (Collision())
 			std::cout << "collisione" << std::endl;
 
+		if (BoundCollision(p1))
+			std::cout << "p1 bound collision" << std::endl;
+
+		if (BoundCollision(p2))
+			std::cout << "p2 bound collision" << std::endl;
+
+		
 		// p1
 		shader->SetUniform4f("u_color", 0.4f, 0.8f, 0.2f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p1->GetModel());
@@ -179,6 +187,19 @@ bool Application::Collision()
 				return true;
 		}
 	}
+
+	return false;
+}
+
+bool Application::BoundCollision(const std::shared_ptr<Player>& player)
+{
+	glm::vec4 bottom_left = player->GetModel() * player->GetVertices()[0];
+	glm::vec4 top_right = player->GetModel() * player->GetVertices()[2];
+
+	if (bottom_left.x < -8.0 || top_right.x > 8.0)
+		return true;
+	if (bottom_left.y < -4.5 || top_right.y > 4.5)
+		return true;
 
 	return false;
 }
