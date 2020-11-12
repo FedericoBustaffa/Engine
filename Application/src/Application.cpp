@@ -37,8 +37,8 @@ Application::Application()
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
 	std::vector<glm::vec4> p1_buffer = {
-		{ -7.5f, -1.0f, 0.0f, 1.0f },
-		{ -7.5f,  1.0f, 0.0f, 1.0f },
+		{ -7.0f, -1.0f, 0.0f, 1.0f },
+		{ -7.0f,  1.0f, 0.0f, 1.0f },
 		{ -6.5f,  1.0f, 0.0f, 1.0f },
 		{ -6.5f, -1.0f, 0.0f, 1.0f }
 	};
@@ -46,8 +46,8 @@ Application::Application()
 	std::vector<glm::vec4> p2_buffer = {
 		{  6.5f, -1.0f, 0.0f, 1.0f },
 		{  6.5f,  1.0f, 0.0f, 1.0f },
-		{  7.5f,  1.0f, 0.0f, 1.0f },
-		{  7.5f, -1.0f, 0.0f, 1.0f }
+		{  7.0f,  1.0f, 0.0f, 1.0f },
+		{  7.0f, -1.0f, 0.0f, 1.0f }
 	};
 
 	std::vector<glm::vec4> ball_buffer = {
@@ -81,8 +81,13 @@ void Application::Run()
 		ball->Move(ts);
 
 		ball->BoundCollision(-4.5, 4.5);
-		ball->PlayerCollision(p1);
-		ball->PlayerCollision(p2);
+		ball->PlayerCollision(p1, ts);
+		ball->PlayerCollision(p2, ts);
+		/*if (ball->Point(-8.0, 8.0))
+		{
+			ball->ResetModel();
+			ball->ResetMove();
+		}*/
 
 		// p1
 		shader->SetUniform4f("u_color", 0.0f, 0.5f, 0.8f, 1.0f);

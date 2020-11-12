@@ -21,9 +21,8 @@ public:
 	bool LowerBoundCollision(double lower_bound);
 
 private:
-	std::vector<glm::vec4> vertices;
-
 	// rendering objects
+	std::vector<glm::vec4> vertices;
 	std::shared_ptr<VertexArray> va;
 	std::shared_ptr<Buffer> vb;
 	std::shared_ptr<IndexBuffer> ib;

@@ -47,8 +47,38 @@ bool Ball::BoundCollision(double lower_bound, double upper_bound)
 	return false;
 }
 
-bool Ball::PlayerCollision(const std::shared_ptr<Player>& player)
+bool Ball::PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep& ts)
 {
+	glm::vec4 bottom_left = model * vertices[0];
+	glm::vec4 top_right = model * vertices[2];
+
+	glm::vec4 p_bottom_left = player->GetModel() * player->GetVertices()[0];
+	glm::vec4 p_top_right = player->GetModel() * player->GetVertices()[2];
+	
+	if (p_top_right.x < 0)
+	{
+		if (bottom_left.x < p_top_right.x)
+		{
+			if ((bottom_left.y < p_top_right.y && bottom_left.y > p_bottom_left.y)
+				|| (top_right.y < p_top_right.y && top_right.y > p_bottom_left.y))
+			{
+				x_speed *= -1;
+				return true;
+			}
+		}
+	}
+	else
+	{
+		if (top_right.x > p_bottom_left.x)
+		{
+			if ((bottom_left.y < p_top_right.y && bottom_left.y > p_bottom_left.y)
+				|| (top_right.y < p_top_right.y && top_right.y > p_bottom_left.y))
+			{
+				x_speed *= -1;
+				return true;
+			}
+		}
+	}
 
 	return false;
 }

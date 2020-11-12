@@ -20,7 +20,7 @@ public:
 
 	void Move(const TimeStep& ts);
 	bool BoundCollision(double lower_bound, double upper_bound);
-	bool PlayerCollision(const std::shared_ptr<Player>& player);
+	bool PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep& ts);
 
 private:
 	std::vector<glm::vec4> vertices;
@@ -31,8 +31,8 @@ private:
 	std::shared_ptr<IndexBuffer> ib;
 
 	// stats
-	float x_speed = 2.0f;
-	float y_speed = 2.0f;
+	float x_speed = -5.0f;
+	float y_speed = -5.0f;
 	glm::vec3 move;
 	glm::mat4 model;
 };
