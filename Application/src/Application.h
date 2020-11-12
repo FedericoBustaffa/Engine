@@ -24,10 +24,6 @@ public:
 	// movimento
 	void PlayersController();
 
-	bool BallCollision(const std::shared_ptr<Player>& player);
-	bool UpperBoundCollision(const std::shared_ptr<Player>& player);
-	bool LowerBoundCollision(const std::shared_ptr<Player>& player);
-
 private:
 	// window
 	Window window;

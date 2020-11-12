@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Player::Player(const std::vector<glm::vec4>& buffer)
-	: vertices(buffer), speed(10.0f), move(0.0), model(1.0)
+	: vertices(buffer), move(0.0), model(1.0)
 {
 	// layout
 	std::shared_ptr<Layout> layout;
@@ -37,3 +37,14 @@ void Player::MoveDown(const TimeStep& ts)
 	model = glm::translate(glm::mat4(1.0), move);
 }
 
+bool Player::UpperBoundCollision(double upper_bound)
+{
+	glm::vec4 top_right = model * vertices[2];
+	return top_right.y > upper_bound;
+}
+
+bool Player::LowerBoundCollision(double lower_bound)
+{
+	glm::vec4 top_right = model * vertices[0];
+	return top_right.y < lower_bound;
+}

@@ -1,7 +1,9 @@
 #include "Ball.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 Ball::Ball(const std::vector<glm::vec4>& buffer)
-	: vertices(buffer), speed(10.0f), move(0.0), model(1.0)
+	: vertices(buffer), move(0.0), model(1.0)
 {
 	// layout
 	std::shared_ptr<Layout> layout;
@@ -23,3 +25,30 @@ Ball::Ball(const std::vector<glm::vec4>& buffer)
 	va->SetIndexBuffer(ib);
 }
 
+void Ball::Move(const TimeStep& ts)
+{
+	move.x += x_speed * ts();
+	move.y += y_speed * ts();
+
+	model = glm::translate(glm::mat4(1.0), move);
+}
+
+bool Ball::BoundCollision(double lower_bound, double upper_bound)
+{
+	glm::vec4 bottom_left = model * vertices[0];
+	glm::vec4 top_right = model * vertices[2];
+
+	if (bottom_left.y < lower_bound || top_right.y > upper_bound)
+	{
+		y_speed *= -1;
+		return true;
+	}
+	
+	return false;
+}
+
+bool Ball::PlayerCollision(const std::shared_ptr<Player>& player)
+{
+
+	return false;
+}

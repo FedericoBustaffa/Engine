@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "Engine.h"
+#include "Player.h"
 
 class Ball
 {
@@ -14,6 +15,12 @@ public:
 	inline const std::vector<glm::vec4>& GetVertices() const { return vertices; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
 	inline const glm::mat4& GetModel() const { return model; }
+	inline float GetXSpeed() const { return x_speed; }
+	inline float GetYSpeed() const { return y_speed; }
+
+	void Move(const TimeStep& ts);
+	bool BoundCollision(double lower_bound, double upper_bound);
+	bool PlayerCollision(const std::shared_ptr<Player>& player);
 
 private:
 	std::vector<glm::vec4> vertices;
@@ -24,7 +31,8 @@ private:
 	std::shared_ptr<IndexBuffer> ib;
 
 	// stats
-	float speed;
+	float x_speed = 2.0f;
+	float y_speed = 2.0f;
 	glm::vec3 move;
 	glm::mat4 model;
 };

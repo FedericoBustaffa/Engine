@@ -17,6 +17,8 @@ public:
 	
 	void MoveUp(const TimeStep& ts);
 	void MoveDown(const TimeStep& ts);
+	bool UpperBoundCollision(double upper_bound);
+	bool LowerBoundCollision(double lower_bound);
 
 private:
 	std::vector<glm::vec4> vertices;
@@ -27,7 +29,7 @@ private:
 	std::shared_ptr<IndexBuffer> ib;
 
 	// stats
-	float speed;
+	float speed = 10.0f;
 	glm::vec3 move;
 	glm::mat4 model;
 };
