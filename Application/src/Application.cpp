@@ -37,8 +37,8 @@ Application::Application()
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
 	std::vector<glm::vec4> p1_buffer = {
-		{ -7.0f, -1.0f, 0.0f, 1.0f },
-		{ -7.0f,  1.0f, 0.0f, 1.0f },
+		{ -6.8f, -1.0f, 0.0f, 1.0f },
+		{ -6.8f,  1.0f, 0.0f, 1.0f },
 		{ -6.5f,  1.0f, 0.0f, 1.0f },
 		{ -6.5f, -1.0f, 0.0f, 1.0f }
 	};
@@ -46,8 +46,8 @@ Application::Application()
 	std::vector<glm::vec4> p2_buffer = {
 		{  6.5f, -1.0f, 0.0f, 1.0f },
 		{  6.5f,  1.0f, 0.0f, 1.0f },
-		{  7.0f,  1.0f, 0.0f, 1.0f },
-		{  7.0f, -1.0f, 0.0f, 1.0f }
+		{  6.8f,  1.0f, 0.0f, 1.0f },
+		{  6.8f, -1.0f, 0.0f, 1.0f }
 	};
 
 	std::vector<glm::vec4> ball_buffer = {
@@ -57,8 +57,8 @@ Application::Application()
 		{  0.2f, -0.2f, 0.0f, 1.0f }
 	};
 
-	p1 = std::make_shared<Player>(p1_buffer);
-	p2 = std::make_shared<Player>(p2_buffer);
+	p1 = std::make_shared<Player>("Player1", p1_buffer);
+	p2 = std::make_shared<Player>("Player2", p2_buffer);
 	ball = std::make_shared<Ball>(ball_buffer);
 }
 
@@ -83,11 +83,20 @@ void Application::Run()
 		ball->BoundCollision(-4.5, 4.5);
 		ball->PlayerCollision(p1, ts);
 		ball->PlayerCollision(p2, ts);
-		/*if (ball->Point(-8.0, 8.0))
+
+		if (ball->Goal(8.0f))
 		{
-			ball->ResetModel();
-			ball->ResetMove();
-		}*/
+			p1->IncPoints();
+			std::cout << p1->GetName() << " " << p1->GetPoints() << " " << std::flush;
+			std::cout << p2->GetPoints() << " " << p2->GetName() << std::endl;
+		}
+
+		if (ball->Goal(-8.0f))
+		{
+			p2->IncPoints();
+			std::cout << p1->GetName() << " " << p1->GetPoints() << " " << std::flush;
+			std::cout << p2->GetPoints() << " " << p2->GetName() << std::endl;
+		}
 
 		// p1
 		shader->SetUniform4f("u_color", 0.0f, 0.5f, 0.8f, 1.0f);

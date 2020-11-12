@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
@@ -9,7 +10,11 @@
 class Player
 {
 public:
-	Player(const std::vector<glm::vec4>& buffer);
+	Player(const std::string& name, const std::vector<glm::vec4>& buffer);
+
+	inline const std::string& GetName() const { return name; }
+	inline int GetPoints() const { return points; }
+	inline void IncPoints() { points++; }
 
 	inline const std::vector<glm::vec4>& GetVertices() const { return vertices; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
@@ -21,6 +26,9 @@ public:
 	bool LowerBoundCollision(double lower_bound);
 
 private:
+	std::string name;
+	int points = 0;
+
 	// rendering objects
 	std::vector<glm::vec4> vertices;
 	std::shared_ptr<VertexArray> va;

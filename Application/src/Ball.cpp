@@ -82,3 +82,24 @@ bool Ball::PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep
 
 	return false;
 }
+
+bool Ball::Goal(float goal)
+{
+	glm::vec4 bottom_left = model * vertices[0];
+	glm::vec4 top_right = model * vertices[2];
+
+	if (goal < 0 && bottom_left.x < goal)
+	{
+		model = glm::mat4(1.0);
+		move = glm::vec3(0.0);
+		return true;
+	}
+	else if (goal > 0 && top_right.x > goal)
+	{
+		model = glm::mat4(1.0);
+		move = glm::vec3(0.0);
+		return true;
+	}
+
+	return false;
+}

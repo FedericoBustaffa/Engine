@@ -21,6 +21,7 @@ public:
 	void Move(const TimeStep& ts);
 	bool BoundCollision(double lower_bound, double upper_bound);
 	bool PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep& ts);
+	bool Goal(float goal);
 
 private:
 	std::vector<glm::vec4> vertices;

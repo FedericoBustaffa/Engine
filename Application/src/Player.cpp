@@ -2,8 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Player::Player(const std::vector<glm::vec4>& buffer)
-	: vertices(buffer), move(0.0), model(1.0)
+Player::Player(const std::string& name, const std::vector<glm::vec4>& buffer)
+	: name(name), vertices(buffer), move(0.0), model(1.0)
 {
 	// layout
 	std::shared_ptr<Layout> layout;
