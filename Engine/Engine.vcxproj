@@ -39,6 +39,7 @@
     <ClInclude Include="src\Events\MouseCodes.h" />
     <ClInclude Include="src\Events\MouseEvent.h" />
     <ClInclude Include="src\Events\WindowEvent.h" />
+    <ClInclude Include="src\Graphics\2DShapes\Polygon.h" />
     <ClInclude Include="src\Graphics\Buffer.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\Graphics\Layout.h" />

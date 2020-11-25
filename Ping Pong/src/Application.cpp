@@ -4,10 +4,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
-	: camera(-8.0, 8.0, -4.5, 4.5)
+	: window(1280, 720, "PONG"), camera(-8.0, 8.0, -4.5, 4.5)
 {
-	window.SetEventCallback(BIND(Application::OnEvent));
 	
+	window.SetEventCallback(BIND(Application::OnEvent));
+
 	// shader
 	std::string vertex_src = R"(
 		#version 330 core

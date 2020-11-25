@@ -95,6 +95,9 @@
     <ClInclude Include="src\Engine.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\Graphics\2DShapes\Polygon.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\shader.hlsl" />

@@ -11,6 +11,8 @@
 #include "Graphics/Render.h"
 #include "Graphics/OrthoCam.h"
 
+#include "Graphics/2DShapes/Polygon.h"
+
 #include "Events/Event.h"
 #include "Events/WindowEvent.h"
 #include "Events/KeyEvent.h"
