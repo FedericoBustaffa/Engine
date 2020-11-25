@@ -8,6 +8,7 @@ class Polygon
 {
 public:
 	Polygon()
+		: model(1.0)
 	{
 	}
 
@@ -24,16 +25,16 @@ protected:
 class Square : public Polygon
 {
 public:
-	Square(const glm::vec2& bottom_left, float side_length)
-		: bottom_left(bottom_left), side_length(side_length)
+	Square(const glm::vec2& bottom_left, float length)
+		: bottom_left(bottom_left), length(length)
 	{
 		va = std::make_shared<VertexArray>();
 
 		float buffer[4 * 2] = {
 			bottom_left.x, bottom_left.y,
-			bottom_left.x, bottom_left.y + side_length,
-			bottom_left.x + side_length, bottom_left.y + side_length,
-			bottom_left.x + side_length, bottom_left.y
+			bottom_left.x, bottom_left.y + length,
+			bottom_left.x + length, bottom_left.y + length,
+			bottom_left.x + length, bottom_left.y
 		};
 		vb = std::make_shared<Buffer>(sizeof(buffer), buffer);
 
@@ -46,5 +47,5 @@ public:
 
 private:
 	glm::vec2 bottom_left;
-	float side_length;
+	float length;
 };
