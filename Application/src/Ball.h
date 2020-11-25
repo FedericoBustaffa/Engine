@@ -17,7 +17,8 @@ public:
 	inline const glm::mat4& GetModel() const { return model; }
 	inline float GetXSpeed() const { return x_speed; }
 	inline float GetYSpeed() const { return y_speed; }
-	void Start(float speed);
+	inline void SetXSpeed(float speed) { x_speed = speed; }
+	inline void SetYSpeed(float speed) { y_speed = speed; }
 
 	void Move(const TimeStep& ts);
 	bool BoundCollision(double lower_bound, double upper_bound);

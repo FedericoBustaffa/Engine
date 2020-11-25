@@ -25,12 +25,6 @@ Ball::Ball(const std::vector<glm::vec4>& buffer)
 	va->SetIndexBuffer(ib);
 }
 
-void Ball::Start(float speed)
-{
-	x_speed = speed;
-	y_speed = speed;
-}
-
 void Ball::Move(const TimeStep& ts)
 {
 	move.x += x_speed * ts();
@@ -103,12 +97,16 @@ bool Ball::Goal(float goal)
 	{
 		model = glm::mat4(1.0);
 		move = glm::vec3(0.0);
+		x_speed = 0;
+		y_speed = 0;
 		return true;
 	}
 	else if (goal > 0 && top_right.x > goal)
 	{
 		model = glm::mat4(1.0);
 		move = glm::vec3(0.0);
+		x_speed = 0;
+		y_speed = 0;
 		return true;
 	}
 

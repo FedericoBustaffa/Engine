@@ -37,17 +37,17 @@ Application::Application()
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
 	std::vector<glm::vec4> p1_buffer = {
-		{ -6.8f, -1.0f, 0.0f, 1.0f },
-		{ -6.8f,  1.0f, 0.0f, 1.0f },
-		{ -6.5f,  1.0f, 0.0f, 1.0f },
-		{ -6.5f, -1.0f, 0.0f, 1.0f }
+		{ -6.8f, -0.6f, 0.0f, 1.0f },
+		{ -6.8f,  0.6f, 0.0f, 1.0f },
+		{ -6.5f,  0.6f, 0.0f, 1.0f },
+		{ -6.5f, -0.6f, 0.0f, 1.0f }
 	};
 	
 	std::vector<glm::vec4> p2_buffer = {
-		{  6.5f, -1.0f, 0.0f, 1.0f },
-		{  6.5f,  1.0f, 0.0f, 1.0f },
-		{  6.8f,  1.0f, 0.0f, 1.0f },
-		{  6.8f, -1.0f, 0.0f, 1.0f }
+		{  6.5f, -0.6f, 0.0f, 1.0f },
+		{  6.5f,  0.6f, 0.0f, 1.0f },
+		{  6.8f,  0.6f, 0.0f, 1.0f },
+		{  6.8f, -0.6f, 0.0f, 1.0f }
 	};
 
 	std::vector<glm::vec4> ball_buffer = {
@@ -57,8 +57,8 @@ Application::Application()
 		{  0.2f, -0.2f, 0.0f, 1.0f }
 	};
 
-	p1 = std::make_shared<Player>("Federico", p1_buffer);
-	p2 = std::make_shared<Player>("Virginia", p2_buffer);
+	p1 = std::make_shared<Player>("Player 1", p1_buffer);
+	p2 = std::make_shared<Player>("Player 2", p2_buffer);
 	ball = std::make_shared<Ball>(ball_buffer);
 }
 
@@ -147,7 +147,8 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 		break;
 
 	case Key::Space:
-		ball->Start(6.0f);
+		ball->SetXSpeed(7.1f);
+		ball->SetYSpeed(7.1f);
 		break;
 
 	default:
