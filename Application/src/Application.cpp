@@ -76,7 +76,8 @@ void Application::Run()
 		// background color
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 		
-		// rendering
+		// rendering --------------
+		// movements
 		PlayersController();
 		ball->Move(ts);
 
@@ -85,7 +86,7 @@ void Application::Run()
 		ball->PlayerCollision(p1);
 		ball->PlayerCollision(p2);
 
-		// Goals
+		// Score
 		if (ball->Goal(8.0f))
 		{
 			p1->IncPoints();
@@ -102,19 +103,19 @@ void Application::Run()
 			std::cout << std::endl;
 		}
 
-		// p1
+		// p1 rendering
 		shader->SetUniform4f("u_color", 0.0f, 0.5f, 0.8f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p1->GetModel());
 		shader->Bind();
 		Render::DrawIndexed(p1->GetVA());
 
-		// p2
+		// p2 rendering
 		shader->SetUniform4f("u_color", 0.8f, 0.2f, 0.2f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p2->GetModel());
 		shader->Bind();
 		Render::DrawIndexed(p2->GetVA());
 
-		// ball
+		// ball rendering
 		shader->SetUniform4f("u_color", 1.0f, 1.0f, 1.0f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * ball->GetModel());
 		shader->Bind();
