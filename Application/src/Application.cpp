@@ -80,10 +80,12 @@ void Application::Run()
 		PlayersController();
 		ball->Move(ts);
 
+		// Collisions
 		ball->BoundCollision(-4.5, 4.5);
-		ball->PlayerCollision(p1, ts);
-		ball->PlayerCollision(p2, ts);
+		ball->PlayerCollision(p1);
+		ball->PlayerCollision(p2);
 
+		// Goals
 		if (ball->Goal(8.0f))
 		{
 			p1->IncPoints();
@@ -142,6 +144,10 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 	{
 	case Key::Enter:
 		window.Close();
+		break;
+
+	case Key::Space:
+		ball->Start(6.0f);
 		break;
 
 	default:

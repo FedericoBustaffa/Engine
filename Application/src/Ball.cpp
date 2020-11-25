@@ -25,6 +25,12 @@ Ball::Ball(const std::vector<glm::vec4>& buffer)
 	va->SetIndexBuffer(ib);
 }
 
+void Ball::Start(float speed)
+{
+	x_speed = speed;
+	y_speed = speed;
+}
+
 void Ball::Move(const TimeStep& ts)
 {
 	move.x += x_speed * ts();
@@ -47,20 +53,21 @@ bool Ball::BoundCollision(double lower_bound, double upper_bound)
 	return false;
 }
 
-bool Ball::PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep& ts)
+bool Ball::PlayerCollision(const std::shared_ptr<Player>& player)
 {
-	glm::vec4 bottom_left = model * vertices[0];
-	glm::vec4 top_right = model * vertices[2];
-
 	glm::vec4 p_bottom_left = player->GetModel() * player->GetVertices()[0];
 	glm::vec4 p_top_right = player->GetModel() * player->GetVertices()[2];
 	
 	if (p_top_right.x < 0)
 	{
-		if (bottom_left.x < p_top_right.x)
+		// if ball is in left player
+		glm::vec4 bottom_left = model * vertices[0];
+		glm::vec4 top_left = model * vertices[1];
+
+		if (bottom_left.x < p_top_right.x && bottom_left.x >  p_top_right.x - 0.1f)
 		{
 			if ((bottom_left.y < p_top_right.y && bottom_left.y > p_bottom_left.y)
-				|| (top_right.y < p_top_right.y && top_right.y > p_bottom_left.y))
+				|| (top_left.y < p_top_right.y && top_left.y > p_bottom_left.y))
 			{
 				x_speed *= -1;
 				return true;
@@ -69,9 +76,13 @@ bool Ball::PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep
 	}
 	else
 	{
-		if (top_right.x > p_bottom_left.x)
+		// if ball is in right player
+		glm::vec4 bottom_right = model * vertices[3];
+		glm::vec4 top_right = model * vertices[2];
+
+		if (top_right.x > p_bottom_left.x && top_right.x < p_bottom_left.x + 0.1f)
 		{
-			if ((bottom_left.y < p_top_right.y && bottom_left.y > p_bottom_left.y)
+			if ((bottom_right.y < p_top_right.y && bottom_right.y > p_bottom_left.y)
 				|| (top_right.y < p_top_right.y && top_right.y > p_bottom_left.y))
 			{
 				x_speed *= -1;

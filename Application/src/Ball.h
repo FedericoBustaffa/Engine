@@ -17,10 +17,11 @@ public:
 	inline const glm::mat4& GetModel() const { return model; }
 	inline float GetXSpeed() const { return x_speed; }
 	inline float GetYSpeed() const { return y_speed; }
+	void Start(float speed);
 
 	void Move(const TimeStep& ts);
 	bool BoundCollision(double lower_bound, double upper_bound);
-	bool PlayerCollision(const std::shared_ptr<Player>& player, const TimeStep& ts);
+	bool PlayerCollision(const std::shared_ptr<Player>& player);
 	bool Goal(float goal);
 
 private:
@@ -32,8 +33,8 @@ private:
 	std::shared_ptr<IndexBuffer> ib;
 
 	// stats
-	float x_speed = -5.0f;
-	float y_speed = -5.0f;
+	float x_speed = 0.0f;
+	float y_speed = 0.0f;
 	glm::vec3 move;
 	glm::mat4 model;
 };
