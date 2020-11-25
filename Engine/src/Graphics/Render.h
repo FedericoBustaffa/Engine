@@ -15,6 +15,8 @@ public:
 	static void BeginScene();
 	static void EndScene();
 	static void DrawIndexed(const std::shared_ptr<VertexArray>& va);
+	/*static void DrawQuad();
+	static void DrawCircle();*/
 
 private:
 	Render() = default;
