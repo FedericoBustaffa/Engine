@@ -57,8 +57,8 @@ Application::Application()
 		{  0.2f, -0.2f, 0.0f, 1.0f }
 	};
 
-	p1 = std::make_shared<Player>("Player1", p1_buffer);
-	p2 = std::make_shared<Player>("Player2", p2_buffer);
+	p1 = std::make_shared<Player>("Federico", p1_buffer);
+	p2 = std::make_shared<Player>("Virginia", p2_buffer);
 	ball = std::make_shared<Ball>(ball_buffer);
 }
 
@@ -87,15 +87,17 @@ void Application::Run()
 		if (ball->Goal(8.0f))
 		{
 			p1->IncPoints();
-			std::cout << p1->GetName() << " " << p1->GetPoints() << " " << std::flush;
-			std::cout << p2->GetPoints() << " " << p2->GetName() << std::endl;
+			std::cout << p1->GetName() << ": " << p1->GetPoints() << std::endl;
+			std::cout << p2->GetName() << ": " << p2->GetPoints() << std::endl;
+			std::cout << std::endl;
 		}
 
 		if (ball->Goal(-8.0f))
 		{
 			p2->IncPoints();
-			std::cout << p1->GetName() << " " << p1->GetPoints() << " " << std::flush;
-			std::cout << p2->GetPoints() << " " << p2->GetName() << std::endl;
+			std::cout << p1->GetName() << ": " << p1->GetPoints() << std::endl;
+			std::cout << p2->GetName() << ": " << p2->GetPoints() << std::endl;
+			std::cout << std::endl;
 		}
 
 		// p1
