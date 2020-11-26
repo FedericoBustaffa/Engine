@@ -2,6 +2,8 @@
 
 #include "Engine.h"
 
+#include <memory>
+
 class Application
 {
 public:
@@ -10,9 +12,15 @@ public:
 
 	void Run();
 	void OnEvent(Event& e);
-	void OnCloseEvent(CloseEvent& e);
+	void OnClose(CloseEvent& e);
+	void OnKeyPressed(KeyPressedEvent& e);
 
 private:
-	// window
-	Window window;
+	std::unique_ptr<Window> window;
+	OrthoCam camera;
+	std::shared_ptr<Shader> shader;
+	
+	// geometry
+	std::shared_ptr<Square> square;
+	std::shared_ptr<Triangle> triangle;
 };
