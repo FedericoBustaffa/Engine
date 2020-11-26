@@ -21,7 +21,7 @@ Player::Player(const std::string& name, const std::vector<glm::vec4>& buffer)
 	ib = std::make_shared<IndexBuffer>(6, indices);
 
 	vb->SetLayout(layout);
-	va->AddBuffer(vb);
+	va->SetBuffer(vb);
 	va->SetIndexBuffer(ib);
 }
 

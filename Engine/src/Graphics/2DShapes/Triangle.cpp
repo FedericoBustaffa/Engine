@@ -1,7 +1,7 @@
 #include "Shapes.h"
 
 Triangle::Triangle(const std::vector<glm::vec2>& vertices)
-	: Polygon(3, vertices)
+	: Polygon(vertices)
 {
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
@@ -15,6 +15,6 @@ Triangle::Triangle(const std::vector<glm::vec2>& vertices)
 	ib = std::make_shared<IndexBuffer>(3, indices);
 
 	vb->SetLayout(layout);
-	va->AddBuffer(vb);
+	va->SetBuffer(vb);
 	va->SetIndexBuffer(ib);
 }

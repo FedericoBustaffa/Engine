@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Core\TimeStep.cpp" />
     <ClCompile Include="src\Events\Input.cpp" />
+    <ClCompile Include="src\Graphics\2DShapes\Circle.cpp" />
     <ClCompile Include="src\Graphics\2DShapes\Polygon.cpp" />
     <ClCompile Include="src\Graphics\2DShapes\Square.cpp" />
     <ClCompile Include="src\Graphics\2DShapes\Triangle.cpp" />

@@ -7,8 +7,8 @@
 class Polygon
 {
 public:
-	Polygon(int sides);
-	Polygon(int sides, const std::vector<glm::vec2>& vertices);
+	Polygon(size_t sides);
+	Polygon(const std::vector<glm::vec2>& vertices);
 
 	inline const std::vector<glm::vec2>& GetVertices() const { return vertices; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
@@ -18,7 +18,7 @@ public:
 	inline const glm::vec4& GetColor() const { return color; }
 
 protected:
-	int sides;
+	size_t sides;
 	std::vector<glm::vec2> vertices;
 	std::shared_ptr<VertexArray> va;
 	std::shared_ptr<Buffer> vb;
@@ -41,15 +41,20 @@ public:
 
 	inline const glm::vec2& GetBottomLeft() const { return bottom_left; }
 	inline const glm::vec2& GetTopRight() const { return top_right; }
-
-private:
-	glm::vec2 bottom_left;
-	glm::vec2 top_right;
-	float length;
 };*/
 
 class Square : public Polygon
 {
 public:
 	Square(const glm::vec2& bottom_left, float length);
+};
+
+class Circle
+{
+public:
+	Circle(const glm::vec2& center, float radius);
+
+private:
+	glm::vec2 center;
+	float radius;
 };

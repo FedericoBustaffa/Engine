@@ -36,21 +36,8 @@ Application::Application()
 	)";
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
-	// square setup
-	glm::vec2 bottom_left;
-	bottom_left.x = 3.0f;
-	bottom_left.y = 0.0f;
-	square = std::make_shared<Square>(bottom_left, 2.5f);
-	square->SetColor(0.0f, 0.5f, 0.8f, 1.0f);
-
-	// triangle setup
-	std::vector<glm::vec2> t_verts = {
-		{ -6.0f, -2.5f },
-		{ -3.0f,  0.0f },
-		{  0.0f, -2.5f }
-	};
-	triangle = std::make_shared<Triangle>(t_verts);
-	triangle->SetColor(7.0f, 0.5f, 0.2f, 1.0f);
+	// circle
+	circle = std::make_shared<Circle>({ 0.0f, 0.0f }, 5.0f);
 }
 
 Application::~Application()
@@ -65,15 +52,12 @@ void Application::Run()
 		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
 
 		// drawing
-		shader->SetUniform4f("u_color", square->GetColor());
-		shader->SetUniformMat4("mvp", camera.GetViewProjection());
-		shader->Bind();
-		Render::DrawIndexed(square->GetVA());
 
-		shader->SetUniform4f("u_color", triangle->GetColor());
+		// polygon
 		shader->SetUniformMat4("mvp", camera.GetViewProjection());
+		shader->SetUniform4f("u_color", circle->GetColor());
 		shader->Bind();
-		Render::DrawIndexed(triangle->GetVA());
+		Render::DrawIndexed(poly->GetVA());
 
 		// event polling
 		window->OnUpdate();

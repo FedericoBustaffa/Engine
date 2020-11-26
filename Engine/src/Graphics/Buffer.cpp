@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 
+// Vertex Buffer
 Buffer::Buffer(size_t size, void* data)
 	: id(0)
 {
@@ -36,8 +37,8 @@ const std::shared_ptr<Layout>& Buffer::GetLayout() const
 }
 
 
-
-IndexBuffer::IndexBuffer(int count, unsigned int* data)
+// Index Buffer
+IndexBuffer::IndexBuffer(size_t count, unsigned int* data)
 	: id(0), count(count)
 {
 	glGenBuffers(1, &id);
@@ -60,7 +61,7 @@ void IndexBuffer::Unbind() const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-int IndexBuffer::GetCount() const
+size_t IndexBuffer::GetCount() const
 {
 	return count;
 }

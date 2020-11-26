@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 
 #include "Buffer.h"
 
@@ -13,12 +12,12 @@ public:
 
 	void Bind() const;
 	void Unbind() const;
+	void SetBuffer(const std::shared_ptr<Buffer>& buffer);
 	void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& ib);
-	void AddBuffer(const std::shared_ptr<Buffer>& buffer);
-	int GetIndexCount() const;
+	size_t GetIndexCount() const;
 
 private:
 	uint32_t id;
-	std::vector<std::shared_ptr<Buffer>> buffers;
+	std::shared_ptr<Buffer> buffer;
 	std::shared_ptr<IndexBuffer> index_buffer;
 };

@@ -21,6 +21,5 @@ private:
 	std::shared_ptr<Shader> shader;
 	
 	// geometry
-	std::shared_ptr<Square> square;
-	std::shared_ptr<Triangle> triangle;
+	std::shared_ptr<Circle> circle;
 };

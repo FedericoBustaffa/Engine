@@ -24,15 +24,15 @@ private:
 class IndexBuffer
 {
 public:
-	IndexBuffer(int count, unsigned int* data);
+	IndexBuffer(size_t count, unsigned int* data);
 	~IndexBuffer();
 
 	void Bind() const;
 	void Unbind() const;
-	int GetCount() const;
+	size_t GetCount() const;
 
 private:
 	uint32_t id;
-	int count;
+	size_t count;
 };
 

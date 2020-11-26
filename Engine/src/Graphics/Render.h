@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "VertexArray.h"
+#include "2DShapes/Shapes.h"
 
 class Render
 {
@@ -15,8 +16,10 @@ public:
 	static void BeginScene();
 	static void EndScene();
 	static void DrawIndexed(const std::shared_ptr<VertexArray>& va);
-	/*static void DrawQuad();
-	static void DrawCircle();*/
+	/*static void DrawQuad(const std::shared_ptr<Square>& square);
+	static void DrawQuad(const glm::vec2& bottom_left, float length);
+	static void DrawCircle(const std::shared_ptr<Circle>& circle);
+	static void DrawCircle(const glm::vec2& center, float radius);*/
 
 private:
 	Render() = default;
