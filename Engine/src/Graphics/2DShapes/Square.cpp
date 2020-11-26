@@ -1,7 +1,6 @@
 #include "Shapes.h"
 
 Square::Square(const glm::vec2& bottom_left, float length)
-	: bottom_left(bottom_left), length(length), top_right(0.0)
 {
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
@@ -27,7 +26,4 @@ Square::Square(const glm::vec2& bottom_left, float length)
 	vb->SetLayout(layout);
 	va->AddBuffer(vb);
 	va->SetIndexBuffer(ib);
-
-	top_right.x = bottom_left.x + length;
-	top_right.y = bottom_left.y + length;
 }

@@ -51,12 +51,4 @@ class Square : public Polygon
 {
 public:
 	Square(const glm::vec2& bottom_left, float length);
-
-	inline const glm::vec2& GetBottomLeft() const { return bottom_left; }
-	inline const glm::vec2& GetTopRight() const { return top_right; }
-
-private:
-	glm::vec2 bottom_left;
-	glm::vec2 top_right;
-	float length;
 };
