@@ -7,7 +7,8 @@
 class Polygon
 {
 public:
-	Polygon();
+	Polygon(int sides);
+	Polygon(int sides, const std::vector<glm::vec2>& vertices);
 
 	inline const std::vector<glm::vec2>& GetVertices() const { return vertices; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
@@ -17,6 +18,7 @@ public:
 	inline const glm::vec4& GetColor() const { return color; }
 
 protected:
+	int sides;
 	std::vector<glm::vec2> vertices;
 	std::shared_ptr<VertexArray> va;
 	std::shared_ptr<Buffer> vb;
@@ -29,7 +31,6 @@ class Triangle : public Polygon
 {
 public:
 	Triangle(const std::vector<glm::vec2>& vertices);
-	Triangle(const glm::vec2& vertex, float length);
 };
 
 /*class Rectangle : public Polygon

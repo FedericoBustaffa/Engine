@@ -4,7 +4,7 @@
 #include <vector>
 
 Application::Application()
-	: camera(-1.0, 1.0, -1.0, 1.0)
+	: camera(-8.0, 8.0, -4.5, 4.5)
 {
 	window = std::make_unique<Window>(1280, 720, "Sandbox");
 	window->SetEventCallback(BIND(Application::OnEvent));
@@ -38,19 +38,18 @@ Application::Application()
 
 	// square setup
 	glm::vec2 bottom_left;
-	bottom_left.x = 0.0f;
+	bottom_left.x = 3.0f;
 	bottom_left.y = 0.0f;
-	square = std::make_shared<Square>(bottom_left, 0.5f);
+	square = std::make_shared<Square>(bottom_left, 2.5f);
 	square->SetColor(0.0f, 0.5f, 0.8f, 1.0f);
 
 	// triangle setup
-	std::vector<glm::vec2> t_vertices = {
-		{ -0.5f, -0.5f },
-		{ -0.5f,  0.0f },
-		{  0.0f, -0.5f }
+	std::vector<glm::vec2> t_verts = {
+		{ -6.0f, -2.5f },
+		{ -3.0f,  0.0f },
+		{  0.0f, -2.5f }
 	};
-
-	triangle = std::make_shared<Triangle>(t_vertices);
+	triangle = std::make_shared<Triangle>(t_verts);
 	triangle->SetColor(7.0f, 0.5f, 0.2f, 1.0f);
 }
 

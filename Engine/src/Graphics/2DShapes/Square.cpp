@@ -1,6 +1,7 @@
 #include "Shapes.h"
 
 Square::Square(const glm::vec2& bottom_left, float length)
+	: Polygon(4)
 {
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
