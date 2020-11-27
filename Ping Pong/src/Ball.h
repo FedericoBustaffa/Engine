@@ -10,19 +10,21 @@
 class Ball
 {
 public:
-	Ball(const glm::vec2& center, float radius);
+	Ball(const glm::vec4& center, float radius);
 
 	inline const std::shared_ptr<Circle>& GetShape() const { return shape; }
-	
+	inline const glm::mat4& GetModel() const { return shape->GetModel(); }
+	inline const glm::vec4& GetCenter() const { return shape->GetCenter(); }
+
 	inline float GetXSpeed() const { return x_speed; }
 	inline float GetYSpeed() const { return y_speed; }
 	inline void SetXSpeed(float speed) { x_speed = speed; }
 	inline void SetYSpeed(float speed) { y_speed = speed; }
 
-	/*void Move(const TimeStep& ts);
-	bool BoundCollision(double lower_bound, double upper_bound);
-	bool PlayerCollision(const std::shared_ptr<Player>& player);
-	bool Goal(float goal);*/
+	void Move(const TimeStep& ts);
+	void BoundCollision(double lower_bound, double upper_bound);
+	void PlayerCollision(const std::shared_ptr<Player>& player);
+	bool Goal(float goal);
 
 private:
 	// shape

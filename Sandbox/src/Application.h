@@ -22,7 +22,9 @@ private:
 
 	std::shared_ptr<Shader> shader;
 
-	std::shared_ptr<Circle> circle;
+	std::shared_ptr<Triangle> triangle;
+	std::shared_ptr<Quad> rectangle;
+
 	float speed = 10.0f;
 	glm::vec3 move;
 };

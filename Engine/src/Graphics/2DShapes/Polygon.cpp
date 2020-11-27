@@ -19,7 +19,6 @@ Polygon::Polygon(size_t sides, float length)
 {
 	va = std::make_shared<VertexArray>();
 
-	std::vector<glm::vec2> vertices;
 	float angle = 0.0f;
 	float angle_step = 360.0f / sides;
 	float radius = length / 2 * glm::sin(glm::radians(angle_step));
@@ -28,11 +27,12 @@ Polygon::Polygon(size_t sides, float length)
 	{
 		x = radius * glm::cos(glm::radians(angle));
 		y = radius * glm::sin(glm::radians(angle));
-		vertices.push_back({ x, y });
+		vertices.push_back({ x, y , 0.0, 1.0 });
 		angle += angle_step;
 	}
 
-	vb = std::make_shared<Buffer>(vertices.size() * sizeof(glm::vec2), (void*)vertices.data());
+	vb = std::make_shared<Buffer>(vertices.size() * sizeof(glm::vec4), (void*)vertices.data());
+	this->vertices = vertices;
 	
 	std::vector<unsigned int> indices;
 	size_t count = 0;
@@ -53,7 +53,7 @@ Polygon::Polygon(size_t sides, float length)
 
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
-		{ "position", ShaderType::Float, 2 }
+		{ "position", ShaderType::Float, 4 }
 		}));
 
 	vb->SetLayout(layout);
@@ -61,14 +61,17 @@ Polygon::Polygon(size_t sides, float length)
 	va->SetIndexBuffer(ib);
 }
 
-Polygon::Polygon(size_t sides, const std::vector<glm::vec2>& vertices)
-	: Shape(), sides(sides), vertices(vertices)
+Polygon::Polygon(size_t sides, const std::vector<glm::vec2>& vertices_)
+	: Shape(), sides(sides)
 {
-	if (vertices.size() != sides)
+	if (vertices_.size() != sides)
 		return;
 
+	for (const auto& vertex2D : vertices_)
+		vertices.push_back({ vertex2D.x, vertex2D.y, 0.0, 1.0 });
+
 	va = std::make_shared<VertexArray>();
-	vb = std::make_shared<Buffer>(vertices.size() * sizeof(glm::vec2), (void*)vertices.data());
+	vb = std::make_shared<Buffer>(vertices.size() * sizeof(glm::vec4), (void*)vertices.data());
 	
 	std::vector<unsigned int> indices;
 	size_t count = 0;
@@ -90,7 +93,7 @@ Polygon::Polygon(size_t sides, const std::vector<glm::vec2>& vertices)
 
 	std::shared_ptr<Layout> layout;
 	layout.reset(new Layout({
-		{ "position", ShaderType::Float, 2 }
+		{ "position", ShaderType::Float, 4 }
 	}));
 	
 	vb->SetLayout(layout);

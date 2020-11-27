@@ -31,14 +31,15 @@ class Polygon : public Shape
 {
 public:
 	Polygon(size_t sides, float length);
-	Polygon(size_t sides, const std::vector<glm::vec2>& vertices);
+	Polygon(size_t sides, const std::vector<glm::vec2>& vertices_);
 
-	inline const std::vector<glm::vec2>& GetVertices() const { return vertices; }
+	inline size_t GetSides() const { return sides; }
+	inline const std::vector<glm::vec4>& GetVertices() const { return vertices; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
 
 protected:
 	size_t sides;
-	std::vector<glm::vec2> vertices;
+	std::vector<glm::vec4> vertices;
 	std::shared_ptr<VertexArray> va;
 	std::shared_ptr<Buffer> vb;
 	std::shared_ptr<IndexBuffer> ib;
@@ -50,12 +51,12 @@ class Triangle : public Polygon
 public:
 	Triangle(const std::vector<glm::vec2>& vertices);
 
-	inline const glm::vec2& GetV1() const { return v1; }
-	inline const glm::vec2& GetV2() const { return v2; }
-	inline const glm::vec2& GetV3() const { return v3; }
+	inline const glm::vec4& GetV1() const { return v1; }
+	inline const glm::vec4& GetV2() const { return v2; }
+	inline const glm::vec4& GetV3() const { return v3; }
 
 private:
-	glm::vec2 v1, v2, v3;
+	glm::vec4 v1, v2, v3;
 };
 
 // quadrilatero
@@ -71,11 +72,11 @@ class Rectangle : public Quad
 public:
 	Rectangle(const glm::vec2& bottom_left, const glm::vec2& top_right);
 
-	inline const glm::vec2& GetBottomLeft() const { return bottom_left; }
-	inline const glm::vec2& GetTopRight() const { return top_right; }
+	inline const glm::vec4& GetBottomLeft() const { return bottom_left; }
+	inline const glm::vec4& GetTopRight() const { return top_right; }
 
 private:
-	glm::vec2 bottom_left, top_right;
+	glm::vec4 bottom_left, top_right;
 };
 
 // quadrato
@@ -84,11 +85,11 @@ class Square : public Rectangle
 public:
 	Square(const glm::vec2& bottom_left, float length);
 
-	inline const glm::vec2& GetBottomLeft() const { return bottom_left; }
+	inline const glm::vec4& GetBottomLeft() const { return bottom_left; }
 	inline float GetLength() const { return length; }
 
 private:
-	glm::vec2 bottom_left;
+	glm::vec4 bottom_left;
 	float length;
 };
 
@@ -98,10 +99,15 @@ class Circle : public Shape
 public:
 	Circle(const glm::vec2& center, float radius);
 
-	inline const glm::vec2& GetCenter() const { return center; }
+	inline const glm::vec4& GetCenter() const { return center; }
 	inline float GetRadius() const { return radius; }
+	inline const glm::vec4& GetBottom() const { return bottom; }
+	inline const glm::vec4& GetTop() const { return top; }
+	inline const glm::vec4& GetLeft() const { return left; }
+	inline const glm::vec4& GetRight() const { return right; }
 
 private:
-	glm::vec2 center;
+	glm::vec4 center;
 	float radius;
+	glm::vec4 bottom, top, left, right;
 };

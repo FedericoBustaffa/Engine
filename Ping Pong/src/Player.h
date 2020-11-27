@@ -19,10 +19,10 @@ public:
 	inline int GetPoints() const { return points; }
 	inline void IncPoints() { points++; }
 	
-	/*void MoveUp(const TimeStep& ts);
+	void MoveUp(const TimeStep& ts);
 	void MoveDown(const TimeStep& ts);
 	bool UpperBoundCollision(double upper_bound);
-	bool LowerBoundCollision(double lower_bound);*/
+	bool LowerBoundCollision(double lower_bound);
 
 private:
 	// values

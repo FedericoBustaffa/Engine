@@ -27,11 +27,16 @@ void Render::EndScene()
 {
 }
 
+void Render::DrawIndexed(const std::shared_ptr<VertexArray>& va)
+{
+	int count = (int)va->GetIndexCount();
+	va->Bind();
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+}
+
 void Render::DrawIndexed(const std::shared_ptr<Polygon>& poly)
 {
-	poly->GetVA()->Bind();
-	int count = (int)poly->GetVA()->GetIndexCount();
-	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+	DrawIndexed(poly->GetVA());
 }
 
 void Render::DrawCircle(const glm::vec2& center, float radius)
@@ -63,6 +68,5 @@ void Render::DrawCircle(const glm::vec2& center, float radius)
 
 void Render::DrawCircle(const std::shared_ptr<Circle>& circle)
 {
-	glm::vec2 center = circle->GetCenter();
-	float radius = circle->GetRadius();
+	DrawCircle(circle->GetCenter(), circle->GetRadius());
 }

@@ -51,6 +51,12 @@ void Shader::SetUniform4f(const std::string& name, const glm::vec4& color)
 	SetUniform4f(name, color.r, color.g, color.b, color.a);
 }
 
+void Shader::SetUniformMat2(const std::string& name, const glm::mat2& matrix)
+{
+	int location = GetUniformLocation(name);
+	glUniformMatrix2fv(location, 1, GL_TRUE, glm::value_ptr(matrix));
+}
+
 void Shader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
 {
 	int location = GetUniformLocation(name);
