@@ -36,8 +36,9 @@ Application::Application()
 	)";
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
-	// circle
-	circle = std::make_shared<Circle>({ 0.0f, 0.0f }, 5.0f);
+	// poligono regolare
+	poly = std::make_shared<Polygon>(3, 10.0f);
+	poly->SetColor(BLUE);
 }
 
 Application::~Application()
@@ -55,7 +56,7 @@ void Application::Run()
 
 		// polygon
 		shader->SetUniformMat4("mvp", camera.GetViewProjection());
-		shader->SetUniform4f("u_color", circle->GetColor());
+		shader->SetUniform4f("u_color", poly->GetColor());
 		shader->Bind();
 		Render::DrawIndexed(poly->GetVA());
 

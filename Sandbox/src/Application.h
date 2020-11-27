@@ -19,7 +19,5 @@ private:
 	std::unique_ptr<Window> window;
 	OrthoCam camera;
 	std::shared_ptr<Shader> shader;
-	
-	// geometry
-	std::shared_ptr<Circle> circle;
+	std::shared_ptr<Polygon> poly;
 };

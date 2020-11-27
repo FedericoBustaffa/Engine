@@ -2,12 +2,13 @@
 
 #include <glm/glm.hpp>
 
-#include "Engine.h"
+#include "Graphics/VertexArray.h"
+#include "Graphics/Buffer.h"
 
 class Polygon
 {
 public:
-	Polygon(size_t sides);
+	Polygon(size_t sides, float length);
 	Polygon(const std::vector<glm::vec2>& vertices);
 
 	inline const std::vector<glm::vec2>& GetVertices() const { return vertices; }
@@ -25,36 +26,4 @@ protected:
 	std::shared_ptr<IndexBuffer> ib;
 	glm::mat4 model;
 	glm::vec4 color;
-};
-
-class Triangle : public Polygon
-{
-public:
-	Triangle(const std::vector<glm::vec2>& vertices);
-};
-
-/*class Rectangle : public Polygon
-{
-public:
-	Rectangle(const glm::vec2& bottom_left, float width, float height);
-	Rectangle(const glm::vec2& bottom_left, const glm::vec2& top_right);
-
-	inline const glm::vec2& GetBottomLeft() const { return bottom_left; }
-	inline const glm::vec2& GetTopRight() const { return top_right; }
-};*/
-
-class Square : public Polygon
-{
-public:
-	Square(const glm::vec2& bottom_left, float length);
-};
-
-class Circle
-{
-public:
-	Circle(const glm::vec2& center, float radius);
-
-private:
-	glm::vec2 center;
-	float radius;
 };

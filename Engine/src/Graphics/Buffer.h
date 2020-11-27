@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include "Layout.h"
 
@@ -24,7 +25,8 @@ private:
 class IndexBuffer
 {
 public:
-	IndexBuffer(size_t count, unsigned int* data);
+	IndexBuffer(size_t count, unsigned int* indices);
+	IndexBuffer(const std::vector<unsigned int>& indices);
 	~IndexBuffer();
 
 	void Bind() const;

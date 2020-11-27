@@ -38,12 +38,22 @@ const std::shared_ptr<Layout>& Buffer::GetLayout() const
 
 
 // Index Buffer
-IndexBuffer::IndexBuffer(size_t count, unsigned int* data)
+IndexBuffer::IndexBuffer(size_t count, unsigned int* indices)
 	: id(0), count(count)
 {
+	int size = (int)count * sizeof(unsigned int);
 	glGenBuffers(1, &id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_DYNAMIC_DRAW);
+}
+
+IndexBuffer::IndexBuffer(const std::vector<unsigned int>& indices)
+	: id(0), count(indices.size())
+{
+	int size = (int)count * sizeof(unsigned int);
+	glGenBuffers(1, &id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices.data(), GL_DYNAMIC_DRAW);
 }
 
 IndexBuffer::~IndexBuffer()
