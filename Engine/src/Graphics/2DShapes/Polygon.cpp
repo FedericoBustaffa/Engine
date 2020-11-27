@@ -1,13 +1,21 @@
 #include "Shapes.h"
 
-glm::vec3 gen(size_t n, size_t step, size_t lim)
+void Shape::SetColor(float red, float green, float blue, float alpha)
+{
+	color.r = red;
+	color.g = green;
+	color.b = blue;
+	color.a = alpha;
+}
+
+static glm::vec3 gen(size_t n, size_t step, size_t lim)
 {
 	if (n + step * 2 >= lim) { return { n, n + step, 0 }; }
 	return { n, n + step, n + (step * 2) };
 }
 
 Polygon::Polygon(size_t sides, float length)
-	: sides(sides), model(1.0), color(0.0)
+	: Shape(), sides(sides)
 {
 	va = std::make_shared<VertexArray>();
 
@@ -53,9 +61,12 @@ Polygon::Polygon(size_t sides, float length)
 	va->SetIndexBuffer(ib);
 }
 
-Polygon::Polygon(const std::vector<glm::vec2>& vertices)
-	: sides(vertices.size()), vertices(vertices), model(1.0), color(0.0)
+Polygon::Polygon(size_t sides, const std::vector<glm::vec2>& vertices)
+	: Shape(), sides(sides), vertices(vertices)
 {
+	if (vertices.size() != sides)
+		return;
+
 	va = std::make_shared<VertexArray>();
 	vb = std::make_shared<Buffer>(vertices.size() * sizeof(glm::vec2), (void*)vertices.data());
 	
@@ -85,12 +96,4 @@ Polygon::Polygon(const std::vector<glm::vec2>& vertices)
 	vb->SetLayout(layout);
 	va->SetBuffer(vb);
 	va->SetIndexBuffer(ib);
-}
-
-void Polygon::SetColor(float red, float green, float blue, float alpha)
-{
-	color.r = red;
-	color.g = green;
-	color.b = blue;
-	color.a = alpha;
 }

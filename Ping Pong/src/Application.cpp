@@ -37,30 +37,9 @@ Application::Application()
 
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
-	std::vector<glm::vec4> p1_buffer = {
-		{ -6.8f, -0.6f, 0.0f, 1.0f },
-		{ -6.8f,  0.6f, 0.0f, 1.0f },
-		{ -6.5f,  0.6f, 0.0f, 1.0f },
-		{ -6.5f, -0.6f, 0.0f, 1.0f }
-	};
-	
-	std::vector<glm::vec4> p2_buffer = {
-		{  6.5f, -0.6f, 0.0f, 1.0f },
-		{  6.5f,  0.6f, 0.0f, 1.0f },
-		{  6.8f,  0.6f, 0.0f, 1.0f },
-		{  6.8f, -0.6f, 0.0f, 1.0f }
-	};
-
-	std::vector<glm::vec4> ball_buffer = {
-		{ -0.2f, -0.2f, 0.0f, 1.0f },
-		{ -0.2f,  0.2f, 0.0f, 1.0f },
-		{  0.2f,  0.2f, 0.0f, 1.0f },
-		{  0.2f, -0.2f, 0.0f, 1.0f }
-	};
-
-	p1 = std::make_shared<Player>("Player 1", p1_buffer);
-	p2 = std::make_shared<Player>("Player 2", p2_buffer);
-	ball = std::make_shared<Ball>(ball_buffer);
+	p1 = std::make_shared<Player>("Player 1", glm::vec2(-6.8f, -0.6f), glm::vec2(-6.5f, 0.6f));
+	p1 = std::make_shared<Player>("Player 1", glm::vec2(6.5f, -0.6f), glm::vec2(6.8f, 0.6f));
+	ball = std::make_shared<Ball>(glm::vec2(0.0f, 0.0f), 0.5f);
 }
 
 Application::~Application()
@@ -79,7 +58,8 @@ void Application::Run()
 		
 		// rendering --------------
 		// movements
-		PlayersController();
+		Controller();
+		/*
 		ball->Move(ts);
 
 		// Collisions
@@ -103,25 +83,25 @@ void Application::Run()
 			std::cout << p2->GetName() << ": " << p2->GetPoints() << std::endl;
 			std::cout << std::endl;
 		}
-
 		// p1 rendering
 		shader->SetUniform4f("u_color", 0.0f, 0.5f, 0.8f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p1->GetModel());
 		shader->Bind();
-		Render::DrawIndexed(p1->GetVA());
+		//Render::DrawIndexed(p1->GetShape());
 
 		// p2 rendering
 		shader->SetUniform4f("u_color", 0.8f, 0.2f, 0.2f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p2->GetModel());
 		shader->Bind();
-		Render::DrawIndexed(p2->GetVA());
+		//Render::DrawIndexed(p2->GetShape());
 
 		// ball rendering
 		shader->SetUniform4f("u_color", 1.0f, 1.0f, 1.0f, 1.0f);
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * ball->GetModel());
+		shader->SetUniformMat4("mvp", camera.GetViewProjection());
 		shader->Bind();
-		Render::DrawIndexed(ball->GetVA());
+		//Render::DrawCircle(ball->GetShape());
 
+		*/
 		// event polling
 		window.OnUpdate();
 	}
@@ -158,9 +138,9 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 	}
 }
 
-void Application::PlayersController()
+void Application::Controller()
 {
-	if (Input::IsKeyPressed(window, Key::W) && !p1->UpperBoundCollision(4.5))
+	/*if (Input::IsKeyPressed(window, Key::W) && !p1->UpperBoundCollision(4.5))
 		p1->MoveUp(ts);
 	if (Input::IsKeyPressed(window, Key::S) && !p1->LowerBoundCollision(-4.5))
 		p1->MoveDown(ts);
@@ -168,6 +148,5 @@ void Application::PlayersController()
 	if (Input::IsKeyPressed(window, Key::Up) && !p2->UpperBoundCollision(4.5))
 		p2->MoveUp(ts);
 	if (Input::IsKeyPressed(window, Key::Down) && !p2->LowerBoundCollision(-4.5))
-		p2->MoveDown(ts);
+		p2->MoveDown(ts);*/
 }
-

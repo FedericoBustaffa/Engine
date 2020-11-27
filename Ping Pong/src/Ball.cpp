@@ -2,30 +2,13 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Ball::Ball(const std::vector<glm::vec4>& buffer)
-	: vertices(buffer), move(0.0), model(1.0)
+Ball::Ball(const glm::vec2& center, float radius)
+	: move(0.0)
 {
-	// layout
-	std::shared_ptr<Layout> layout;
-	layout.reset(new Layout({
-		{ "position", ShaderType::Float, 4 }
-	}));
-
-	va = std::make_shared<VertexArray>();
-	vb = std::make_shared<Buffer>(buffer.size() * sizeof(glm::vec4), (void*)buffer.data());
-
-	unsigned int indices[6] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-	ib = std::make_shared<IndexBuffer>(6, indices);
-
-	vb->SetLayout(layout);
-	va->SetBuffer(vb);
-	va->SetIndexBuffer(ib);
+	shape = std::make_shared<Circle>(center, radius);
 }
 
-void Ball::Move(const TimeStep& ts)
+/*void Ball::Move(const TimeStep& ts)
 {
 	move.x += x_speed * ts();
 	move.y += y_speed * ts();
@@ -111,4 +94,4 @@ bool Ball::Goal(float goal)
 	}
 
 	return false;
-}
+}*/

@@ -42,10 +42,7 @@ void Shader::Unbind() const
 
 void Shader::SetUniform4f(const std::string& name, float v1, float v2, float v3, float v4)
 {
-	int location = glGetUniformLocation(id, name.c_str());
-	if (location == -1)
-		std::cout << "Location of " << name << " does not exist" << std::endl;
-
+	int location = GetUniformLocation(name);
 	glUniform4f(location, v1, v2, v3, v4);
 }
 
@@ -56,13 +53,23 @@ void Shader::SetUniform4f(const std::string& name, const glm::vec4& color)
 
 void Shader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
 {
-	int location = glGetUniformLocation(id, name.c_str());
-	if (location == -1)
-		std::cout << "Location of " << name << " does not exist" << std::endl;
-
+	int location = GetUniformLocation(name);
 	glUniformMatrix4fv(location, 1, GL_TRUE, glm::value_ptr(matrix));
 }
 
+
+int Shader::GetUniformLocation(const std::string& name)
+{
+	if (uniform_cache.find(name) == uniform_cache.end())
+	{
+		int location = glGetUniformLocation(id, name.c_str());
+		if (location == -1)
+			std::cout << "Location of " << name << " does not exist" << std::endl;
+		else
+			uniform_cache[name] = location;
+	}
+	return uniform_cache[name];
+}
 
 // utility
 static unsigned int CompileShader(unsigned int type, const std::string& source)

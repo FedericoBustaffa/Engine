@@ -1,7 +1,7 @@
 #include "Render.h"
 
+#include <vector>
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 const char* Render::GetVendor()
 {
@@ -27,8 +27,42 @@ void Render::EndScene()
 {
 }
 
-void Render::DrawIndexed(const std::shared_ptr<VertexArray>& va)
+void Render::DrawIndexed(const std::shared_ptr<Polygon>& poly)
 {
-	va->Bind();
-	glDrawElements(GL_TRIANGLES, (int)va->GetIndexCount(), GL_UNSIGNED_INT, nullptr);
+	poly->GetVA()->Bind();
+	int count = (int)poly->GetVA()->GetIndexCount();
+	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+}
+
+void Render::DrawCircle(const glm::vec2& center, float radius)
+{
+	int precision = 70;
+	float step = 360.0f / precision;
+	float angle = step;
+
+	glm::vec2 v1 = { center.x + radius, center.y };
+	float x = center.x + radius * glm::cos(glm::radians(angle));
+	float y = center.y + radius * glm::sin(glm::radians(angle));
+	glm::vec2 v2 = { x, y };
+
+	for (int i = 0; i < precision; i++)
+	{
+		glBegin(GL_TRIANGLES);
+		glVertex2f(center.x, center.y);
+		glVertex2f(v1.x, v1.y);
+		glVertex2f(v2.x, v2.y);
+		glEnd();
+
+		angle += step;
+		v1.x = v2.x;
+		v1.y = v2.y;
+		v2.x = center.x + radius * glm::cos(glm::radians(angle));
+		v2.y = center.y + radius * glm::sin(glm::radians(angle));
+	}
+}
+
+void Render::DrawCircle(const std::shared_ptr<Circle>& circle)
+{
+	glm::vec2 center = circle->GetCenter();
+	float radius = circle->GetRadius();
 }

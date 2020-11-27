@@ -16,8 +16,13 @@ public:
 	void OnKeyPressed(KeyPressedEvent& e);
 
 private:
-	std::unique_ptr<Window> window;
+	Window window;
 	OrthoCam camera;
+	TimeStep ts;
+
 	std::shared_ptr<Shader> shader;
-	std::shared_ptr<Polygon> poly;
+
+	std::shared_ptr<Circle> circle;
+	float speed = 10.0f;
+	glm::vec3 move;
 };

@@ -22,7 +22,7 @@ public:
 	void OnKeyPressedEvent(KeyPressedEvent& e);
 
 	// movimento
-	void PlayersController();
+	void Controller();
 
 private:
 	// window

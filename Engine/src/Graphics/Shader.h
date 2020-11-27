@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include <glm/glm.hpp>
 
 class Shader
@@ -16,5 +17,9 @@ public:
 	void SetUniformMat4(const std::string& name, const glm::mat4& matrix);
 
 private:
+	int GetUniformLocation(const std::string& name);
+
+private:
 	uint32_t id;
+	std::unordered_map<std::string, int> uniform_cache;
 };
