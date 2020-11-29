@@ -93,13 +93,13 @@ void Application::Run()
 		shader->SetUniform4f("u_color", 0.0f, 0.5f, 0.8f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p1->GetModel());
 		shader->Bind();
-		Render::DrawIndexed(p1->GetShape());
+		Render::DrawPolygon(p1->GetShape());
 
 		// p2 rendering
 		shader->SetUniform4f("u_color", 0.8f, 0.2f, 0.2f, 1.0f);
 		shader->SetUniformMat4("mvp", camera.GetViewProjection() * p2->GetModel());
 		shader->Bind();
-		Render::DrawIndexed(p2->GetShape());
+		Render::DrawPolygon(p2->GetShape());
 
 		// ball rendering
 		shader->SetUniform4f("u_color", 1.0f, 1.0f, 1.0f, 1.0f);

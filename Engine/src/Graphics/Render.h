@@ -16,7 +16,7 @@ public:
 	static void BeginScene();
 	static void EndScene();
 	static void DrawIndexed(const std::shared_ptr<VertexArray>& va);
-	static void DrawIndexed(const std::shared_ptr<Polygon>& poly);
+	static void DrawPolygon(const std::shared_ptr<Polygon>& poly);
 	static void DrawCircle(const glm::vec2& center, float radius);
 	static void DrawCircle(const std::shared_ptr<Circle>& circle);
 

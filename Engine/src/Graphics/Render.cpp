@@ -34,7 +34,7 @@ void Render::DrawIndexed(const std::shared_ptr<VertexArray>& va)
 	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 }
 
-void Render::DrawIndexed(const std::shared_ptr<Polygon>& poly)
+void Render::DrawPolygon(const std::shared_ptr<Polygon>& poly)
 {
 	DrawIndexed(poly->GetVA());
 }
