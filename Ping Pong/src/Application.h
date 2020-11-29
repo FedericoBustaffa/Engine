@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <memory>
-#include <random>
 #include <glm/glm.hpp>
 
 #include "Engine.h"
@@ -26,7 +25,7 @@ public:
 	void Controller();
 
 private:
-	// window
+	// core
 	Window window;
 	TimeStep ts;
 
@@ -39,6 +38,4 @@ private:
 
 	// camera
 	OrthoCam camera;
-
-	std::default_random_engine eng;
 };
