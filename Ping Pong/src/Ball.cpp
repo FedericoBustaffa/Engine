@@ -30,16 +30,18 @@ void Ball::Move(float ts)
 	shape->SetModel(glm::translate(glm::mat4(1.0), move));
 }
 
-void Ball::BoundCollision(double lower_bound, double upper_bound)
+bool Ball::BoundCollision(double lower_bound, double upper_bound)
 {
 	glm::vec4 bottom = shape->GetModel() * shape->GetBottom();
 	glm::vec4 top = shape->GetModel() * shape->GetTop();
 
 	if (bottom.y <= lower_bound || top.y >= upper_bound)
-		SetDirection(360.0f - direction);
+		return true;
+	else
+		return false;
 }
 
-void Ball::PlayerCollision(const std::shared_ptr<Player>& player)
+bool Ball::PlayerCollision(const std::shared_ptr<Player>& player)
 {
 	glm::vec4 p_bottom_left = player->GetModel() * player->GetShape()->GetBottomLeft();
 	glm::vec4 p_top_right = player->GetModel() * player->GetShape()->GetTopRight();
@@ -50,7 +52,7 @@ void Ball::PlayerCollision(const std::shared_ptr<Player>& player)
 		if (left.x <= p_top_right.x && left.x >= p_top_right.x - 0.1f)
 		{
 			if (left.y <= p_top_right.y && left.y >= p_bottom_left.y)
-				SetDirection(180.0f - direction);
+				return true;
 		}
 	}
 	else
@@ -59,9 +61,11 @@ void Ball::PlayerCollision(const std::shared_ptr<Player>& player)
 		if (right.x >= p_bottom_left.x && right.x <= p_bottom_left.x + 0.1f)
 		{
 			if (right.y <= p_top_right.y && right.y >= p_bottom_left.y)
-				SetDirection(180.0f - direction);
+				return true;
 		}
 	}
+
+	return false;
 }
 
 bool Ball::Goal(float goal)

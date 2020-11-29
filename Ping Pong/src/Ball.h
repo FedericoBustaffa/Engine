@@ -22,8 +22,8 @@ public:
 	void SetDirection(float direction);
 
 	void Move(float ts);
-	void BoundCollision(double lower_bound, double upper_bound);
-	void PlayerCollision(const std::shared_ptr<Player>& player);
+	bool BoundCollision(double lower_bound, double upper_bound);
+	bool PlayerCollision(const std::shared_ptr<Player>& player);
 	bool Goal(float goal);
 
 private:

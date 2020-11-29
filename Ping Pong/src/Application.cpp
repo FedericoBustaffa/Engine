@@ -41,9 +41,9 @@ Application::Application()
 	p2 = std::make_shared<Player>("Player 2", glm::vec2(6.5f, -0.6f), glm::vec2(6.8f, 0.6f));
 	
 	glm::vec2 center(0.0, 0.0);
-	ball = std::make_shared<Ball>(center, 0.15f);
+	ball = std::make_shared<Ball>(center, 0.1f);
 	ball->SetSpeed(0);
-	ball->SetDirection(30.0f);
+	ball->SetDirection(5.0f);
 }
 
 Application::~Application()
@@ -66,12 +66,11 @@ void Application::Run()
 
 
 		// Collisions
-		ball->BoundCollision(-4.5, 4.5);
+		if (ball->BoundCollision(-4.5, 4.5))
+			ball->SetDirection(360.0f - ball->GetDirection());
 		
-		if((ball->GetModel() * ball->GetCenter()).x < -5.0)
-			ball->PlayerCollision(p1);
-		else if((ball->GetModel() * ball->GetCenter()).x > 5.0)
-			ball->PlayerCollision(p2);
+		if (ball->PlayerCollision(p1) || ball->PlayerCollision(p2))
+			ball->SetDirection(180.0f - ball->GetDirection());
 
 		// Score
 		if (ball->Goal(8.0f))
@@ -136,7 +135,7 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 		break;
 
 	case Key::Space:
-		ball->SetSpeed(7.0f);
+		ball->SetSpeed(12.1f);
 		break;
 
 	default:
