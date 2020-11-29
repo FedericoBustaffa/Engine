@@ -40,8 +40,10 @@ Application::Application()
 	p1 = std::make_shared<Player>("Player 1", glm::vec2(-6.8f, -0.6f), glm::vec2(-6.5f, 0.6f));
 	p2 = std::make_shared<Player>("Player 2", glm::vec2(6.5f, -0.6f), glm::vec2(6.8f, 0.6f));
 	
-	glm::vec4 center(0.0, 0.0, 0.0, 1.0);
+	glm::vec2 center(0.0, 0.0);
 	ball = std::make_shared<Ball>(center, 0.15f);
+	ball->SetSpeed(0);
+	ball->SetDirection(30.0f);
 }
 
 Application::~Application()
@@ -60,7 +62,8 @@ void Application::Run()
 		
 		// movements
 		Controller();
-		ball->Move(ts);
+		ball->Move(ts());
+
 
 		// Collisions
 		ball->BoundCollision(-4.5, 4.5);
@@ -133,8 +136,7 @@ void Application::OnKeyPressedEvent(KeyPressedEvent& e)
 		break;
 
 	case Key::Space:
-		ball->SetXSpeed(7.0f);
-		ball->SetYSpeed(7.0f);
+		ball->SetSpeed(7.0f);
 		break;
 
 	default:

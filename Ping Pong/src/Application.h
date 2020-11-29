@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <random>
 #include <glm/glm.hpp>
 
 #include "Engine.h"
@@ -38,4 +39,6 @@ private:
 
 	// camera
 	OrthoCam camera;
+
+	std::default_random_engine eng;
 };
