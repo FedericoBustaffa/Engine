@@ -21,10 +21,10 @@ private:
 	TimeStep ts;
 
 	std::shared_ptr<Shader> shader;
+	std::shared_ptr<Square> square;
 
-	std::shared_ptr<Triangle> triangle;
-	std::shared_ptr<Quad> rectangle;
-
-	float speed = 10.0f;
+	float init_speed = 0.0f;
+	float speed = 0.0f;
+	float gravity = 0.002f;
 	glm::vec3 move;
 };

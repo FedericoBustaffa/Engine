@@ -19,12 +19,9 @@ void Render::BackgroundColor(float red, float green, float blue, float alpha)
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Render::BeginScene()
+void Render::BackgroundColor(const glm::vec4& color)
 {
-}
-
-void Render::EndScene()
-{
+	BackgroundColor(color.r, color.g, color.b, color.a);
 }
 
 void Render::DrawIndexed(const std::shared_ptr<VertexArray>& va)

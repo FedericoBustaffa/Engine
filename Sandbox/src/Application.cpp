@@ -3,8 +3,6 @@
 #include <iostream>
 #include <vector>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 Application::Application()
@@ -39,24 +37,9 @@ Application::Application()
 	)";
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
 
-	std::vector<glm::vec2> t = {
-		{ -3.0f, -2.0f },
-		{  0.0f,  2.0f },
-		{  3.0f, -2.0f }
-	};
-	
-	std::vector<glm::vec2> r = {
-		{ -3.0f, -2.0f },
-		{ -3.0f,  2.0f },
-		{  3.0f,  2.0f },
-		{  3.0f, -2.0f }
-	};
-
-	triangle = std::make_shared<Triangle>(t);
-	triangle->SetColor(RED);
-
-	rectangle = std::make_shared<Quad>(r);
-	rectangle->SetColor(BLUE);
+	glm::vec2 square_bottom_left(0, 3.0);
+	square = std::make_shared<Square>(square_bottom_left, 1.0f);
+	square->SetColor(0.2f, 0.7f, 0.2f, 1.0f);
 }
 
 Application::~Application()
@@ -70,31 +53,20 @@ void Application::Run()
 		ts.UpdateTime();
 
 		// background color
-		Render::BackgroundColor(0.07f, 0.07f, 0.07f, 1.0f);
+		Render::BackgroundColor(DARK_GREY);
 
 		// drawing
-		if (Input::IsKeyPressed(window, Key::A))
-		{
-			move.x -= speed * ts();
-			triangle->SetModel(glm::translate(glm::mat4(1.0), move));
-		}
+		if ((square->GetModel() * square->GetBottomLeft()).y <= -8.0)
+			init_speed *= -1;
+		speed = init_speed - gravity * ts.GetTime();
+		init_speed = speed;
+		move.y += speed;
+		square->SetModel(glm::translate(glm::mat4(1.0), move));
 
-		if (Input::IsKeyPressed(window, Key::D))
-		{
-			move.x += speed * ts();
-			triangle->SetModel(glm::translate(glm::mat4(1.0), move));
-		}
-
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * rectangle->GetModel());
-		shader->SetUniform4f("u_color", rectangle->GetColor());
+		shader->SetUniformMat4("mvp", camera.GetViewProjection() * square->GetModel());
+		shader->SetUniform4f("u_color", square->GetColor());
 		shader->Bind();
-		Render::DrawIndexed(rectangle);
-		
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * triangle->GetModel());
-		shader->SetUniform4f("u_color", triangle->GetColor());
-		shader->Bind();
-		Render::DrawIndexed(triangle);
-
+		Render::DrawPolygon(square);
 
 		// event polling
 		window.OnUpdate();

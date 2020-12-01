@@ -13,18 +13,3 @@ void TimeStep::UpdateTime()
 	time_step = time - last_frame_time;
 	last_frame_time = time;
 }
-
-float TimeStep::GetSeconds() const
-{
-	return time_step;
-}
-
-float TimeStep::GetMilliSeconds() const
-{
-	return time_step * 1000.0f;
-}
-
-float TimeStep::operator()() const
-{
-	return time_step;
-}
