@@ -35,6 +35,7 @@ public:
 
 	inline size_t GetSides() const { return sides; }
 	inline const std::vector<glm::vec4>& GetVertices() const { return vertices; }
+	inline glm::vec4 GetVertex(size_t index) const { return model * vertices[index]; }
 	inline const std::shared_ptr<VertexArray>& GetVA() const { return va; }
 
 protected:
