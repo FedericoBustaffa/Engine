@@ -36,15 +36,6 @@ Application::Application()
 		}
 	)";
 	shader = std::make_shared<Shader>(vertex_src, fragment_src);
-
-	std::vector<glm::vec2> vertices = {
-		{ -0.1f, -0.1f },
-		{ -0.1f,  0.1f },
-		{  0.1f,  0.1f },
-		{  0.1f, -0.1f }
-	};
-	quad = std::make_shared<Quad>(vertices);
-	quad->SetColor(0.2f, 0.7f, 0.2f, 1.0f);
 }
 
 Application::~Application()
@@ -63,22 +54,7 @@ void Application::Run()
 		Render::BackgroundColor(DARK_GREY);
 
 		// drawing
-		bottom_left = quad->GetVertex(0);
-		top_right = quad->GetVertex(2);
-
-		if (bottom_left.x <= -8.0 || top_right.x >= 8.0)
-			x_speed *= -1;
-		if (bottom_left.y <= -4.5 || top_right.y >= 4.5)
-			y_speed *= -1;
-
-		move.x += x_speed * ts();
-		move.y += y_speed * ts();
-		quad->SetModel(glm::translate(glm::mat4(1.0), move));
-
-		shader->SetUniformMat4("mvp", camera.GetViewProjection() * quad->GetModel());
-		shader->SetUniform4f("u_color", quad->GetColor());
-		shader->Bind();
-		Render::DrawPolygon(quad);
+		
 
 		// event polling
 		window.OnUpdate();

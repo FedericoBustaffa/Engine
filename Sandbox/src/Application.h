@@ -21,9 +21,6 @@ private:
 	TimeStep ts;
 
 	std::shared_ptr<Shader> shader;
-	std::shared_ptr<Quad> quad;
 
-	float x_speed = 6.0f;
-	float y_speed = 6.0f;
 	glm::vec3 move;
 };
